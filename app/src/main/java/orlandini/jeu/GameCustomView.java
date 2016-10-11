@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -31,6 +32,17 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private int screenWidth;
     private int screenHeight;
 
+    private int vitesse = 500;
+
+    public int getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(int vitesse) {
+        this.vitesse = vitesse;
+    }
+
+
     private Bitmap bitmap;
     private Paint paint;
     private MediaPlayer mMediaPlayer;
@@ -42,7 +54,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
             update();
             invalidate();
             if(!isAtReset()){
-                postDelayed(this,500);
+                postDelayed(this,getVitesse());
             }
         }
     };

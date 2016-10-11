@@ -21,4 +21,12 @@ public class GameFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
+
+    public void changerVitesse(int myVitesse){
+
+        //TextView myTextView = (TextView) myView.findViewById(R.id.);
+        //myTextView.setText(Integer.toString(myNumberPicker));
+        GameCustomView monGame = new GameCustomView(getContext());
+        monGame.setVitesse(myVitesse);
+    }
 }

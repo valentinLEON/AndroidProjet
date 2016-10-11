@@ -4,12 +4,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
-public class GameActivity extends AppCompatActivity implements ActionBar.TabListener {
+public class GameActivity extends AppCompatActivity implements ActionBar.TabListener, SettingFragment.OnActionListener {
 
     ViewPager mViewPager;
     GamePageAdapter mGamePagerAdapter;
-
+    int mData = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,4 +56,12 @@ public class GameActivity extends AppCompatActivity implements ActionBar.TabList
     public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
 
     }
+
+    @Override
+    public void onAction(int myNumber) {
+        //mData = myNumber;
+        //((SettingFragment)mGamePagerAdapter.getItem(1)).changerVitesse(mData);
+        Toast.makeText(getApplicationContext(), String.valueOf(myNumber),Toast.LENGTH_LONG).show();
+    }
+
 }
