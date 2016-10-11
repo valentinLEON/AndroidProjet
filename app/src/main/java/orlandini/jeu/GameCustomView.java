@@ -42,7 +42,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
             update();
             invalidate();
             if(!isAtReset()){
-                postDelayed(this,150);
+                postDelayed(this,500);
             }
         }
     };
