@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setHomeButtonEnabled(true);
 
 
-        Button tryAgain = (Button) findViewById(R.id.btn_TryAgain);
+        Button tryAgain = (Button) findViewById(R.id.btn_play);
         tryAgain.setOnClickListener(new View.OnClickListener() {
 
             @Override

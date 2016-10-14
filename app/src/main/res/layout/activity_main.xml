@@ -36,7 +36,7 @@
             android:text="jouer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_TryAgain"
+            android:id="@+id/btn_play"
             style="@style/Widget.AppCompat.Button"
             android:background="@android:color/holo_orange_light"
             android:layout_marginBottom="192dp"
