@@ -2,12 +2,15 @@ package orlandini.jeu;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -23,14 +26,14 @@ import java.util.Random;
 
 public class GameCustomView extends View implements View.OnTouchListener {
 
-    private final int ICON_SIZE = 70;
+    private final int ICON_SIZE = 200;
 
-    private float mFileStartX;
-    private float mFileStartY;
     private float mFileX;
     private float mFileY;
     private int screenWidth;
     private int screenHeight;
+
+    private int score = 0;
 
     private int vitesse = 500;
 
@@ -54,7 +57,14 @@ public class GameCustomView extends View implements View.OnTouchListener {
             update();
             invalidate();
             if(!isAtReset()){
-                postDelayed(this,getVitesse());
+                Intent i = new Intent(getContext(), GameFragment.class);
+                Bundle extras = i.getExtras();
+                if(extras != null)
+                    vitesse = extras.getInt("vitesse");
+
+                postDelayed(this,vitesse);
+
+                //Toast.makeText(getContext(), String.valueOf(vitesse),Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -62,14 +72,13 @@ public class GameCustomView extends View implements View.OnTouchListener {
     public void init () {
         paint = new Paint();
         paint.setTextSize(50);
+        paint.setColor(Color.WHITE);
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.mini);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.fantomev1);
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
-        mFileStartX = 100;
-        mFileStartY = 100;
-        mFileX = mFileStartX;
-        mFileY = mFileStartY;
+        mFileX = 500;
+        mFileY = 500;
 
         super.setOnTouchListener(this);
         removeCallbacks(animator);
@@ -88,7 +97,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        //canvas.drawText(getResources().getString(R.string.text_auto), mFileX, mFileY, paint);
+        canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
         canvas.drawBitmap(bitmap, mFileX, mFileY, null);
     }
 
@@ -100,10 +109,13 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
         if (action == MotionEvent.ACTION_DOWN)
         {
-            if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
-                    && y <= mFileY + ICON_SIZE) {
+            if ( x >= mFileX && x <= mFileX + 500 && y >= mFileY
+                    && y <= mFileY + 500) {
                 mMediaPlayer.start();
-                vibrator.vibrate(300);
+                vibrator.vibrate(200);
+
+                score++;
+                invalidate();
             }
             return true;
         }
@@ -134,7 +146,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
     public void update() {
         Random randomValue = new Random();
         float value1 = (float)randomValue.nextInt(screenWidth - (int)mFileX);
-        float value2 = (float)randomValue.nextInt(screenHeight);
+        float value2 = (float)randomValue.nextInt(screenHeight - (int)mFileY);
 
         mFileX = value1;
         mFileY = value2;
@@ -151,5 +163,11 @@ public class GameCustomView extends View implements View.OnTouchListener {
         super.onLayout(changed, left, top, right, bottom);
         screenWidth = getWidth();
         screenHeight = getHeight();
+    }
+
+    public void changeTextNumber(int myVitesse){
+        Toast.makeText(getContext(), String.valueOf(myVitesse),Toast.LENGTH_LONG).show();
+        //this.setVitesse(myVitesse);
+
     }
 }

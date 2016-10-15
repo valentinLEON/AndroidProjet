@@ -2,6 +2,7 @@ package orlandini.jeu;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,6 +41,10 @@ public class SettingFragment extends Fragment {
                     + " must implement OnActionListener");
         }
     }
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,8 +58,6 @@ public class SettingFragment extends Fragment {
         mySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-                Toast.makeText(getContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
                 vitesse = progress;
                 // Toast.makeText(getContext(), Integer.toString(myNumberPicker.getValue()), Toast.LENGTH_SHORT).show();
             }
@@ -67,14 +70,29 @@ public class SettingFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 mListener.onAction(vitesse);
+                //changerVitesse(vitesse);
             }
         });
         return myView;
     }
 
-    public void changerVitesse(int myVitesse){
+    /*public void changerVitesse(int myVitesse){
+
+        ((GameCustomView)getView()).setVitesse(myVitesse);
+
+        Intent i = new Intent(SettingFragment.this, GameFragment.class);
+        String strName = null;
+        i.putExtra("STRING_I_NEED", strName);
+
+        /*Intent intent = new Intent(this, GameFragment.class);
+        intent.putExtra("value", vitesse);
+         
+        Intent i = new Intent();
+        GameCustomView gameCustomView;
+        gameCustomView.getVitesse();
+        i.putExtra("R.", myVitesse);
         GameCustomView monGame = new GameCustomView(getContext());
         monGame.setVitesse(myVitesse);
-    }
+    }*/
 
 }
