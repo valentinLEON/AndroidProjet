@@ -3,7 +3,9 @@ package orlandini.jeu;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +47,16 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setHomeButtonEnabled(true);
 
 
+        Button settings = (Button) findViewById(R.id.btnSettings);
+        settings.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button tryAgain = (Button) findViewById(R.id.btn_TryAgain);
         tryAgain.setOnClickListener(new View.OnClickListener() {
 
@@ -61,7 +73,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void addDrawerItems() {
-        //String[] osArray = { "Leaderboard", "Paramètres", "Windows", "OS X", "Linux" };
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.items));
         mDrawerList.setAdapter(mAdapter);
 
@@ -121,6 +132,10 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        //AdvancedSettingFragment newFragment;
+        //FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.new_game:
@@ -129,13 +144,13 @@ public class MainActivity extends AppCompatActivity{
                 break;
             // action with ID action_settings was selected
             case R.id.action_settings:
-                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
-                        .show();
+                Intent intent = new Intent(getApplicationContext(), AdvancedSettingFragment.class);
+                startActivity(intent);
                 break;
             default:
                 break;
         }
 
-        return true;
+        return  super.onOptionsItemSelected(item);
     }
 }

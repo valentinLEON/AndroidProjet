@@ -13,10 +13,13 @@ import android.widget.Toast;
 
 public class GameFragment extends Fragment {
 
+    private int vitesse = 1000;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Intent game = new Intent(getContext(), GameCustomView.class);
+        game.putExtra("vitesse", vitesse);
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 

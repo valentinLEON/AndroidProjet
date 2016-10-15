@@ -74,7 +74,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         paint.setTextSize(50);
         paint.setColor(Color.WHITE);
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.fantomev1);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.fantomev11);
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
         mFileX = 500;
@@ -109,8 +109,8 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
         if (action == MotionEvent.ACTION_DOWN)
         {
-            if ( x >= mFileX && x <= mFileX + 500 && y >= mFileY
-                    && y <= mFileY + 500) {
+            if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
+                    && y <= mFileY + ICON_SIZE) {
                 mMediaPlayer.start();
                 vibrator.vibrate(200);
 
