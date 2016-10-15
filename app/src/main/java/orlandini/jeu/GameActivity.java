@@ -10,7 +10,6 @@ public class GameActivity extends AppCompatActivity implements ActionBar.TabList
 
     ViewPager mViewPager;
     GamePageAdapter mGamePagerAdapter;
-    int mData = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +58,8 @@ public class GameActivity extends AppCompatActivity implements ActionBar.TabList
 
     @Override
     public void onAction(int myNumber) {
-        //mData = myNumber;
-        //((SettingFragment)mGamePagerAdapter.getItem(1)).changerVitesse(mData);
         Toast.makeText(getApplicationContext(), String.valueOf(myNumber),Toast.LENGTH_LONG).show();
-    }
 
+        ((GameFragment)mGamePagerAdapter.game).changerVitesse(myNumber);
+    }
 }
