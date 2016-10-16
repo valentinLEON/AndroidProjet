@@ -3,7 +3,7 @@
     <string name="text_score">Score : </string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Nouveau fragment de mes gosses</string>
 
     <string-array name="items">
         <item>Leaderboard</item>
@@ -16,6 +16,9 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="dialog_fatality">Fatality</string>
-    <string name="cancel">Au revoir</string>
+    <string name="cancel">Au revoir Gui !</string>
     <string name="fire">Gui, re-bienvenue</string>
+    <string name="leaderboard_title">Bienvenue sur le tableau des scores</string>
+
+    <string name="pancake">Pancake</string>
 </resources>

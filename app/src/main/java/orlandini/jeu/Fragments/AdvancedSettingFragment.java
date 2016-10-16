@@ -1,4 +1,4 @@
-package orlandini.jeu;
+package orlandini.jeu.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class AdvancedSettingFragment extends AppCompatActivity {
+public class AdvancedSettingFragment extends Fragment {
 
     public AdvancedSettingFragment() {
         // Required empty public constructor
