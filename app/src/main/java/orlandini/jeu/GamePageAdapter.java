@@ -5,18 +5,27 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
- * Created by lpsil15 on 10/10/2016.
+ * Created by Nicolas ORLANDINI on 10/10/2016.
  */
 
 public class GamePageAdapter extends FragmentStatePagerAdapter  {
-    Fragment gamesettings, game;
+    private Fragment gamesettings;
+    private Fragment game;
+
+    public Fragment getGame() {
+        return game;
+    }
+
+    public Fragment getGamesettings() {
+        return gamesettings;
+    }
 
     public GamePageAdapter(FragmentManager fm)
     {
         super(fm);
 
-        gamesettings = new SettingFragment();
-        game = new GameFragment();
+        this.gamesettings = new SettingFragment();
+        this.game = new GameFragment();
     }
 
     //On récupère la vue d'un des fragments
@@ -26,10 +35,10 @@ public class GamePageAdapter extends FragmentStatePagerAdapter  {
 
         switch (i){
             case 0 :
-                fragment = gamesettings;
+                fragment = getGamesettings();
                 break;
             case 1 :
-                fragment = game;
+                fragment = getGame();
                 break;
         }
 

@@ -74,7 +74,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         paint.setTextSize(50);
         paint.setColor(Color.WHITE);
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.fantomev11);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.mini);
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
         mFileX = 500;
