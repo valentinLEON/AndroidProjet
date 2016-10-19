@@ -1,98 +1,28 @@
 package orlandini.jeu;
 
-
-import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import orlandini.jeu.Fragments.AdvancedSettingFragment;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SettingFragment extends Fragment {
-
-    View myView;
-    int vitesse;
 
     public SettingFragment() {
         // Required empty public constructor
-    }
-
-    public interface OnActionListener {
-        public void onAction(int myNumber);
-    }
-
-    OnActionListener mListener;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (SettingFragment.OnActionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnActionListener");
-        }
-    }
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        myView = inflater.inflate(R.layout.fragment_setting, container, false);
-
-        final SeekBar mySeekBar = (SeekBar)myView.findViewById(R.id.seekBarVitesse);
-
-        /* On get la valeur du numberpicker au changement */
-        mySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                vitesse = progress;
-                // Toast.makeText(getContext(), Integer.toString(myNumberPicker.getValue()), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                mListener.onAction(vitesse);
-                //changerVitesse(vitesse);
-            }
-        });
-        return myView;
+        return inflater.inflate(R.layout.fragment_setting, container, false);
     }
-
-    /*public void changerVitesse(int myVitesse){
-
-        ((GameCustomView)getView()).setVitesse(myVitesse);
-
-        Intent i = new Intent(SettingFragment.this, GameFragment.class);
-        String strName = null;
-        i.putExtra("STRING_I_NEED", strName);
-
-        /*Intent intent = new Intent(this, GameFragment.class);
-        intent.putExtra("value", vitesse);
-         
-        Intent i = new Intent();
-        GameCustomView gameCustomView;
-        gameCustomView.getVitesse();
-        i.putExtra("R.", myVitesse);
-        GameCustomView monGame = new GameCustomView(getContext());
-        monGame.setVitesse(myVitesse);
-    }*/
-
 }

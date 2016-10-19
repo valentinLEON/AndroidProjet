@@ -8,10 +8,9 @@
     android:fitsSystemWindows="false">
 
     <RelativeLayout
-        android:id="@+id/lyContent"
+        android:id="@+id/main_Content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <!-- L'action bar qui est affichée au top -->
         <include
@@ -23,9 +22,7 @@
         <FrameLayout
             android:id="@+id/flContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:layout_height="match_parent"/>
 
     </RelativeLayout>
 

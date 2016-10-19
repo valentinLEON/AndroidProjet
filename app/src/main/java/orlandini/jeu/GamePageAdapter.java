@@ -9,22 +9,22 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 
 public class GamePageAdapter extends FragmentStatePagerAdapter  {
-    private Fragment gamesettings;
+    //private Fragment gamesettings;
     private Fragment game;
 
     public Fragment getGame() {
         return game;
     }
 
-    public Fragment getGamesettings() {
+    /*public Fragment getGamesettings() {
         return gamesettings;
-    }
+    }*/
 
     public GamePageAdapter(FragmentManager fm)
     {
         super(fm);
 
-        this.gamesettings = new SettingFragment();
+        //this.gamesettings = new SettingFragment();
         this.game = new GameFragment();
     }
 
@@ -35,7 +35,7 @@ public class GamePageAdapter extends FragmentStatePagerAdapter  {
 
         switch (i){
             case 0 :
-                fragment = getGamesettings();
+                //fragment = getGamesettings();
                 break;
             case 1 :
                 fragment = getGame();

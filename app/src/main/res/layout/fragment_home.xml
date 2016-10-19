@@ -41,16 +41,6 @@
             android:textSize="45sp"
             android:textStyle="normal|bold" />
 
-        <Button
-            android:text="Paramètres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="78dp"
-            android:id="@+id/btnSettings"
-            android:background="@android:color/black"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored" />
     </RelativeLayout>
 
 </FrameLayout>

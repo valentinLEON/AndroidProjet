@@ -9,10 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-public class GameActivity extends AppCompatActivity implements ActionBar.TabListener, SettingFragment.OnActionListener {
+public class GameActivity extends AppCompatActivity implements ActionBar.TabListener{
 
     ViewPager mViewPager;
     GamePageAdapter mGamePagerAdapter;
@@ -26,17 +25,20 @@ public class GameActivity extends AppCompatActivity implements ActionBar.TabList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-       /* toolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
 
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        //setupDrawerContent(nvDrawer);
+        setupDrawerContent(nvDrawer);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);*/
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
 
         /*mGamePagerAdapter = new GamePageAdapter(getSupportFragmentManager());
         actionBar = getSupportActionBar();
@@ -91,7 +93,6 @@ public class GameActivity extends AppCompatActivity implements ActionBar.TabList
 
     }
 
-    @Override
     public void onAction(int myNumber) {
         Toast.makeText(getApplicationContext(), String.valueOf(myNumber),Toast.LENGTH_LONG).show();
 
