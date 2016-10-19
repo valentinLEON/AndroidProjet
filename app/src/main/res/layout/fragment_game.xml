@@ -11,4 +11,19 @@
         android:id="@+id/custom"
         android:background="@color/colorBackgroundGame"
         />
+
+    <Button
+        android:text="@string/commencer_partie"
+        android:layout_height="wrap_content"
+        android:id="@+id/startButton"
+        style="@style/Widget.AppCompat.Button"
+        android:background="@color/colorPrimary"
+        android:elevation="10dp"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:hapticFeedbackEnabled="false"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@android:color/background_light" />
 </FrameLayout>

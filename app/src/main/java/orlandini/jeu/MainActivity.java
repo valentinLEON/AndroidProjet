@@ -1,11 +1,10 @@
 package orlandini.jeu;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 import orlandini.jeu.Fragments.AdvancedSettingFragment;
 import orlandini.jeu.Fragments.HomeFragment;
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setHomeButtonEnabled(true);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
     }
 
     //Toggle l'icone hamburger
@@ -69,6 +67,7 @@ public class MainActivity extends AppCompatActivity{
 
         Fragment fragment = null;
         Class fragmentClass;
+
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
                 fragmentClass = HomeFragment.class;
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity{
                 fragmentClass = LeaderboardFragment.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = AdvancedSettingFragment.class;
+                fragmentClass = SettingFragment.class;
                 break;
             default:
                 fragmentClass = HomeFragment.class;
@@ -90,8 +89,11 @@ public class MainActivity extends AppCompatActivity{
         }
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.main_Content, fragment);
+
+        transaction.commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -123,27 +125,19 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-        /*
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.new_game:
-                Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
                 break;
             // action with ID action_settings was selected
             case R.id.action_settings:
-                Intent intent = new Intent(getApplicationContext(), AdvancedSettingFragment.class);
-                startActivity(intent);
+                getFragmentManager().beginTransaction().replace(R.id.main_Content, new AdvancedSettingFragment()).commit();
                 break;
             default:
                 break;
         }
 
-        return  super.onOptionsItemSelected(item);*/
+        return  super.onOptionsItemSelected(item);
     }
 }
