@@ -33,15 +33,10 @@ public class HomeFragment extends Fragment {
 
         Button tryAgain = (Button) myView.findViewById(R.id.btn_TryAgain);
         tryAgain.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), GameActivity.class);
                 startActivity(intent);
-
-                FragmentManager fm = getFragmentManager();
-                FatalityDialogFragment newFragment = new FatalityDialogFragment();
-                newFragment.show(fm, "Fragment_fatality_dialog");
             }
         });
 

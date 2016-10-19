@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity{
     public void selectDrawerItem(MenuItem menuItem) {
 
         Fragment fragment = null;
-        Class fragmentClass = null;
+        Class fragmentClass;
 
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
             // action with ID action_settings was selected
             case R.id.action_settings:
-                getFragmentManager().beginTransaction().replace(R.id.flContent, new AdvancedSettingFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.main_Content, new AdvancedSettingFragment()).commit();
                 break;
             default:
                 break;

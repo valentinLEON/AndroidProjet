@@ -3,6 +3,7 @@ package orlandini.jeu;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,17 +12,23 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.Random;
 
 /**
- * Created by Nicolas on 09/10/2016.
+ * Auteur : Nicolas Orlandini
+ * Date de création : 09/10/2016
+ * Dernière modification : 19/10/2016
  */
 
 public class GameCustomView extends View implements View.OnTouchListener {
@@ -33,18 +40,16 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private int screenWidth;
     private int screenHeight;
 
-    private int score = 0;
+    public static int getScore() {
+        return score;
+    }
 
+    private static int score = 0;
     private int vitesse = 500;
 
-    public int getVitesse() {
-        return vitesse;
-    }
-
-    public void setVitesse(int vitesse) {
-        this.vitesse = vitesse;
-    }
-
+    int secs = 0;
+    int mins = 0;
+    int milliseconds = 0;
 
     private Bitmap bitmap;
     private Paint paint;
@@ -74,7 +79,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         paint.setTextSize(50);
         paint.setColor(Color.WHITE);
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.fantomev11);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
         mFileX = 500;
@@ -98,6 +103,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
+        canvas.drawText(String.valueOf(GameFragment.getMins()) + ":" + String.valueOf(GameFragment.getSecs()), screenWidth - 200, 50, paint);
         canvas.drawBitmap(bitmap, mFileX, mFileY, null);
     }
 
@@ -153,10 +159,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
     }
 
     public boolean isAtReset(){
-        if(mFileX <= screenWidth || mFileY <= screenHeight)
-            return false;
-        else
-            return true;
+        return !(mFileX <= screenWidth || mFileY <= screenHeight);
     }
 
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
