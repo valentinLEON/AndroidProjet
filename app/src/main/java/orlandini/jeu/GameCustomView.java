@@ -39,19 +39,21 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private float mFileY;
     private int screenWidth;
     private int screenHeight;
+    Canvas canvasPow;
 
     public static int getScore() {
         return score;
     }
 
+    public static void setScore(int score) {
+        GameCustomView.score = score;
+    }
+
     private static int score = 0;
     private int vitesse = 500;
 
-    int secs = 0;
-    int mins = 0;
-    int milliseconds = 0;
-
-    private Bitmap bitmap;
+    private Bitmap bitmapBender;
+    private Bitmap bitmapPow;
     private Paint paint;
     private MediaPlayer mMediaPlayer;
     private Vibrator vibrator;
@@ -79,7 +81,9 @@ public class GameCustomView extends View implements View.OnTouchListener {
         paint.setTextSize(50);
         paint.setColor(Color.WHITE);
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
+        bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
+        bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
+
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
         mFileX = 500;
@@ -104,7 +108,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
     protected void onDraw(Canvas canvas) {
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
         canvas.drawText(String.valueOf(GameFragment.getMins()) + ":" + String.valueOf(GameFragment.getSecs()), screenWidth - 200, 50, paint);
-        canvas.drawBitmap(bitmap, mFileX, mFileY, null);
+        canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
     }
 
     @Override
@@ -117,8 +121,9 @@ public class GameCustomView extends View implements View.OnTouchListener {
         {
             if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
                     && y <= mFileY + ICON_SIZE) {
+                //canvasPow.drawBitmap(bitmapPow, mFileX, mFileY, null);
                 mMediaPlayer.start();
-                vibrator.vibrate(200);
+                vibrator.vibrate(100);
 
                 score++;
                 invalidate();
@@ -166,11 +171,5 @@ public class GameCustomView extends View implements View.OnTouchListener {
         super.onLayout(changed, left, top, right, bottom);
         screenWidth = getWidth();
         screenHeight = getHeight();
-    }
-
-    public void changeTextNumber(int myVitesse){
-        Toast.makeText(getContext(), String.valueOf(myVitesse),Toast.LENGTH_LONG).show();
-        //this.setVitesse(myVitesse);
-
     }
 }

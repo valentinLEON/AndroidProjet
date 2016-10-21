@@ -19,11 +19,10 @@
         style="@style/Widget.AppCompat.Button"
         android:background="@color/colorPrimary"
         android:elevation="10dp"
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
         android:hapticFeedbackEnabled="false"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@android:color/background_light"
+        android:padding="40dp"
+        android:gravity="center"/>
 </FrameLayout>
