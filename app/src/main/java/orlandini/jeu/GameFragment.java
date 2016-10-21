@@ -54,6 +54,7 @@ public class GameFragment extends Fragment {
 
         StartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                GameCustomView.setScore(0);
                 startTime = SystemClock.uptimeMillis();
                 customHandler.postDelayed(updateTimerThread, 0);
             }
@@ -85,6 +86,7 @@ public class GameFragment extends Fragment {
                 FatalityDialogFragment newFragment = new FatalityDialogFragment();
                 newFragment.show(fm, "Fragment_fatality_dialog");
                 customHandler.removeCallbacks(this);
+                StartButton.setVisibility(View.VISIBLE);
             }
             else {
                 timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
@@ -95,6 +97,7 @@ public class GameFragment extends Fragment {
                 secs = secs % 60;
 
                 customHandler.postDelayed(this, 0);
+                StartButton.setVisibility(View.INVISIBLE);
             }
         }
     };
