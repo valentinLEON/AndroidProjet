@@ -37,7 +37,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ScoreViewHolder> {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view_scoreboard);
             score = (TextView)itemView.findViewById(R.id.score);
-
         }
     }
 }

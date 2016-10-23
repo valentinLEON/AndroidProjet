@@ -107,7 +107,8 @@ public class GameCustomView extends View implements View.OnTouchListener {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
-        canvas.drawText(String.valueOf(GameFragment.getMins()) + ":" + String.valueOf(GameFragment.getSecs()), screenWidth - 200, 50, paint);
+        /* ajouter les minutes = String.valueOf(GameFragment.getMins()) + ":" + */
+        canvas.drawText(String.valueOf(GameFragment.getSecs()), screenWidth - 200, 50, paint);
         canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
     }
 

@@ -81,16 +81,17 @@ public class GameFragment extends Fragment {
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-            if (secs == 30) {
+            if (secs == 10) {
                 secs = 0;
-                //Toast.makeText(getContext(), String.valueOf(GameCustomView.getScore()),Toast.LENGTH_LONG).show();
+                //add in the database
                 scoreDB.addScore(GameCustomView.getScore());
+
                 FragmentManager fm = getFragmentManager();
                 FatalityDialogFragment newFragment = new FatalityDialogFragment();
                 newFragment.show(fm, "Fragment_fatality_dialog");
                 customHandler.removeCallbacks(this);
                 StartButton.setVisibility(View.VISIBLE);
-                Toast.makeText(getContext(), String.valueOf(scoreDB.getAllScores()),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), String.valueOf(scoreDB.getAllScores()),Toast.LENGTH_LONG).show();
             }
             else {
                 timeInMilliseconds = SystemClock.uptimeMillis() - startTime;

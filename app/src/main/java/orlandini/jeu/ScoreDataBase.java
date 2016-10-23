@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.util.ArrayList;
+
 public class ScoreDataBase extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -18,6 +20,8 @@ public class ScoreDataBase extends SQLiteOpenHelper {
 
     private static final String KEY_ID_SCORE = "_id";
     private static final String KEY_SCORE = "score_value";
+
+    private final ArrayList<String> listeScore = new ArrayList<String>();
 
     public ScoreDataBase(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,23 +55,21 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String[] getAllScores(){
+    public ArrayList<String> getAllScores(){
 
         String selectQuery = "SELECT * FROM " + TABLE_SCORE;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        int i = 0;
-        String[] data = new String[cursor.getCount()];
-        while (cursor.moveToNext()){
-            data[i] = cursor.getString(1);
-            i = i++;
+        if(cursor.moveToFirst()){
+            while (cursor.isAfterLast() == false){
+                String score = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
+                listeScore.add(score);
+
+                cursor.moveToNext();
+            }
         }
-
-        cursor.close();
-        db.close();
-
-        return data;
+        return listeScore;
     }
 }

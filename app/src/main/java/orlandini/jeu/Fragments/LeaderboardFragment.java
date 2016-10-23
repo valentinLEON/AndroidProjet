@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import orlandini.jeu.GameCustomView;
 import orlandini.jeu.R;
 
 
@@ -17,6 +19,7 @@ import orlandini.jeu.R;
  */
 public class LeaderboardFragment extends Fragment {
 
+    private TextView score;
 
     public LeaderboardFragment() {
         // Required empty public constructor
@@ -29,11 +32,8 @@ public class LeaderboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
-        RecyclerView rv = (RecyclerView) myView.findViewById(R.id.rv);
-        rv.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        rv.setLayoutManager(llm);
+        score = (TextView)myView.findViewById(R.id.score);
+        score.setText(GameCustomView.getScore());
 
         return myView;
     }
