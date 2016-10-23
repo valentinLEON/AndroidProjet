@@ -28,6 +28,7 @@ public class GameFragment extends Fragment {
     long timeInMilliseconds = 0L;
     long timeSwapBuff = 0L;
     long updatedTime = 0L;
+    private ScoreDataBase scoreDB;
 
     public static int getSecs() {
         return secs;
@@ -50,6 +51,8 @@ public class GameFragment extends Fragment {
         Intent game = new Intent(getContext(), GameCustomView.class);
         game.putExtra("vitesse", vitesse);
 
+        scoreDB = new ScoreDataBase(getContext());
+
         StartButton = (Button) myView.findViewById(R.id.startButton);
 
         StartButton.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +62,6 @@ public class GameFragment extends Fragment {
                 customHandler.postDelayed(updateTimerThread, 0);
             }
         });
-
 
         return myView;
     }
@@ -79,14 +81,16 @@ public class GameFragment extends Fragment {
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-
             if (secs == 30) {
                 secs = 0;
+                //Toast.makeText(getContext(), String.valueOf(GameCustomView.getScore()),Toast.LENGTH_LONG).show();
+                scoreDB.addScore(GameCustomView.getScore());
                 FragmentManager fm = getFragmentManager();
                 FatalityDialogFragment newFragment = new FatalityDialogFragment();
                 newFragment.show(fm, "Fragment_fatality_dialog");
                 customHandler.removeCallbacks(this);
                 StartButton.setVisibility(View.VISIBLE);
+                Toast.makeText(getContext(), String.valueOf(scoreDB.getAllScores()),Toast.LENGTH_LONG).show();
             }
             else {
                 timeInMilliseconds = SystemClock.uptimeMillis() - startTime;

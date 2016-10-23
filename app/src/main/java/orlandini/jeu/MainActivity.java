@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
+    private ScoreDataBase scoreDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity{
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
+
+        scoreDataBase = new ScoreDataBase(getBaseContext());
     }
 
     //Toggle l'icone hamburger
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity{
         // Insert the fragment by replacing any existing fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+        // Replace the fragment
         transaction.replace(R.id.main_Content, fragment);
 
         transaction.commit();
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.new_game:
                 Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
@@ -136,7 +140,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
             default:
                 break;
-        }
+        }*/
 
         return  super.onOptionsItemSelected(item);
     }
