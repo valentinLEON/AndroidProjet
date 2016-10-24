@@ -24,17 +24,17 @@ Vous pouvez nous donner vos retours, si jamais vous constatez un problème ici :
 
 Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir l'évolution de chaque fonctionnalité au cours du développement.
 
-###Conception de l'architecture de l'application à deux.
-###Répartition des tâches de chacun.
-###Implémentation du menu, avec actionbar
-###Implémentation interface du jeu et des paramètres
-###Création du jeu de base avec les paramètres
-###Création de la page d'accueil
-###Changement du menu basique pour un navigation drawer
-###Reconception de l'application
-###Création des différents fragments nécessaires pour le nouveau menu
-###Implémentation des paramètres/préférences de jeu
-###Implémentation du tableau des scores
-###Création de la base de données en local, SQLite
-###Mise en place de place des sons pour le jeu
-###Ajout des fonctionnalités du temps de jeu et du calcul de score
+- [x]Conception de l'architecture de l'application à deux.
+- [x]Répartition des tâches de chacun.
+- [x]Implémentation du menu, avec actionbar
+- [x]Implémentation interface du jeu et des paramètres
+- [x]Création du jeu de base avec les paramètres
+- [x]Création de la page d'accueil
+- [x]Changement du menu basique pour un navigation drawer
+- [x]Reconception de l'application
+- [x]Création des différents fragments nécessaires pour le nouveau menu
+- [x]Implémentation des paramètres/préférences de jeu
+- [x]Implémentation du tableau des scores
+- [x]Création de la base de données en local, SQLite
+- [x]Mise en place de place des sons pour le jeu
+- [x]Ajout des fonctionnalités du temps de jeu et du calcul de score
