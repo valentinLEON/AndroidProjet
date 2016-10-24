@@ -1,6 +1,7 @@
 package orlandini.jeu;
 
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,10 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import orlandini.jeu.Fragments.AdvancedSettingFragment;
 import orlandini.jeu.Fragments.HomeFragment;
 import orlandini.jeu.Fragments.LeaderboardFragment;
 
+/**
+ * Auteur : Nicolas Orlandini
+ * Date de création : 09/10/2016
+ * Dernière modification : 24/10/2016
+ */
 
 public class MainActivity extends AppCompatActivity{
 
@@ -42,6 +47,9 @@ public class MainActivity extends AppCompatActivity{
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        //TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
+        //myAwesomeTextView.setText(prefs.getString("id_joueur", null));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
 

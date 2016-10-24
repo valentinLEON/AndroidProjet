@@ -2,7 +2,6 @@ package orlandini.jeu;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -11,24 +10,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import java.util.Random;
 
 /**
  * Auteur : Nicolas Orlandini
  * Date de création : 09/10/2016
- * Dernière modification : 19/10/2016
+ * Dernière modification : 24/10/2016
  */
 
 public class GameCustomView extends View implements View.OnTouchListener {
@@ -49,13 +43,16 @@ public class GameCustomView extends View implements View.OnTouchListener {
     }
 
     private static int score = 0;
-    private int vitesse = 500;
+    private int prefVitesse = 500;
 
     private Bitmap bitmapBender;
     private Bitmap bitmapPow;
     private Paint paint;
     private MediaPlayer mMediaPlayer;
     private Vibrator vibrator;
+
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+
     private Runnable animator = new Runnable() {
         @Override
         public void run() {
@@ -63,12 +60,8 @@ public class GameCustomView extends View implements View.OnTouchListener {
             update();
             invalidate();
             if(!isAtReset()){
-                Intent i = new Intent(getContext(), GameFragment.class);
-                Bundle extras = i.getExtras();
-                if(extras != null)
-                    vitesse = extras.getInt("vitesse");
-
-                postDelayed(this,vitesse);
+                prefVitesse = prefs.getInt("seekbar_vitesse", 0);
+                postDelayed(this,prefVitesse);
 
                 //Toast.makeText(getContext(), String.valueOf(vitesse),Toast.LENGTH_LONG).show();
             }
@@ -107,7 +100,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
     protected void onDraw(Canvas canvas) {
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
         /* ajouter les minutes = String.valueOf(GameFragment.getMins()) + ":" + */
-        canvas.drawText(String.valueOf(GameFragment.getSecs()), screenWidth - 200, 50, paint);
+        canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 200, 50, paint);
         canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
     }
 
@@ -122,19 +115,17 @@ public class GameCustomView extends View implements View.OnTouchListener {
             if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
                     && y <= mFileY + ICON_SIZE) {
                 //canvasPow.drawBitmap(bitmapPow, mFileX, mFileY, null);
-                mMediaPlayer.start();
-                vibrator.vibrate(100);
+                if (prefs.getBoolean("switch_sons", true))
+                    mMediaPlayer.start();
+                if (prefs.getBoolean("switch_vibreur", true))
+                    vibrator.vibrate(100);
 
                 score++;
                 invalidate();
             }
             return true;
         }
-        if(action == MotionEvent.ACTION_MOVE)
-        {
-            return true;
-        }
-        return false;
+        return action == MotionEvent.ACTION_MOVE;
 
         /*switch (action) {
             case MotionEvent.ACTION_DOWN:

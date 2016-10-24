@@ -43,4 +43,8 @@
 
     <string name="title_seekbar_vitesse">Vitesse</string>
     <string name="commencer_partie">Commencer la partie</string>
+    <string name="title_btn_jouer">jouer</string>
+    <string name="title_name">Bonsoir Gui</string>
+    <string name="txt_Bonsoir">Bonsoir\n</string>
+    <string name="imageView_description">ImageDrawer</string>
 </resources>

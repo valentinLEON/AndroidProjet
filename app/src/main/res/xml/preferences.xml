@@ -15,7 +15,7 @@
             android:capitalize="words"
             android:defaultValue="@string/pref_default_display_name"
             android:inputType="textCapWords"
-            android:key="example_text"
+            android:key="id_joueur"
             android:maxLines="1"
             android:selectAllOnFocus="true"
             android:singleLine="true"
@@ -26,7 +26,7 @@
         android:title="@string/pref_categorie_son">
         <SwitchPreference
             android:defaultValue="true"
-            android:key="notifications_sons"
+            android:key="switch_sons"
             android:title="@string/pref_title_Sons" />
 
         <!-- Allows the user to choose a ringtone in the 'notification' category. -->
@@ -34,7 +34,7 @@
         <!-- NOTE: RingtonePreference's summary should be set to its value by the activity code. -->
         <RingtonePreference
             android:defaultValue="content://settings/system/notification_sound"
-            android:dependency="notifications_sons"
+            android:dependency="switch_sons"
             android:key="notifications_new_message_ringtone"
             android:summary="@string/pref_description_son"
             android:ringtoneType="notification"
@@ -48,6 +48,11 @@
             android:max="1000"
             android:defaultValue="500">
         </SeekBarPreference>
+        <!--<NumberPicker
+            android:id="@+id/number_picker"
+            android:layout_centerInParent="true"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />-->
     </PreferenceCategory>
 
 </PreferenceScreen>
