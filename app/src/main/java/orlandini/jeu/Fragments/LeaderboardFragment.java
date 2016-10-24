@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import orlandini.jeu.GameCustomView;
 import orlandini.jeu.R;
+import orlandini.jeu.ScoreDataBase;
+
+import static orlandini.jeu.MainActivity.scoreDataBase;
 
 
 /**
@@ -33,7 +37,9 @@ public class LeaderboardFragment extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         score = (TextView)myView.findViewById(R.id.score);
-        //score.setText(GameCustomView.getScore());
+        /*foreach {
+            Toast.makeText(znfzoifher);
+        }*/
 
         return myView;
     }

@@ -47,4 +47,7 @@
     <string name="title_name">Bonsoir Gui</string>
     <string name="txt_Bonsoir">Bonsoir\n</string>
     <string name="imageView_description">ImageDrawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

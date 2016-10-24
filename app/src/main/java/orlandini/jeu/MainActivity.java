@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
-    private ScoreDataBase scoreDataBase;
+    public static ScoreDataBase scoreDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

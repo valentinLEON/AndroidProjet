@@ -63,7 +63,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()){
-            while (cursor.isAfterLast() == false){
+            while (!cursor.isAfterLast()){
                 String score = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
                 listeScore.add(score);
 
