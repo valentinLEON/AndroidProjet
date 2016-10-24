@@ -33,7 +33,7 @@ public class LeaderboardFragment extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         score = (TextView)myView.findViewById(R.id.score);
-        score.setText(GameCustomView.getScore());
+        //score.setText(GameCustomView.getScore());
 
         return myView;
     }

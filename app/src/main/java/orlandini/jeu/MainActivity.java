@@ -3,7 +3,6 @@ package orlandini.jeu;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -44,8 +43,7 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
 
         scoreDataBase = new ScoreDataBase(getBaseContext());
     }
@@ -95,9 +93,7 @@ public class MainActivity extends AppCompatActivity{
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         // Replace the fragment
-        transaction.replace(R.id.main_Content, fragment);
-
-        transaction.commit();
+        transaction.replace(R.id.main_Content, fragment).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -129,18 +125,25 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*switch (item.getItemId()) {
+        Fragment fragment = null;
+        switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.new_game:
                 Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
                 break;
             // action with ID action_settings was selected
-            case R.id.action_settings:
-                getFragmentManager().beginTransaction().replace(R.id.main_Content, new AdvancedSettingFragment()).commit();
+            case R.id.preferences:
+                Class fragmentClass =  SettingFragment.class;
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, fragment).commit();
                 break;
             default:
                 break;
-        }*/
+        }
 
         return  super.onOptionsItemSelected(item);
     }

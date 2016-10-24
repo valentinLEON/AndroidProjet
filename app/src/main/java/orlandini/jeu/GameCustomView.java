@@ -39,7 +39,6 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private float mFileY;
     private int screenWidth;
     private int screenHeight;
-    Canvas canvasPow;
 
     public static int getScore() {
         return score;

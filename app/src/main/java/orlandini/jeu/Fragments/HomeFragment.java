@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_home, container, false);
 
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.start_windows);
-        mMediaPlayer.start();
+        //mMediaPlayer.start();
 
         Button tryAgain = (Button) myView.findViewById(R.id.btn_TryAgain);
         tryAgain.setOnClickListener(new View.OnClickListener() {

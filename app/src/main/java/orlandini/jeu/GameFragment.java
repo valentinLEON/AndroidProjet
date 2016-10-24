@@ -81,7 +81,7 @@ public class GameFragment extends Fragment {
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-            if (secs == 10) {
+            if (secs == 30) {
                 secs = 0;
                 //add in the database
                 scoreDB.addScore(GameCustomView.getScore());

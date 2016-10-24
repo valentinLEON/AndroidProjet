@@ -1,4 +1,4 @@
-<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+<PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
@@ -41,8 +41,7 @@
             android:title="@string/pref_title_ringtone" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_categorie_jeu"
-        tools:icon="@drawable/mini">
+        android:title="@string/pref_categorie_jeu">
         <SeekBarPreference
             android:title="@string/title_seekbar_vitesse"
             android:key="seekbar_vitesse"
