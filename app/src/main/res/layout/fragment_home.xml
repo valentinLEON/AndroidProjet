@@ -10,14 +10,17 @@
 
     <Button
         android:text="@string/title_btn_jouer"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_TryAgain"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:background="@android:color/holo_orange_light"
         android:layout_marginBottom="192dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background = "@drawable/bouton_rond"
+        android:paddingTop="33dp"
+        android:paddingBottom="33dp"
+        android:elevation="10dp"
+        android:fontFamily="sans-serif" />
 
     <TextView
         android:text="@string/title_name"
