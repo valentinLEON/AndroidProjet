@@ -27,14 +27,14 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 - [x] Conception de l'architecture de l'application à deux.
 - [x] Répartition des tâches de chacun.
 - [x] Implémentation du menu, avec actionbar
-- [] Implémentation interface du jeu et des paramètres
+- [ ] Implémentation interface du jeu et des paramètres
 - [x] Création du jeu de base avec les paramètres
 - [x] Création de la page d'accueil
 - [x] Changement du menu basique pour un navigation drawer
 - [x] Reconception de l'application
 - [x] Création des différents fragments nécessaires pour le nouveau menu
-- [] Implémentation des paramètres/préférences de jeu
-- [] Implémentation du tableau des scores
+- [ ] Implémentation des paramètres/préférences de jeu
+- [ ] Implémentation du tableau des scores
 - [x] Création de la base de données en local, SQLite
 - [x] Mise en place de place des sons pour le jeu
 - [x] Ajout des fonctionnalités du temps de jeu et du calcul de score
