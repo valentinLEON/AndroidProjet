@@ -45,8 +45,11 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private static int score = 0;
     private int prefVitesse = 500;
 
+    boolean isInvisible = true;
+
     private Bitmap bitmapBender;
     private Bitmap bitmapPow;
+    private Bitmap bitmapRip;
     private Paint paint;
     private MediaPlayer mMediaPlayer;
     private Vibrator vibrator;
@@ -75,6 +78,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         Resources res = getResources();
         bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
         bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
+        bitmapRip = BitmapFactory.decodeResource(res, R.drawable.rip_game);
 
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
@@ -101,7 +105,10 @@ public class GameCustomView extends View implements View.OnTouchListener {
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
         /* ajouter les minutes = String.valueOf(GameFragment.getMins()) + ":" + */
         canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 200, 50, paint);
-        canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
+        if (isInvisible)
+            canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
+        if (!isInvisible)
+            canvas.drawBitmap(bitmapRip, mFileX, mFileY, null);
     }
 
     @Override
@@ -110,39 +117,27 @@ public class GameCustomView extends View implements View.OnTouchListener {
         float x = motionEvent.getX();
         float y = motionEvent.getY();
 
-        if (action == MotionEvent.ACTION_DOWN)
-        {
-            if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
-                    && y <= mFileY + ICON_SIZE) {
-                //canvasPow.drawBitmap(bitmapPow, mFileX, mFileY, null);
-                if (prefs.getBoolean("switch_sons", true))
-                    mMediaPlayer.start();
-                if (prefs.getBoolean("switch_vibreur", true))
-                    vibrator.vibrate(100);
-
-                score++;
-                invalidate();
-            }
-            return true;
-        }
-        return action == MotionEvent.ACTION_MOVE;
-
-        /*switch (action) {
+        switch (action) {
             case MotionEvent.ACTION_DOWN:
                 if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
                         && y <= mFileY + ICON_SIZE) {
-                    mMediaPlayer.start();
+                    if (prefs.getBoolean("switch_sons", true))
+                        mMediaPlayer.start();
+                    if (prefs.getBoolean("switch_vibreur", true))
+                        vibrator.vibrate(100);
+                    setVisibility(View.VISIBLE);
+                    score++;
+                    invalidate();
                 }
                 return true;
 
             case MotionEvent.ACTION_MOVE:
-                vibrator.vibrate(500);
                 return true;
             case MotionEvent.ACTION_UP:
-                vibrator.cancel();
+                setVisibility(View.INVISIBLE);
             default:
                 return false;
-        }*/
+        }
     }
 
     public void update() {
@@ -163,4 +158,10 @@ public class GameCustomView extends View implements View.OnTouchListener {
         screenWidth = getWidth();
         screenHeight = getHeight();
     }
+
+    @Override
+    public void setVisibility(int visibility) {
+        isInvisible = visibility == View.INVISIBLE;
+    }
+
 }
