@@ -38,3 +38,5 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 12. Création de la base de données en local, SQLite
 13. Mise en place de place des sons pour le jeu
 14. Ajout des fonctionnalités du temps de jeu et du calcul de score
+
+- [x] this is a complete item
