@@ -1,4 +1,4 @@
-package orlandini.jeu.Fragments;
+package orlandini.jeu;
 
 
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import orlandini.jeu.R;
 
 /**
  * A simple {@link Fragment} subclass.

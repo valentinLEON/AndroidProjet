@@ -81,7 +81,7 @@ public class GameActivity extends AppCompatActivity{
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-            if (secs == 30) {
+            if (secs == 10) {
                 secs = 0;
                 //add in the database
                 scoreDB.addScore(GameCustomView.getScore());

@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import orlandini.jeu.Fragments.AProposFragment;
-import orlandini.jeu.Fragments.HelpFragment;
 import orlandini.jeu.Fragments.HomeFragment;
 import orlandini.jeu.Fragments.LeaderboardFragment;
 
