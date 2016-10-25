@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import orlandini.jeu.Fragments.HelpFragment;
 import orlandini.jeu.Fragments.HomeFragment;
 import orlandini.jeu.Fragments.LeaderboardFragment;
 
@@ -136,12 +137,8 @@ public class MainActivity extends AppCompatActivity{
         Fragment fragment = null;
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
-            case R.id.new_game:
-                Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
-                break;
-            // action with ID action_settings was selected
-            case R.id.preferences:
-                Class fragmentClass =  SettingFragment.class;
+            case R.id.help:
+                Class fragmentClass =  HelpFragment.class;
                 try {
                     fragment = (Fragment) fragmentClass.newInstance();
                 } catch (Exception e) {
@@ -149,6 +146,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, fragment).commit();
                 break;
+
             default:
                 break;
         }

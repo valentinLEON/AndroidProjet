@@ -5,10 +5,15 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity{
 
@@ -19,6 +24,8 @@ public class GameActivity extends AppCompatActivity{
     long timeSwapBuff = 0L;
     long updatedTime = 0L;
     private ScoreDataBase scoreDB;
+    private Toolbar toolbar;
+
     Fragment fragment = null;
 
     public static int getSecs() {
@@ -38,10 +45,18 @@ public class GameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        getSupportActionBar().setTitle(
+                "Jeu");
+
         scoreDB = new ScoreDataBase(getApplicationContext());
 
         StartButton = (Button) findViewById(R.id.startButton);
-
         StartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 /*Class fragmentClass =  GameCustomView.class;
@@ -83,4 +98,40 @@ public class GameActivity extends AppCompatActivity{
             }
         }
     };
+
+    @Override
+    public void onBackPressed()
+    {
+        System.exit(0);
+        //super.onBackPressed();// optional depending on your needs
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_jeu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Fragment fragment = null;
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.preferences:
+                Class fragmentClass =  SettingFragment.class;
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.game_content, fragment).commit();
+                break;
+            case R.id.new_game:
+                Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

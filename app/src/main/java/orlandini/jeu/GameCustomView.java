@@ -147,8 +147,8 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
     public void update() {
         Random randomValue = new Random();
-        float value1 = (float)randomValue.nextInt(screenWidth - (int)mFileX);
-        float value2 = (float)randomValue.nextInt(screenHeight - (int)mFileY);
+        float value1 = (float)randomValue.nextInt(screenWidth - 50);
+        float value2 = (float)randomValue.nextInt(screenHeight - 120);
 
         mFileX = value1;
         mFileY = value2;

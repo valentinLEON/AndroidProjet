@@ -25,7 +25,7 @@
     <orlandini.jeu.GameCustomView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="100dp"
         android:id="@+id/custom_game"
         android:background="@color/colorBackgroundGame"
     />
@@ -34,16 +34,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/include" />
-    <!--<RelativeLayout
+    <RelativeLayout
         android:id="@+id/game_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         tools:context="orlandini.jeu.GameActivity"
         android:background="@color/colorBackgroundGame">
-        <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/include" />
-    </RelativeLayout>-->
+    </RelativeLayout>
 </FrameLayout>
