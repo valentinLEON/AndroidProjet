@@ -15,6 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * Auteur : Nicolas Orlandini
+ * Date de création : 09/10/2016
+ * Dernière modification : 25/10/2016
+ */
+
 public class GameActivity extends AppCompatActivity{
 
     private Button StartButton;
@@ -48,11 +54,11 @@ public class GameActivity extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        getSupportActionBar().setTitle(
-                "Jeu");
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setTitle("Jeu");
+        }
 
         scoreDB = new ScoreDataBase(getApplicationContext());
 

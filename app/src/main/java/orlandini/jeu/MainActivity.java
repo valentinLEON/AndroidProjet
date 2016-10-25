@@ -12,8 +12,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import orlandini.jeu.Fragments.AProposFragment;
 import orlandini.jeu.Fragments.HelpFragment;
 import orlandini.jeu.Fragments.HomeFragment;
 import orlandini.jeu.Fragments.LeaderboardFragment;
@@ -21,7 +21,7 @@ import orlandini.jeu.Fragments.LeaderboardFragment;
 /**
  * Auteur : Nicolas Orlandini
  * Date de création : 09/10/2016
- * Dernière modification : 24/10/2016
+ * Dernière modification : 25/10/2016
  */
 
 public class MainActivity extends AppCompatActivity{
@@ -46,8 +46,10 @@ public class MainActivity extends AppCompatActivity{
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         //TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
         //myAwesomeTextView.setText(prefs.getString("id_joueur", null));
@@ -66,7 +68,8 @@ public class MainActivity extends AppCompatActivity{
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
                         selectDrawerItem(menuItem);
                         return true;
                     }
@@ -79,14 +82,17 @@ public class MainActivity extends AppCompatActivity{
         Class fragmentClass;
 
         switch(menuItem.getItemId()) {
-            case R.id.nav_first_fragment:
+            case R.id.nav_home:
                 fragmentClass = HomeFragment.class;
                 break;
-            case R.id.nav_second_fragment:
+            case R.id.nav_leaderboard:
                 fragmentClass = LeaderboardFragment.class;
                 break;
-            case R.id.nav_third_fragment:
+            case R.id.nav_settings:
                 fragmentClass = SettingFragment.class;
+                break;
+            case R.id.nav_a_propos:
+                fragmentClass = AProposFragment.class;
                 break;
             default:
                 fragmentClass = HomeFragment.class;
