@@ -25,7 +25,7 @@ Vous pouvez nous donner vos retours, si jamais vous constatez un problème ici :
 Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir l'évolution de chaque fonctionnalité au cours du développement.
 
 1. Conception de l'architecture de l'application à deux. [x]
-2. Répartition des tâches de chacun.
+2. Répartition des tâches de chacun. - [ ]
 3. Implémentation du menu, avec actionbar
 4. Implémentation interface du jeu et des paramètres
 5. Création du jeu de base avec les paramètres
