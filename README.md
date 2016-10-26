@@ -43,12 +43,12 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 * [x] Ajout des fonctionnalités du temps de jeu et du calcul de score
 * [ ] Ajout d'un niveau easter egg inspiré de Back to the Future, version Halloween
 * [ ] Ajout d'effet sur un/des bouton(s) pour rendre l'application plus moderne
-* [ ] Ajout et paramétrage de bouton "Pause" et "Rejouer" dans la vue du jeu
+* [x] Ajout et paramétrage de bouton "Pause" et "Rejouer" dans la vue du jeu
 * [ ] Afficher le nom dans le navigation drawer
 * [x] Afficher le nom dans les préférences
 * [ ] Compléter le helper dans l'action bar
 * [ ] Compléter le bouton A propos dans le navigation drawer
-* [ ] Ajout de la modification du temps de jeu dans les préférences
+* [x] Ajout de la modification du temps de jeu dans les préférences
 * [ ] Ajout dans les préférences du choix des sons
 
 <p style="text-align:right";>Nicolas ORLANDINI et Valentin LEON</p>

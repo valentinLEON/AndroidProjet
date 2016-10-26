@@ -9,9 +9,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 public class ScoreDataBase extends SQLiteOpenHelper {
 
@@ -34,7 +37,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         //create the score table
         String CREATE_SCORE_TABLE = "CREATE TABLE " + TABLE_SCORE + "("
                 + KEY_ID_SCORE + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_SCORE + " TEXT" + ")";
+                + KEY_SCORE + " INTEGER" + ")";
 
         //execution
         db.execSQL(CREATE_SCORE_TABLE);
@@ -76,36 +79,20 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         return listeScore;
     }
 
+    //on récupère la top value de la table des scores
     public String getTopScore(){
+        ArrayList<Integer> maliste = getAllIntegerScore();
+        int score = Collections.max(maliste);
+        return String.valueOf(score);
+    }
 
-        String score;
+    private ArrayList<Integer> getAllIntegerScore(){
+        ArrayList<String> maliste = getAllScores();
+        ArrayList<Integer> mynewlist = new ArrayList<Integer>(maliste.size());
 
-        //String selectQuery = "SELECT MAX(" + KEY_SCORE + ") FROM " + TABLE_SCORE;
-        String selectQuery = "SELECT * FROM " + TABLE_SCORE;
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        int tempValue = 0;
-        int scoration = 0;
-        String temp = "";
-
-        if(cursor.moveToFirst()){
-            while(!cursor.isAfterLast()){
-                temp = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
-                tempValue = Integer.parseInt(temp);
-                if(tempValue > scoration){
-                    scoration = tempValue;
-                }
-            }
+        for(String myInt : maliste){
+            mynewlist.add(Integer.valueOf(myInt));
         }
-
-        /*for (Iterator<String> i = getAllScores().iterator(); i.hasNext(); ) {
-            if(Integer.parseInt(i.next()) > tempValue){
-                temp = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
-                tempValue = Integer.parseInt(i.next());
-            }
-        }*/
-        cursor.close();
-        return String.valueOf(scoration);
+        return mynewlist;
     }
 }

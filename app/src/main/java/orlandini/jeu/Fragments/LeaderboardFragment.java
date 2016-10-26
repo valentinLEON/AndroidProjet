@@ -63,10 +63,7 @@ public class LeaderboardFragment extends Fragment {
         }
 
         myString = db.getTopScore();
-
-        //Log.v(myString, "score avec getTopScore");
         myscore = (TextView)myView.findViewById(R.id.myscore);
-
         myscore.setText("Mon score " + myString);
 
         return myView;
