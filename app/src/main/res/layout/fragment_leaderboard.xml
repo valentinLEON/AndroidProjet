@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="orlandini.jeu.Fragments.LeaderboardFragment">
+    tools:context="orlandini.jeu.Fragments.LeaderboardFragment"
+    android:paddingTop="100dp">
 
     <!--<android.support.v7.widget.RecyclerView
         android:layout_height="match_parent"
@@ -34,16 +35,16 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/picture"
                 android:background="@drawable/ic_lead_score"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/myscore"
-                android:layout_toRightOf="@+id/picture"
+                android:layout_toEndOf="@+id/picture"
                 android:layout_alignParentTop="true"
                 android:textSize="30sp"
                 />
