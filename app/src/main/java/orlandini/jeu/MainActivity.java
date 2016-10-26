@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import orlandini.jeu.Fragments.AProposFragment;
 import orlandini.jeu.Fragments.HomeFragment;
@@ -157,5 +159,10 @@ public class MainActivity extends AppCompatActivity{
         }
 
         return  super.onOptionsItemSelected(item);
+    }
+
+
+    public void easterEgg(View v) {
+        Toast.makeText(getApplicationContext(), "Bonjour, je suis un easter egg", Toast.LENGTH_LONG).show();
     }
 }
