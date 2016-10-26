@@ -1,4 +1,4 @@
-# Samaritan
+# Projet Samaritan
 
 Le projet présenté est une application de jeu, réalisé avec le langage Android, consistant à tapoter sur un personnage un certain nombre de fois, en un lapse de temps défini par l'utilisateur. Dans le but de marquer le plus de points possibles.
 Le jeu peut être personnalisé, notamment en terme d'image, mais aussi de sons lorsque l'on perd, gagne ou au démarrage de l'application.
@@ -50,3 +50,5 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 * [ ] Compléter le bouton A propos dans le navigation drawer
 * [ ] Ajout de la modification du temps de jeu dans les préférences
 * [ ] Ajout dans les préférences du choix des sons
+
+<p style="text-align:right";>Nicolas ORLANDINI et Valentin LEON</p>
