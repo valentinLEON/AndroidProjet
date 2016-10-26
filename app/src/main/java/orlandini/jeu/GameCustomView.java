@@ -109,9 +109,9 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        String topScore = db.getTopScore();
+        //String topScore = db.getTopScore();
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
-        canvas.drawText("BestScore : " + String.valueOf(topScore), 50, 100, paint);
+        //canvas.drawText("BestScore : " + String.valueOf(topScore), 50, 100, paint);
         /* ajouter les minutes = String.valueOf(GameFragment.getMins()) + ":" + */
         canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 200, 50, paint);
         if (isInvisible)
