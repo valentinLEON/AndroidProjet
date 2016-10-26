@@ -1,8 +1,10 @@
 package orlandini.jeu;
 
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
@@ -46,6 +48,8 @@ public class GameActivity extends AppCompatActivity{
 
     static int mins = 0;
 
+    SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,8 @@ public class GameActivity extends AppCompatActivity{
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setTitle("Jeu");
         }
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
 
         scoreDB = new ScoreDataBase(getApplicationContext());
 
@@ -81,7 +87,8 @@ public class GameActivity extends AppCompatActivity{
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-            if (secs == 10) {
+            String temps = prefs.getString("pref_temps_jeu", "30");
+            if (secs == Integer.parseInt(temps)) {
                 secs = 0;
                 //add in the database
                 scoreDB.addScore(GameCustomView.getScore());

@@ -54,6 +54,14 @@
             android:layout_centerInParent="true"
             android:layout_width="100dp"
             android:layout_height="match_parent" />-->
+        <EditTextPreference
+            android:key="pref_temps_jeu"
+            android:title="Temps de jeu"
+            android:summary="Choisir la durée d'une partie"
+            android:numeric="integer"
+            android:maxLength="2"
+            android:defaultValue="30">
+        </EditTextPreference>
     </PreferenceCategory>
 
 </PreferenceScreen>
