@@ -18,7 +18,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 /**
- * Auteur : Nicolas Orlandini
+ * Cette activité gère l'affichage de la durée d'une partie,
+ * contient la custom view du jeu,
+ * initialise l'action bar
+ * Gère les actions liées à l'action bar.
+ *
+ * @author Nicolas Orlandini
+ * @version 2016.0.34
+ *
  * Date de création : 09/10/2016
  * Dernière modification : 25/10/2016
  */
@@ -26,38 +33,35 @@ import android.widget.Toast;
 public class GameActivity extends AppCompatActivity{
 
     private Button StartButton;
-    private long startTime = 0L;
     private Handler customHandler = new Handler();
-    long timeInMilliseconds = 0L;
-    long timeSwapBuff = 0L;
-    long updatedTime = 0L;
-    long startPauseTime = 0L;
-    long pauseTime = 0L;
+
+    private long startTime = 0L;
+    private long timeInMilliseconds = 0L;
+    private long timeSwapBuff = 0L;
+    private long updatedTime = 0L;
+    private long startPauseTime = 0L;
+    private long pauseTime = 0L;
     private boolean recommencer = false;
 
+    private static boolean isPaused = false;
     public static boolean getPaused() {
         return isPaused;
     }
 
-    private static boolean isPaused = false;
     private ScoreDataBase scoreDB;
     private Toolbar toolbar;
-
-    Fragment fragment = null;
+    private Fragment fragment = null;
+    private SharedPreferences prefs;
 
     public static int getSecs() {
         return secs;
     }
-
     private static int secs = 0;
 
     public static int getMins() {
         return mins;
     }
-
     private static int mins = 0;
-
-    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,7 @@ public class GameActivity extends AppCompatActivity{
             getSupportActionBar().setTitle("Jeu");
         }
 
+        // Récupération des préférences
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
 
         scoreDB = new ScoreDataBase(getApplicationContext());
@@ -95,14 +100,19 @@ public class GameActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     * Runnable permettant de gérer la partie
+     */
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
             String temps = prefs.getString("pref_temps_jeu", "30");
 
+            // Le temps défini par l'utilisateur est écoulé
             if (secs == Integer.parseInt(temps)) {
+                // Réinitialiser le timer
                 secs = 0;
                 pauseTime = 0L;
-                //add in the database
+                //AJouter le score dans la base de données
                 scoreDB.addScore(GameCustomView.getScore());
 
                 FragmentManager fm = getSupportFragmentManager();
@@ -110,14 +120,18 @@ public class GameActivity extends AppCompatActivity{
                 newFragment.show(fm, "Fragment_fatality_dialog");
                 customHandler.removeCallbacks(this);
                 StartButton.setVisibility(View.VISIBLE);
-            } else if (recommencer) {
+            }
+            // L'utilisateur choisis de recommencer la partie
+            else if (recommencer) {
                 recommencer = false;
                 secs = 0;
                 pauseTime = 0L;
                 customHandler.removeCallbacks(this);
                 StartButton.setVisibility(View.VISIBLE);
 
-            } else {
+            }
+            // Le jeu est en cours, le temps s'incrémente
+            else {
                 timeInMilliseconds = SystemClock.uptimeMillis() - startTime - pauseTime;
                 updatedTime = timeSwapBuff + timeInMilliseconds;
 
@@ -132,6 +146,9 @@ public class GameActivity extends AppCompatActivity{
         }
     };
 
+    /**
+     * Méthode exécutée lorsque l'utilisateur appuie sur le bouton retour de l'appareil.
+     */
     @Override
     public void onBackPressed()
     {
@@ -139,20 +156,31 @@ public class GameActivity extends AppCompatActivity{
         //super.onBackPressed();// optional depending on your needs
     }
 
+    /**
+     * Association du menu et du xml (partie graphique).
+     * @param menu action bar
+     * @return booléen
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_jeu, menu);
         return true;
     }
 
+    /**
+     * Défini les actions a exécuter suivant l'item de l'action bar sélectionné par l'utilisateur.
+     * @param item item sélectionné par l'utilisateur
+     * @return booléen
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Fragment fragment = null;
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
+                // Retour à l'activité précédente
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.preferences:
+                // Ouverture des préférences
                 Class fragmentClass =  SettingFragment.class;
                 try {
                     fragment = (Fragment) fragmentClass.newInstance();
@@ -162,24 +190,41 @@ public class GameActivity extends AppCompatActivity{
                 getSupportFragmentManager().beginTransaction().replace(R.id.game_content, fragment).commit();
                 break;
             case R.id.new_game:
+                // L'utilisateur est avertit qu'une nouvelle partie commence
                 Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
                 recommencer = true;
                 break;
             case R.id.pause:
-                if (isPaused) {
-                    isPaused = false;
-                    customHandler.postDelayed(updateTimerThread, 0);
-                    pauseTime += SystemClock.uptimeMillis() - startPauseTime;
-                    item.setIcon(R.drawable.ic_pause);
-                }
-                else {
-                    isPaused = true;
-                    customHandler.removeCallbacks(updateTimerThread);
-                    startPauseTime = SystemClock.uptimeMillis();
-                    item.setIcon(R.drawable.ic_play);
-                }
+                // Gestion du menu pause
+                gererPause(item);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Gestion du menu pause/play avec arrêt et redémarrage du rennable
+     *
+     * @param item item sélectionné
+     */
+    private void gererPause(MenuItem item) {
+        if (isPaused) {
+            isPaused = false;
+            // On redémarre le runnable
+            customHandler.postDelayed(updateTimerThread, 0);
+            // On ajoute les millisecondes écoulées actuellement - les millisecondes écoulées quand la pause a commencé.
+            pauseTime += SystemClock.uptimeMillis() - startPauseTime;
+            // On change l'icon correspondant à l'item
+            item.setIcon(R.drawable.ic_pause);
+        }
+        else {
+            isPaused = true;
+            // On stop le runnable
+            customHandler.removeCallbacks(updateTimerThread);
+            // On récupère les millisecondes écoulées depuis le boot
+            startPauseTime = SystemClock.uptimeMillis();
+            // On change l'icon correspondant à l'item
+            item.setIcon(R.drawable.ic_play);
+        }
     }
 }

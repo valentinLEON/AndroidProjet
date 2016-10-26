@@ -19,7 +19,13 @@ import android.view.View;
 import java.util.Random;
 
 /**
- * Auteur : Nicolas Orlandini
+ * Niveau caché easter egg : Back To The Future
+ * Cette vue personnalisée permet d'afficher le jeu et gère les
+ * interactions ainsi que l'affichage du timer et du score
+ *
+ * @author Nicolas Orlandini
+ * @version 2016.0.34
+ *
  * Date de création : 26/10/2016
  * Dernière modification : 26/10/2016
  */
@@ -160,9 +166,9 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
     }
 
     public void update() {
-        Random randomValue = new Random();
-
         if (!GameActivity.getPaused()){
+            Random randomValue = new Random();
+
             mFileX = (float)randomValue.nextInt(screenWidth - 50);
             mFileY = (float)randomValue.nextInt(screenHeight - 120);
         }

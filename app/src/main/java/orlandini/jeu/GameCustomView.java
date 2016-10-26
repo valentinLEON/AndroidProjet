@@ -20,9 +20,14 @@ import android.view.animation.AnimationUtils;
 import java.util.Random;
 
 /**
- * Auteur : Nicolas Orlandini
+ * Cette vue personnalisée permet d'afficher le jeu et gère les
+ * interactions ainsi que l'affichage du timer et du score
+ *
+ * @author Nicolas Orlandini
+ * @version 2016.0.34
+ *
  * Date de création : 09/10/2016
- * Dernière modification : 24/10/2016
+ * Dernière modification : 26/10/2016
  */
 
 public class GameCustomView extends View implements View.OnTouchListener {
@@ -143,13 +148,11 @@ public class GameCustomView extends View implements View.OnTouchListener {
     }
 
     public void update() {
-        Random randomValue = new Random();
-        float value1 = (float)randomValue.nextInt(screenWidth - 50);
-        float value2 = (float)randomValue.nextInt(screenHeight - 120);
-
         if (!GameActivity.getPaused()){
-            mFileX = value1;
-            mFileY = value2;
+            Random randomValue = new Random();
+
+            mFileX = (float)randomValue.nextInt(screenWidth - 50);
+            mFileY = (float)randomValue.nextInt(screenHeight - 120);
         }
     }
 

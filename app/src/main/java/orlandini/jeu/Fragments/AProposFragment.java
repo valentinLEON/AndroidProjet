@@ -10,7 +10,15 @@ import android.view.ViewGroup;
 import orlandini.jeu.R;
 
 /**
- * Auteur : Nicolas Orlandini
+ * Ce fragment affiche le A propos de l'application
+ * - La version
+ * - Les auteurs
+ * - Une courte description
+ *
+ * @author Nicolas Orlandini
+ * @version 2016.0.34
+ *
+ * Nom ! AProposFragment.java
  * Date de création : 25/10/2016
  * Dernière modification : 25/10/2016
  */
@@ -25,7 +33,6 @@ public class AProposFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_apropos, container, false);
     }
 }

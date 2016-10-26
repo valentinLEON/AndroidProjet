@@ -21,9 +21,15 @@ import orlandini.jeu.Fragments.HomeFragment;
 import orlandini.jeu.Fragments.LeaderboardFragment;
 
 /**
- * Auteur : Nicolas Orlandini
+ * Activité principale, contient le navigation drawer
+ * ainsi que le fragment sélectionné par l'utilisateur depuis
+ * le navigation drawer.
+ *
+ * @author Nicolas Orlandini
+ * @version 2016.0.34
+ *
  * Date de création : 09/10/2016
- * Dernière modification : 25/10/2016
+ * Dernière modification : 26/10/2016
  */
 
 public class MainActivity extends AppCompatActivity{
@@ -78,6 +84,10 @@ public class MainActivity extends AppCompatActivity{
                 });
     }
 
+    /**
+     * Spécifie les actions a effectuer suivant l'item sélectionné par l'utilisateur dans le navigation drawer.
+     * @param menuItem item sélectionné
+     */
     public void selectDrawerItem(MenuItem menuItem) {
 
         Fragment fragment = null;
@@ -109,14 +119,14 @@ public class MainActivity extends AppCompatActivity{
         // Insert the fragment by replacing any existing fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        // Replace the fragment
+        // Remplacer le fragment
         transaction.replace(R.id.main_Content, fragment).commit();
 
-        // Highlight the selected item has been done by NavigationView
+        // Surligner l'item sélectionné
         menuItem.setChecked(true);
-        // Set action bar title
+        // Applique le titre de l'actionBar
         setTitle(menuItem.getTitle());
-        // Close the navigation drawer
+        // Fermer le navigation drawer
         mDrawer.closeDrawers();
     }
 
@@ -140,11 +150,15 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
+    /**
+     * Défini les actions a exécuter suivant l'item de l'action bar sélectionné par l'utilisateur.
+     * @param item item sélectionné par l'utilisateur
+     * @return booléen
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Fragment fragment = null;
         switch (item.getItemId()) {
-            // action with ID action_refresh was selected
             case R.id.help:
                 Class fragmentClass =  HelpFragment.class;
                 try {
@@ -163,6 +177,10 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    /**
+     * Méthode éxécutée lorsque l'utilisateur sélectionne l'image du navigation drawer header
+     * @param v vue
+     */
     public void easterEgg(View v) {
         Toast.makeText(getApplicationContext(), "Bonjour, je suis un easter egg", Toast.LENGTH_LONG).show();
     }
