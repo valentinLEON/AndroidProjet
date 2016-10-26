@@ -33,7 +33,12 @@ public class GameActivity extends AppCompatActivity{
     long updatedTime = 0L;
     long startPauseTime = 0L;
     long pauseTime = 0L;
-    boolean isPaused = false;
+
+    public static boolean getPaused() {
+        return isPaused;
+    }
+
+    private static boolean isPaused = false;
     private ScoreDataBase scoreDB;
     private Toolbar toolbar;
 
@@ -43,13 +48,13 @@ public class GameActivity extends AppCompatActivity{
         return secs;
     }
 
-    static int secs = 0;
+    private static int secs = 0;
 
     public static int getMins() {
         return mins;
     }
 
-    static int mins = 0;
+    private static int mins = 0;
 
     SharedPreferences prefs;
 

@@ -59,7 +59,6 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private Runnable animator = new Runnable() {
         @Override
         public void run() {
-            long now = AnimationUtils.currentAnimationTimeMillis();
             update();
             invalidate();
             if(!isAtReset()){
@@ -119,16 +118,19 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
-                        && y <= mFileY + ICON_SIZE) {
-                    if (prefs.getBoolean("switch_sons", true))
-                        mMediaPlayer.start();
-                    if (prefs.getBoolean("switch_vibreur", true))
-                        vibrator.vibrate(100);
-                    setVisibility(View.VISIBLE);
-                    score++;
-                    invalidate();
+                if (!GameActivity.getPaused()) {
+                    if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
+                            && y <= mFileY + ICON_SIZE) {
+                        if (prefs.getBoolean("switch_sons", true))
+                            mMediaPlayer.start();
+                        if (prefs.getBoolean("switch_vibreur", true))
+                            vibrator.vibrate(100);
+                        setVisibility(View.VISIBLE);
+                        score++;
+                        invalidate();
+                    }
                 }
+
                 return true;
 
             case MotionEvent.ACTION_MOVE:
@@ -145,8 +147,10 @@ public class GameCustomView extends View implements View.OnTouchListener {
         float value1 = (float)randomValue.nextInt(screenWidth - 50);
         float value2 = (float)randomValue.nextInt(screenHeight - 120);
 
-        mFileX = value1;
-        mFileY = value2;
+        if (!GameActivity.getPaused()){
+            mFileX = value1;
+            mFileY = value2;
+        }
     }
 
     public boolean isAtReset(){
