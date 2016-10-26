@@ -35,6 +35,8 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 - [x] Reconception de l'application
 - [x] Création des différents fragments nécessaires pour le nouveau menu
 - [x] Implémentation des paramètres/préférences de jeu
+        - [x] Implémentation de modification du vibreur
+        - [x] Implémentation d'activation/désactivation du son
 - [ ] Implémentation du tableau des scores
 - [x] Création de la base de données en local, SQLite
 - [x] Mise en place de place des sons pour le jeu
@@ -47,3 +49,4 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 - [ ] Compléter le helper dans l'action bar
 - [ ] Compléter le bouton A propos dans le navigation drawer
 - [ ] Ajout de la modification du temps de jeu dans les préférences
+- [ ] Ajout dans les préférences du choix des sons
