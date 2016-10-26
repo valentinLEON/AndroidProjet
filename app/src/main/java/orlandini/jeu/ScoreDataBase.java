@@ -62,7 +62,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT * FROM " + TABLE_SCORE;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()){
@@ -79,15 +79,33 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     public String getTopScore(){
 
         String score;
+
+        //String selectQuery = "SELECT MAX(" + KEY_SCORE + ") FROM " + TABLE_SCORE;
+        String selectQuery = "SELECT * FROM " + TABLE_SCORE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
         int tempValue = 0;
-        for (Iterator<String> i = getAllScores().iterator(); i.hasNext(); ) {
-            if(Integer.parseInt(i.next()) > tempValue){
-                tempValue = Integer.parseInt(i.next());
+        int scoration = 0;
+        String temp = "";
+
+        if(cursor.moveToFirst()){
+            while(!cursor.isAfterLast()){
+                temp = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
+                tempValue = Integer.parseInt(temp);
+                if(tempValue > scoration){
+                    scoration = tempValue;
+                }
             }
         }
 
-        score = Integer.toString(tempValue);
-
-        return score;
+        /*for (Iterator<String> i = getAllScores().iterator(); i.hasNext(); ) {
+            if(Integer.parseInt(i.next()) > tempValue){
+                temp = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
+                tempValue = Integer.parseInt(i.next());
+            }
+        }*/
+        cursor.close();
+        return String.valueOf(scoration);
     }
 }
