@@ -32,6 +32,7 @@ public class LeaderboardFragment extends Fragment {
     private TextView myscore;
     public ScoreDataBase db;
     private ArrayList<String> score;
+    private String myString;
     private RecyclerView rv;
 
     public LeaderboardFragment() {
@@ -52,10 +53,21 @@ public class LeaderboardFragment extends Fragment {
         rv.setHasFixedSize(true);
 
         initializeAdapter();
-        initializeData();
+        initializeData(); */
 
-        myscore = (TextView)myView.findViewById(R.id.score);*/
+        db = new ScoreDataBase(getContext());
 
+        for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext();){
+            String scoremescouilles = i.next();
+            Log.v(scoremescouilles, "mon score");
+        }
+
+        myString = db.getTopScore();
+
+        //Log.v(myString, "score avec getTopScore");
+        myscore = (TextView)myView.findViewById(R.id.myscore);
+
+        myscore.setText("Mon score " + myString);
 
         return myView;
     }

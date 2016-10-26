@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ScoreDataBase extends SQLiteOpenHelper {
 
@@ -46,6 +47,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //add score in the table
     public void addScore(int score){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -55,6 +57,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         db.close();
     }
 
+    //get all scores from the table score
     public ArrayList<String> getAllScores(){
 
         String selectQuery = "SELECT * FROM " + TABLE_SCORE;
@@ -71,5 +74,20 @@ public class ScoreDataBase extends SQLiteOpenHelper {
             }
         }
         return listeScore;
+    }
+
+    public String getTopScore(){
+
+        String score;
+        int tempValue = 0;
+        for (Iterator<String> i = getAllScores().iterator(); i.hasNext(); ) {
+            if(Integer.parseInt(i.next()) > tempValue){
+                tempValue = Integer.parseInt(i.next());
+            }
+        }
+
+        score = Integer.toString(tempValue);
+
+        return score;
     }
 }

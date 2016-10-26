@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import orlandini.jeu.Fragments.AProposFragment;
+import orlandini.jeu.Fragments.HelpFragment;
 import orlandini.jeu.Fragments.HomeFragment;
 import orlandini.jeu.Fragments.LeaderboardFragment;
 
