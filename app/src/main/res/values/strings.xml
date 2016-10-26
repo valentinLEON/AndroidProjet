@@ -54,4 +54,5 @@
     <string name="title_drawer_leaderboard">Leaderboard</string>
     <string name="title_drawer_settings">Paramètres</string>
     <string name="title_drawer_a_propos">A Propos</string>
+    <string name="action_pause">pause</string>
 </resources>

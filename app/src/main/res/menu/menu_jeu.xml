@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/pause"
         android:icon="@drawable/ic_pause"
-        android:title="@string/help"
+        android:title="@string/action_pause"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/preferences"
         android:title="@string/action_settings"

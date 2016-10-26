@@ -31,6 +31,9 @@ public class GameActivity extends AppCompatActivity{
     long timeInMilliseconds = 0L;
     long timeSwapBuff = 0L;
     long updatedTime = 0L;
+    long startPauseTime = 0L;
+    long pauseTime = 0L;
+    boolean isPaused = false;
     private ScoreDataBase scoreDB;
     private Toolbar toolbar;
 
@@ -80,6 +83,7 @@ public class GameActivity extends AppCompatActivity{
                 getSupportFragmentManager().beginTransaction().replace(R.id.game_content, fragment).commit();*/
                 GameCustomView.setScore(0);
                 startTime = SystemClock.uptimeMillis();
+
                 customHandler.postDelayed(updateTimerThread, 0);
             }
         });
@@ -88,8 +92,10 @@ public class GameActivity extends AppCompatActivity{
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
             String temps = prefs.getString("pref_temps_jeu", "30");
+
             if (secs == Integer.parseInt(temps)) {
                 secs = 0;
+                pauseTime = 0L;
                 //add in the database
                 scoreDB.addScore(GameCustomView.getScore());
 
@@ -99,14 +105,15 @@ public class GameActivity extends AppCompatActivity{
                 customHandler.removeCallbacks(this);
                 StartButton.setVisibility(View.VISIBLE);
             } else {
-                timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+                timeInMilliseconds = SystemClock.uptimeMillis() - startTime - pauseTime;
                 updatedTime = timeSwapBuff + timeInMilliseconds;
 
                 secs = (int) (updatedTime / 1000);
                 mins = secs / 60;
                 secs = secs % 60;
 
-                customHandler.postDelayed(this, 0);
+                customHandler.postDelayed(updateTimerThread, 0);
+
                 StartButton.setVisibility(View.INVISIBLE);
             }
         }
@@ -143,6 +150,20 @@ public class GameActivity extends AppCompatActivity{
                 break;
             case R.id.new_game:
                 Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.pause:
+                if (isPaused) {
+                    isPaused = false;
+                    customHandler.postDelayed(updateTimerThread, 0);
+                    pauseTime += SystemClock.uptimeMillis() - startPauseTime;
+                    item.setIcon(R.drawable.ic_pause);
+                }
+                else {
+                    isPaused = true;
+                    customHandler.removeCallbacks(updateTimerThread);
+                    startPauseTime = SystemClock.uptimeMillis();
+                    item.setIcon(R.drawable.ic_play);
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
