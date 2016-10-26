@@ -33,6 +33,7 @@ public class GameActivity extends AppCompatActivity{
     long updatedTime = 0L;
     long startPauseTime = 0L;
     long pauseTime = 0L;
+    private boolean recommencer = false;
 
     public static boolean getPaused() {
         return isPaused;
@@ -109,6 +110,13 @@ public class GameActivity extends AppCompatActivity{
                 newFragment.show(fm, "Fragment_fatality_dialog");
                 customHandler.removeCallbacks(this);
                 StartButton.setVisibility(View.VISIBLE);
+            } else if (recommencer) {
+                recommencer = false;
+                secs = 0;
+                pauseTime = 0L;
+                customHandler.removeCallbacks(this);
+                StartButton.setVisibility(View.VISIBLE);
+
             } else {
                 timeInMilliseconds = SystemClock.uptimeMillis() - startTime - pauseTime;
                 updatedTime = timeSwapBuff + timeInMilliseconds;
@@ -155,6 +163,7 @@ public class GameActivity extends AppCompatActivity{
                 break;
             case R.id.new_game:
                 Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
+                recommencer = true;
                 break;
             case R.id.pause:
                 if (isPaused) {
