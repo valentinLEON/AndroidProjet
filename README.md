@@ -16,6 +16,7 @@ Vous pouvez nous donner vos retours, si jamais vous constatez un problème ici :
   - le/les son(s) de l'application en elle-même
   - activer ou non la vibration
   - activer ou non le son
+* de nouvelles fonctionnalités sont en cours de développement, elles sont stockées dans les issues, afin de nous en servir de TODO e tde garder une trace de ce que nous voulons faire par la suite.
 
 -----------------
 -----------------
@@ -33,8 +34,16 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 - [x] Changement du menu basique pour un navigation drawer
 - [x] Reconception de l'application
 - [x] Création des différents fragments nécessaires pour le nouveau menu
-- [ ] Implémentation des paramètres/préférences de jeu
+- [x] Implémentation des paramètres/préférences de jeu
 - [ ] Implémentation du tableau des scores
 - [x] Création de la base de données en local, SQLite
 - [x] Mise en place de place des sons pour le jeu
 - [x] Ajout des fonctionnalités du temps de jeu et du calcul de score
+- [ ] Ajout d'un niveau easter egg inspiré de Back to the Future, version Halloween
+- [ ] Ajout d'effet sur un/des bouton(s) pour rendre l'application plus moderne
+- [ ] Ajout et paramétrage de bouton "Pause" et "Rejouer" dans la vue du jeu
+- [ ] Afficher le nom dans le navigation drawer
+- [x] Afficher le nom dans les préférences
+- [ ] Compléter le helper dans l'action bar
+- [ ] Compléter le bouton A propos dans le navigation drawer
+- [ ] Ajout de la modification du temps de jeu dans les préférences
