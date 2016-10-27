@@ -36,7 +36,6 @@ public class LeaderboardFragment extends Fragment {
     private RecyclerView rv;
 
     public LeaderboardFragment() {
-        // Required empty public constructor
     }
 
 
@@ -47,11 +46,9 @@ public class LeaderboardFragment extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         /*rv = (RecyclerView)myView.findViewById(R.id.rv);
-
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
-
         initializeAdapter();
         initializeData(); */
 
@@ -63,22 +60,22 @@ public class LeaderboardFragment extends Fragment {
         }*/
 
         myString = db.getTopScore();
-        myscore = (TextView)myView.findViewById(R.id.myscore);
-        myscore.setText("Mon score " + myString);
+        myscore = (TextView) myView.findViewById(R.id.myscore);
+        myscore.setText(getString(R.string.score) + myString);
 
         return myView;
     }
 
-    private void initializeData(){
+    private void initializeData() {
         score = new ArrayList<>();
         db = new ScoreDataBase(getContext());
-        for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext();){
+        for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext(); ) {
             String scoremescouilles = i.next();
             score.add(scoremescouilles);
         }
     }
 
-    private void initializeAdapter(){
+    private void initializeAdapter() {
         RVAdapter adapter = new RVAdapter(score);
         rv.setAdapter(adapter);
     }

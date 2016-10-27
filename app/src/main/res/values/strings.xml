@@ -58,6 +58,7 @@
     <string name="pref_theme">pref_theme</string>
     <string name="title_pref_theme">Thème</string>
     <string name="pref_theme_dialog_title">Choisir le thème</string>
+    <string name="score">"Mon score "</string>
 
     <string-array name="items_themes">
         <item>Halloween</item>
