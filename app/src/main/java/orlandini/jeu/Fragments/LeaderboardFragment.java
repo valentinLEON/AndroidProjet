@@ -57,10 +57,10 @@ public class LeaderboardFragment extends Fragment {
 
         db = new ScoreDataBase(getContext());
 
-        for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext();){
+        /*for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext();){
             String scoremescouilles = i.next();
             Log.v(scoremescouilles, "mon score");
-        }
+        }*/
 
         myString = db.getTopScore();
         myscore = (TextView)myView.findViewById(R.id.myscore);

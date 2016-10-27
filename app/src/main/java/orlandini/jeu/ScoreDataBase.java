@@ -81,18 +81,26 @@ public class ScoreDataBase extends SQLiteOpenHelper {
 
     //on récupère la top value de la table des scores
     public String getTopScore(){
-        ArrayList<Integer> maliste = getAllIntegerScore();
-        int score = Collections.max(maliste);
+        ArrayList<Integer> maliste = new ArrayList<>();
+        int score = 0;
+        if(!getAllIntegerScore().isEmpty()){
+            maliste = getAllIntegerScore();
+            score = Collections.max(maliste);
+        }
         return String.valueOf(score);
     }
 
     private ArrayList<Integer> getAllIntegerScore(){
-        ArrayList<String> maliste = getAllScores();
-        ArrayList<Integer> mynewlist = new ArrayList<Integer>(maliste.size());
 
-        for(String myInt : maliste){
-            mynewlist.add(Integer.valueOf(myInt));
+        ArrayList<Integer> mynewlist = new ArrayList<Integer>();
+        if(!this.getAllScores().isEmpty()){
+            ArrayList<String> maliste = getAllScores();
+
+            for(String myInt : maliste){
+                mynewlist.add(Integer.valueOf(myInt));
+            }
         }
+
         return mynewlist;
     }
 }
