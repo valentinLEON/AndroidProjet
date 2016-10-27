@@ -2,12 +2,15 @@ package orlandini.jeu;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -27,7 +30,7 @@ import android.widget.Toast;
  * @version 2016.0.34
  *
  * Date de création : 09/10/2016
- * Dernière modification : 25/10/2016
+ * Dernière modification : 27/10/2016
  */
 
 public class GameActivity extends AppCompatActivity{
@@ -71,18 +74,18 @@ public class GameActivity extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setTitle("Jeu");
-        }
+        ActionBar actionBar = getSupportActionBar();
 
-        // Récupération des préférences
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
+        }
 
         scoreDB = new ScoreDataBase(getApplicationContext());
 
         StartButton = (Button) findViewById(R.id.startButton);
+        StartButton.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
         StartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 /*Class fragmentClass =  GameCustomView.class;
@@ -226,5 +229,12 @@ public class GameActivity extends AppCompatActivity{
             // On change l'icon correspondant à l'item
             item.setIcon(R.drawable.ic_play);
         }
+    }
+
+    private int changerCouleur() {
+        // Récupération des préférences
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        String color = prefs.getString("pref_theme", "#FFA500");
+        return Color.parseColor(color);
     }
 }

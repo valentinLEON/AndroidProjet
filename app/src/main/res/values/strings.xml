@@ -21,6 +21,12 @@
     <string name="leaderboard_title">Bienvenue sur le tableau des scores</string>
     <string name="pancake">Pancake</string>
 
+    <string name="title_drawer_accueil">Accueil</string>
+    <string name="title_drawer_leaderboard">Leaderboard</string>
+    <string name="title_drawer_settings">Paramètres</string>
+    <string name="title_drawer_a_propos">A Propos</string>
+    <string name="action_pause">pause</string>
+
     <!-- =========================================================================================================== -->
     <!--                                          Advanced settings                                                  -->
     <!-- =========================================================================================================== -->
@@ -48,11 +54,22 @@
     <string name="txt_Bonsoir">Bonsoir\n</string>
     <string name="imageView_description">ImageDrawer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_drawer_accueil">Accueil</string>
-    <string name="title_drawer_leaderboard">Leaderboard</string>
-    <string name="title_drawer_settings">Paramètres</string>
-    <string name="title_drawer_a_propos">A Propos</string>
-    <string name="action_pause">pause</string>
+    <string name="default_value_theme">Halloween</string>
+    <string name="pref_theme">pref_theme</string>
+    <string name="title_pref_theme">Thème</string>
+    <string name="pref_theme_dialog_title">Choisir le thème</string>
+
+    <string-array name="items_themes">
+        <item>Halloween</item>
+        <item>Défaut</item>
+    </string-array>
+
+    <string-array name="themes_listentries">
+        <item>Halloween</item>
+        <item>Défaut</item>
+    </string-array>
+    <string-array name="themes_listvalues">
+        <item>#EE7600</item>
+        <item>#3f51b5</item>
+    </string-array>
 </resources>

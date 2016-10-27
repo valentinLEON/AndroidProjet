@@ -1,18 +1,28 @@
 package orlandini.jeu;
 
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import orlandini.jeu.Fragments.AProposFragment;
@@ -37,8 +47,17 @@ public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
+    private LinearLayout navHeader;
     private ActionBarDrawerToggle drawerToggle;
     public static ScoreDataBase scoreDataBase;
+    private SharedPreferences prefs;
+    int[][] states = new int[][] {
+            new int[] { android.R.attr.state_enabled}, // enabled
+            new int[] {-android.R.attr.state_enabled}, // disabled
+            new int[] {-android.R.attr.state_checked}, // unchecked
+            new int[] { android.R.attr.state_pressed}  // pressed
+    };
+    ColorStateList myList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +65,72 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(changerCouleur());
         setSupportActionBar(toolbar);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
 
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
+
+
+        /**
+         * start of code configuration for color of text of your Navigation Drawer / Menu based on state
+         */
+        int[][] state = new int[][] {
+                new int [] {android.R.attr.state_pressed},
+                new int [] {android.R.attr.state_focused},
+                new int [] {android.R.attr.state_checked},
+                new int [] {}
+        };
+
+        int[] color = new int[] {
+                changerCouleur(),
+                changerCouleur(),
+                changerCouleur(),
+                Color.DKGRAY
+        };
+
+        ColorStateList colorStateList1 = new ColorStateList(state, color);
+
+
+        // FOR NAVIGATION VIEW ITEM ICON COLOR
+        int[][] states = new int[][] {
+                new int [] {android.R.attr.state_pressed},
+                new int [] {android.R.attr.state_focused},
+                new int [] {android.R.attr.state_checked},
+                new int [] {}
+        };
+
+        int[] colors = new int[] {
+                changerCouleur(),
+                changerCouleur(),
+                changerCouleur(),
+                Color.DKGRAY
+        };
+        ColorStateList colorStateList2 = new ColorStateList(states, colors);
+        nvDrawer.setItemTextColor(colorStateList1);
+        nvDrawer.setItemIconTintList(colorStateList2);
+        /**
+         * end of code configuration for color of text of your Navigation Drawer / Menu based on state
+         */
+
         setupDrawerContent(nvDrawer);
 
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-        }
+        ActionBar actionBar = getSupportActionBar();
 
-        //TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
-        //myAwesomeTextView.setText(prefs.getString("id_joueur", null));
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+
+            //Toast.makeText(getApplicationContext(), color,Toast.LENGTH_LONG).show();
+            actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
+        }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
 
         scoreDataBase = new ScoreDataBase(getBaseContext());
+
     }
 
     //Toggle l'icone hamburger
@@ -77,7 +143,10 @@ public class MainActivity extends AppCompatActivity{
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
+                        navHeader = (LinearLayout) findViewById(R.id.nav_header);
+                        navHeader.setBackgroundColor(changerCouleur());
+                        TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
+                        myAwesomeTextView.setText(prefs.getString("id_joueur", ""));
                         selectDrawerItem(menuItem);
                         return true;
                     }
@@ -126,7 +195,8 @@ public class MainActivity extends AppCompatActivity{
         menuItem.setChecked(true);
         // Applique le titre de l'actionBar
         setTitle(menuItem.getTitle());
-        // Fermer le navigation drawer
+        //setTitle(Html.fromHtml("<font color='"+changerCouleur()+"'>"+menuItem.getTitle()+"</font>"));
+
         mDrawer.closeDrawers();
     }
 
@@ -183,5 +253,13 @@ public class MainActivity extends AppCompatActivity{
      */
     public void easterEgg(View v) {
         Toast.makeText(getApplicationContext(), "Bonjour, je suis un easter egg", Toast.LENGTH_LONG).show();
+    }
+
+
+    private int changerCouleur() {
+        // Récupération des préférences
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        String color = prefs.getString("pref_theme", "#FFA500");
+        return Color.parseColor(color);
     }
 }
