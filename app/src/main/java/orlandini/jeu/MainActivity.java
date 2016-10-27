@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     /**
-     * Méthode éxécutée lorsque l'utilisateur sélectionne l'image du navigation drawer header
+     * Méthode exécutée lorsque l'utilisateur sélectionne l'image du navigation drawer header
      * @param v vue
      */
     public void easterEgg(View v) {

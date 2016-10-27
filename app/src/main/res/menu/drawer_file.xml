@@ -10,7 +10,7 @@
             android:icon="@drawable/ic_grade_black_24dp"
             android:title="@string/title_drawer_leaderboard" />
 
-        <item android:title="">
+        <item android:title="Autres">
             <menu>
                 <group android:checkableBehavior="single">
                     <item

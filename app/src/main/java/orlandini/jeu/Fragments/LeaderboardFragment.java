@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import orlandini.jeu.MainActivity;
 import orlandini.jeu.R;
 
 import orlandini.jeu.GameCustomView;
@@ -30,7 +31,6 @@ import static orlandini.jeu.MainActivity.scoreDataBase;
 public class LeaderboardFragment extends Fragment {
 
     private TextView myscore;
-    public ScoreDataBase db;
     private ArrayList<String> score;
     private String myString;
     private RecyclerView rv;
@@ -52,14 +52,12 @@ public class LeaderboardFragment extends Fragment {
         initializeAdapter();
         initializeData(); */
 
-        db = new ScoreDataBase(getContext());
-
         /*for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext();){
             String scoremescouilles = i.next();
             Log.v(scoremescouilles, "mon score");
         }*/
 
-        myString = db.getTopScore();
+        myString = MainActivity.scoreDataBase.getTopScore();
         myscore = (TextView) myView.findViewById(R.id.myscore);
         myscore.setText(getString(R.string.score) + myString);
 
@@ -68,8 +66,7 @@ public class LeaderboardFragment extends Fragment {
 
     private void initializeData() {
         score = new ArrayList<>();
-        db = new ScoreDataBase(getContext());
-        for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext(); ) {
+        for (Iterator<String> i = MainActivity.scoreDataBase.getAllScores().iterator(); i.hasNext(); ) {
             String scoremescouilles = i.next();
             score.add(scoremescouilles);
         }
