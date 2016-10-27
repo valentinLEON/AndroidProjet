@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,11 +17,7 @@ import java.util.Iterator;
 import orlandini.jeu.MainActivity;
 import orlandini.jeu.R;
 
-import orlandini.jeu.GameCustomView;
-import orlandini.jeu.RVAdapter;
 import orlandini.jeu.ScoreDataBase;
-
-import static orlandini.jeu.MainActivity.scoreDataBase;
 
 
 /**
@@ -47,17 +42,22 @@ public class LeaderboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
-        /*rv = (RecyclerView)myView.findViewById(R.id.rv);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        rv.setLayoutManager(llm);
-        rv.setHasFixedSize(true);
-        initializeAdapter();
-        initializeData(); */
+        rv = (RecyclerView)myView.findViewById(R.id.rv);
+        ArrayList<String> items = new ArrayList<String>();
+        for (int i = 0; i < items.size(); i++){
+            items.add("test " + i);
+        }
 
-        for (Iterator<Integer> i = db.getFiveBestScores().iterator(); i.hasNext();){
+        //RecyclerViewAdapter adapter = new RecyclerViewAdapter(items, android.R.layout.simple_list_item_1);
+        //rv.setAdapter(adapter);
+        //rv.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        /*for (Iterator<Integer> i = db.getFiveBestScores().iterator(); i.hasNext();){
             Integer scoremescouilles = i.next();
             Log.v(String.valueOf(scoremescouilles), "mon score");
-        }
+        }*/
 
         myString = db.getTopScore();
         myscore = (TextView) myView.findViewById(R.id.myscore);
@@ -75,8 +75,8 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void initializeAdapter() {
-        RVAdapter adapter = new RVAdapter(score);
-        rv.setAdapter(adapter);
+        /*RVAdapter adapter = new RVAdapter(score);
+        rv.setAdapter(adapter);*/
     }
 
 }
