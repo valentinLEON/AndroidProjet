@@ -54,9 +54,9 @@ public class LeaderboardFragment extends Fragment {
         initializeAdapter();
         initializeData(); */
 
-        for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext();){
-            String scoremescouilles = i.next();
-            Log.v(scoremescouilles, "mon score");
+        for (Iterator<Integer> i = db.getFiveBestScores().iterator(); i.hasNext();){
+            Integer scoremescouilles = i.next();
+            Log.v(String.valueOf(scoremescouilles), "mon score");
         }
 
         myString = db.getTopScore();

@@ -11,19 +11,20 @@
     android:id="@+id/nav_header">
 
     <ImageButton
+
         android:id="@+id/imageView"
-        android:background="#00000000"
+        android:background="@drawable/delorean1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/delorean_panneau"
         android:contentDescription="@string/imageView_description"
         android:onClick="easterEgg"/>
+    <!--app:srcCompat="@drawable/delorean1"-->
 
     <TextView
         android:id="@+id/nom_joueur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="13dp"
         android:textColor="@android:color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
 </LinearLayout>
