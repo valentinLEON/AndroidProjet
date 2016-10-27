@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -17,7 +16,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,10 +34,10 @@ import orlandini.jeu.Fragments.LeaderboardFragment;
  * le navigation drawer.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.34
+ * @version 2016.0.37
  *
  * Date de création : 09/10/2016
- * Dernière modification : 26/10/2016
+ * Dernière modification : 27/10/2016
  */
 
 public class MainActivity extends AppCompatActivity{
@@ -51,17 +49,11 @@ public class MainActivity extends AppCompatActivity{
     private ActionBarDrawerToggle drawerToggle;
     public static ScoreDataBase scoreDataBase;
     private SharedPreferences prefs;
-    int[][] states = new int[][] {
-            new int[] { android.R.attr.state_enabled}, // enabled
-            new int[] {-android.R.attr.state_enabled}, // disabled
-            new int[] {-android.R.attr.state_checked}, // unchecked
-            new int[] { android.R.attr.state_pressed}  // pressed
-    };
-    ColorStateList myList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,51 +62,9 @@ public class MainActivity extends AppCompatActivity{
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
-
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
-
-        /**
-         * start of code configuration for color of text of your Navigation Drawer / Menu based on state
-         */
-        int[][] state = new int[][] {
-                new int [] {android.R.attr.state_pressed},
-                new int [] {android.R.attr.state_focused},
-                new int [] {android.R.attr.state_checked},
-                new int [] {}
-        };
-
-        int[] color = new int[] {
-                changerCouleur(),
-                changerCouleur(),
-                changerCouleur(),
-                Color.DKGRAY
-        };
-
-        ColorStateList colorStateList1 = new ColorStateList(state, color);
-
-
-        // FOR NAVIGATION VIEW ITEM ICON COLOR
-        int[][] states = new int[][] {
-                new int [] {android.R.attr.state_pressed},
-                new int [] {android.R.attr.state_focused},
-                new int [] {android.R.attr.state_checked},
-                new int [] {}
-        };
-
-        int[] colors = new int[] {
-                changerCouleur(),
-                changerCouleur(),
-                changerCouleur(),
-                Color.DKGRAY
-        };
-        ColorStateList colorStateList2 = new ColorStateList(states, colors);
-        nvDrawer.setItemTextColor(colorStateList1);
-        nvDrawer.setItemIconTintList(colorStateList2);
-        /**
-         * end of code configuration for color of text of your Navigation Drawer / Menu based on state
-         */
-
+        appliquerThemeNavigationDrawer();
         setupDrawerContent(nvDrawer);
 
         ActionBar actionBar = getSupportActionBar();
@@ -122,8 +72,6 @@ public class MainActivity extends AppCompatActivity{
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
-
-            //Toast.makeText(getApplicationContext(), color,Toast.LENGTH_LONG).show();
             actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
         }
 
@@ -147,6 +95,7 @@ public class MainActivity extends AppCompatActivity{
                         navHeader.setBackgroundColor(changerCouleur());
                         TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
                         myAwesomeTextView.setText(prefs.getString("id_joueur", ""));
+
                         selectDrawerItem(menuItem);
                         return true;
                     }
@@ -242,7 +191,6 @@ public class MainActivity extends AppCompatActivity{
             default:
                 break;
         }
-
         return  super.onOptionsItemSelected(item);
     }
 
@@ -259,7 +207,27 @@ public class MainActivity extends AppCompatActivity{
     private int changerCouleur() {
         // Récupération des préférences
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        String color = prefs.getString("pref_theme", "#FFA500");
+        String color = prefs.getString("pref_theme", "#00AFF0");
         return Color.parseColor(color);
+    }
+
+    private void appliquerThemeNavigationDrawer(){
+        int[][] state = new int[][] {
+                new int [] {android.R.attr.state_pressed},
+                new int [] {android.R.attr.state_focused},
+                new int [] {android.R.attr.state_checked},
+                new int [] {}
+        };
+
+        int[] color = new int[] {
+                changerCouleur(),
+                changerCouleur(),
+                changerCouleur(),
+                Color.DKGRAY
+        };
+
+        ColorStateList colorStateList = new ColorStateList(state, color);
+        nvDrawer.setItemTextColor(colorStateList);
+        nvDrawer.setItemIconTintList(colorStateList);
     }
 }

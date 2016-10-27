@@ -69,7 +69,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
             update();
             invalidate();
             if(!isAtReset()){
-                prefVitesse = prefs.getInt("seekbar_vitesse", 0);
+                prefVitesse = prefs.getInt("seekbar_vitesse", 500);
                 postDelayed(this,prefVitesse);
 
                 //Toast.makeText(getContext(), String.valueOf(vitesse),Toast.LENGTH_LONG).show();
