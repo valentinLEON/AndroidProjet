@@ -42,6 +42,7 @@ public class FatalityDialogFragment extends DialogFragment {
                         mMediaPlayerRejouer.start();
                     }
                 })
+                //TODO: voir pourquoi ça kill l'application
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         System.exit(0);

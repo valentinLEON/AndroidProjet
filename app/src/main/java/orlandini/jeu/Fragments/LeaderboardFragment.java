@@ -35,6 +35,8 @@ public class LeaderboardFragment extends Fragment {
     private String myString;
     private RecyclerView rv;
 
+    private ScoreDataBase db = MainActivity.scoreDataBase;
+
     public LeaderboardFragment() {
     }
 
@@ -52,14 +54,14 @@ public class LeaderboardFragment extends Fragment {
         initializeAdapter();
         initializeData(); */
 
-        /*for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext();){
+        for (Iterator<String> i = db.getAllScores().iterator(); i.hasNext();){
             String scoremescouilles = i.next();
             Log.v(scoremescouilles, "mon score");
-        }*/
+        }
 
-        myString = MainActivity.scoreDataBase.getTopScore();
+        myString = db.getTopScore();
         myscore = (TextView) myView.findViewById(R.id.myscore);
-        myscore.setText(getString(R.string.score) + myString);
+        myscore.setText(getString(R.string.text_score) + myString);
 
         return myView;
     }

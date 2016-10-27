@@ -16,7 +16,7 @@ Vous pouvez nous donner vos retours, si jamais vous constatez un problème ici :
   - le/les son(s) de l'application en elle-même
   - activer ou non la vibration
   - activer ou non le son
-* de nouvelles fonctionnalités sont en cours de développement, elles sont stockées dans les issues, afin de nous en servir de TODO e tde garder une trace de ce que nous voulons faire par la suite.
+* de nouvelles fonctionnalités sont en cours de développement, elles sont stockées dans les issues, afin de nous en servir de to do et de garder une trace de ce que nous voulons faire par la suite.
 
 -----------------
 -----------------

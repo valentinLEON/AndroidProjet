@@ -88,6 +88,25 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         return String.valueOf(score);
     }
 
+    //on get les 5 meilleurs scores
+    public ArrayList<String> getFiveBestScores(){
+        String selectQuery = "SELECT TOP 5 " + KEY_SCORE + "FROM " + TABLE_SCORE + "order by desc";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            while(!cursor.isAfterLast()){
+                String score = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
+                listeScore.add(score);
+
+                cursor.moveToNext();
+            }
+        }
+        return listeScore;
+    }
+
+    //transforme la liste des scores en integer
     private ArrayList<Integer> getAllIntegerScore(){
         ArrayList<Integer> mynewlist = new ArrayList<>();
         if(!this.getAllScores().isEmpty()){
