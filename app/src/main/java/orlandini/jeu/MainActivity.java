@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import orlandini.jeu.Fragments.AProposFragment;
 import orlandini.jeu.Fragments.HelpFragment;
 import orlandini.jeu.Fragments.HomeFragment;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        scoreDataBase = new ScoreDataBase(getBaseContext());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(changerCouleur());
@@ -75,10 +78,13 @@ public class MainActivity extends AppCompatActivity{
             actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
         }
 
+
+        //TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
+        //myAwesomeTextView.setText(prefs.getString("id_joueur", "@string/pref_title_display_name"));
+
+        Toast.makeText(this, prefs.getString("id_joueur", "NIL"), Toast.LENGTH_SHORT).show();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
-
-        scoreDataBase = new ScoreDataBase(getBaseContext());
-
     }
 
     //Toggle l'icone hamburger
@@ -94,7 +100,7 @@ public class MainActivity extends AppCompatActivity{
                         navHeader = (LinearLayout) findViewById(R.id.nav_header);
                         navHeader.setBackgroundColor(changerCouleur());
                         TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
-                        myAwesomeTextView.setText(prefs.getString("id_joueur", ""));
+                        myAwesomeTextView.setText(prefs.getString("id_joueur", "@string/pref_title_display_name"));
 
                         selectDrawerItem(menuItem);
                         return true;

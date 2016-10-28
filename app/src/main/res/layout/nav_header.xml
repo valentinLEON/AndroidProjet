@@ -10,15 +10,15 @@
     android:gravity="bottom"
     android:id="@+id/nav_header">
 
-    <ImageButton
+    <!--<ImageButton
 
         android:id="@+id/imageView"
         android:background="@drawable/delorean1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/imageView_description"
-        android:onClick="easterEgg"/>
-    <!--app:srcCompat="@drawable/delorean1"-->
+        android:onClick="easterEgg"
+        app:srcCompat="@drawable/delorean1"/>-->
 
     <TextView
         android:id="@+id/nom_joueur"
@@ -26,5 +26,6 @@
         android:layout_height="wrap_content"
         android:textSize="13dp"
         android:textColor="@android:color/white"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
 </LinearLayout>
