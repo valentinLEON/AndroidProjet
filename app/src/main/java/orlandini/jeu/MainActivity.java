@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
         scoreDataBase = new ScoreDataBase(getBaseContext());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -210,7 +211,10 @@ public class MainActivity extends AppCompatActivity{
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, fragment).commit();
                 break;
-
+            case R.id.deleteScores:
+                scoreDataBase.deleteAllScore();
+                scoreDataBase.getFiveBestScores();
+                break;
             default:
                 break;
         }

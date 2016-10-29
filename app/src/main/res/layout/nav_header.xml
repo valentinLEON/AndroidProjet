@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:foregroundGravity="top" />
 
-    <TextView
+    <orlandini.jeu.CustomBackToTheFuture
         android:id="@+id/nom_joueur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,5 +29,6 @@
         android:textColor="@android:color/white"
         android:text="zz"
         android:layout_gravity="end"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:font="BTTF.ttf"/>
 </LinearLayout>

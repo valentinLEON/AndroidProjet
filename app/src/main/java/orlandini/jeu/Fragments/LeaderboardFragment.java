@@ -1,8 +1,10 @@
 package orlandini.jeu.Fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import orlandini.jeu.LeaderboardViewAdapter;
+import orlandini.jeu.LeaderboardViewHolder;
 import orlandini.jeu.MainActivity;
 import orlandini.jeu.R;
 
@@ -27,15 +30,10 @@ import orlandini.jeu.ScoreDataBase;
  */
 public class LeaderboardFragment extends Fragment {
 
-    private TextView myscore;
-    private ArrayList<Integer> score;
-    private String myString;
-
     private ScoreDataBase db = MainActivity.scoreDataBase;
 
     public LeaderboardFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,19 +41,17 @@ public class LeaderboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
-        RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
 
+        if(db.getFiveBestScores().length > 0){
+            RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+            mRecyclerView.setHasFixedSize(true);
+            LeaderboardViewAdapter adapter = new LeaderboardViewAdapter(db.getFiveBestScores());
+            mRecyclerView.setAdapter(adapter);
 
-        LeaderboardViewAdapter adapter = new LeaderboardViewAdapter(db.getFiveBestScores());
-        mRecyclerView.setAdapter(adapter);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(llm);
-
-        for(Integer score: db.getFiveBestScores()){
-            Log.d(String.valueOf(score), "toto");
+            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(llm);
         }
+
 
         return rootView;
     }

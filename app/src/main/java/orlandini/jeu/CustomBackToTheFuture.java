@@ -1,0 +1,40 @@
+package orlandini.jeu;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Typeface;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.widget.TextView;
+
+/**
+ * Created by Singu_Admin on 29/10/2016.
+ */
+
+public class CustomBackToTheFuture extends TextView {
+    public CustomBackToTheFuture(Context context, AttributeSet attrs) {
+        super(context, attrs);
+
+        if(isInEditMode()){
+            return;
+        }
+
+        TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.CustomBackToTheFuture);
+        String fontName = styledAttrs.getString(R.styleable.CustomBackToTheFuture_font);
+        styledAttrs.recycle();
+
+        setTypeFace(fontName);
+    }
+
+    public void setTypeFace(String fontName){
+        if(fontName != null){
+            try {
+                Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), fontName);
+                setTypeface(typeface);
+            }
+            catch (Exception e){
+                Log.e("FONT", fontName + " not found", e);
+            }
+        }
+    }
+}

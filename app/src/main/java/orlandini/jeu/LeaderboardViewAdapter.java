@@ -1,9 +1,13 @@
 package orlandini.jeu;
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -12,6 +16,8 @@ import java.util.List;
  */
 
 public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardViewHolder> {
+
+    private Context mCtx;
 
     public Integer[] tableaudemerde;
 
@@ -30,7 +36,12 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
 
     @Override
     public void onBindViewHolder(LeaderboardViewHolder holder, int position) {
-        holder.getmTextViewView().setText(" Mon score : " + String.valueOf(tableaudemerde[position]));
+        if(tableaudemerde[position] == null){
+            holder.getmTextViewView().setText(">");
+            holder.getmTextViewView().setTextSize(30);
+            holder.getmImageView().setImageResource(R.drawable.delorean1);
+        }else
+            holder.getmTextViewView().setText(" Score : " + String.valueOf(tableaudemerde[position]));
     }
 
     @Override

@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by Singu_Admin on 29/10/2016.
  */
@@ -21,7 +19,8 @@ public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
     public LeaderboardViewHolder(View itemView) {
         super(itemView);
 
-        mTextViewView = (TextView) itemView.findViewById(R.id.myscore);
+        mTextViewView = (orlandini.jeu.CustomBackToTheFuture) itemView.findViewById(R.id.myscore);
+        mImageView = (ImageView) itemView.findViewById(R.id.picture);
         mCardView = (CardView) itemView.findViewById(R.id.card_view_scoreboard);
     }
 
@@ -48,4 +47,5 @@ public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
     public void setmImageView(ImageView mImageView) {
         this.mImageView = mImageView;
     }
+
 }
