@@ -43,11 +43,11 @@ public class FatalityDialogFragment extends DialogFragment {
                     }
                 })
                 //TODO: voir pourquoi ça kill l'application
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                /*.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        System.exit(0);
+                        dismiss();
                     }
-                })
+                })*/
         .setMessage("Votre score : " + GameCustomView.getScore());
         // Create the AlertDialog object and return it
         return builder.create();

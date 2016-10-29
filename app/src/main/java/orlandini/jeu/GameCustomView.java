@@ -15,7 +15,6 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 
 import java.util.Random;
 
@@ -24,10 +23,10 @@ import java.util.Random;
  * interactions ainsi que l'affichage du timer et du score
  *
  * @author Nicolas Orlandini
- * @version 2016.0.34
+ * @version 2016.0.38
  *
  * Date de création : 09/10/2016
- * Dernière modification : 26/10/2016
+ * Dernière modification : 29/10/2016
  */
 
 public class GameCustomView extends View implements View.OnTouchListener {
@@ -109,7 +108,6 @@ public class GameCustomView extends View implements View.OnTouchListener {
         String topScore = MainActivity.scoreDataBase.getTopScore();
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
         canvas.drawText("BestScore : " + String.valueOf(topScore), 50, 120, paint);
-        /* ajouter les minutes = String.valueOf(GameFragment.getMins()) + ":" + */
         canvas.drawText("Temps : " + String.valueOf(GameActivity.getSecs()), screenWidth - 270, 50, paint);
         if (isInvisible)
             canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);

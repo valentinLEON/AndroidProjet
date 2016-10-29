@@ -4,10 +4,8 @@ package orlandini.jeu;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,8 +20,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.Timer;
-
 /**
  * Cette activité gère l'affichage de la durée d'une partie,
  * contient la custom view du jeu,
@@ -31,36 +27,35 @@ import java.util.Timer;
  * Gère les actions liées à l'action bar.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.34
+ * @version 2016.0.38
  *
  * Date de création : 09/10/2016
- * Dernière modification : 27/10/2016
+ * Dernière modification : 29/10/2016
  */
 
 public class GameActivity extends AppCompatActivity{
 
     private Button StartButton;
     private Handler customHandler = new Handler();
-
-    private boolean recommencer = false;
-    private static boolean isPaused = false;
-    public static boolean getPaused() {
-        return isPaused;
-    }
-
     private ScoreDataBase scoreDB;
     private Toolbar toolbar;
     private Fragment fragment = null;
     private SharedPreferences prefs;
+    private MyCount counter = null;
+
+    private boolean recommencer = false;
+    private String temps = null;
+    private long s1 = 0;
+
+    public static boolean getPaused() {
+        return isPaused;
+    }
+    private static boolean isPaused = false;
 
     public static int getSecs() {
         return secs;
     }
     private static int secs = 0;
-
-    private String temps = null;
-    long s1 = 0;
-    MyCount counter = null;
 
 
     @Override
@@ -109,12 +104,7 @@ public class GameActivity extends AppCompatActivity{
         public void run() {
             // L'utilisateur souhaite recomencer la patie
             if (recommencer) {
-                recommencer = false;
-                counter.cancel();
-                secs = Integer.parseInt(temps);
-
-                customHandler.removeCallbacks(this);
-                StartButton.setVisibility(View.VISIBLE);
+                reinitialiserJeu();
             }
             // Le jeu est en cours
             else {
@@ -130,7 +120,8 @@ public class GameActivity extends AppCompatActivity{
     @Override
     public void onBackPressed()
     {
-        System.exit(0);
+        reinitialiserJeu();
+        NavUtils.navigateUpFromSameTask(this);
         //super.onBackPressed();// optional depending on your needs
     }
 
@@ -154,6 +145,7 @@ public class GameActivity extends AppCompatActivity{
         Fragment fragment = null;
         switch (item.getItemId()) {
             case android.R.id.home:
+                reinitialiserJeu();
                 // Retour à l'activité précédente
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
@@ -241,5 +233,14 @@ public class GameActivity extends AppCompatActivity{
             long mill = millisUntilFinished / 1000;
             secs = (int) mill - 1;
         }
+    }
+
+    public void reinitialiserJeu(){
+        recommencer = false;
+        counter.cancel();
+        secs = Integer.parseInt(temps);
+
+        customHandler.removeCallbacks(updateTimerThread);
+        StartButton.setVisibility(View.VISIBLE);
     }
 }
