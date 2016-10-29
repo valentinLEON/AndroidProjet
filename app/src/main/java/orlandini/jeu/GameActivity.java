@@ -52,6 +52,12 @@ public class GameActivity extends AppCompatActivity{
     }
     private static boolean isPaused = false;
 
+    public static boolean isGame() {
+        return isGame;
+    }
+
+    private static boolean isGame = false;
+
     public static int getSecs() {
         return secs;
     }
@@ -91,7 +97,7 @@ public class GameActivity extends AppCompatActivity{
 
                 counter = new MyCount((Integer.parseInt(temps)+1)*1000, 1000);
                 counter.start();
-
+                isGame = true;
                 customHandler.postDelayed(updateTimerThread, 0);
             }
         });
@@ -237,6 +243,7 @@ public class GameActivity extends AppCompatActivity{
 
     public void reinitialiserJeu(){
         recommencer = false;
+        isGame = false;
         if (counter != null) {
             counter.cancel();
         }
