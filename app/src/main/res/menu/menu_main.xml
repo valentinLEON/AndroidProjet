@@ -2,8 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
+    <item android:id="@+id/deleteScores"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/title_menu_delete"
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
     <item android:id="@+id/help"
         android:icon="@drawable/ic_help"
         android:title="@string/help"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

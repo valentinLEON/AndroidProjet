@@ -1,5 +1,6 @@
 package orlandini.jeu;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.IntentCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -36,10 +38,10 @@ import orlandini.jeu.Fragments.LeaderboardFragment;
  * le navigation drawer.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.37
+ * @version 2016.0.39
  *
  * Date de création : 09/10/2016
- * Dernière modification : 27/10/2016
+ * Dernière modification : 29/10/2016
  */
 
 public class MainActivity extends AppCompatActivity{
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity{
     private ActionBarDrawerToggle drawerToggle;
     public static ScoreDataBase scoreDataBase;
     private SharedPreferences prefs;
+    boolean isLeaderboard = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +73,29 @@ public class MainActivity extends AppCompatActivity{
         appliquerThemeNavigationDrawer();
         setupDrawerContent(nvDrawer);
 
+        setupActionBar();
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        //TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
+        //myAwesomeTextView.setText(prefs.getString("id_joueur", "@string/pref_title_display_name"));
+
+        //Toast.makeText(this, prefs.getString("id_joueur", "NIL"), Toast.LENGTH_SHORT).show();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
+    }
+
+
+    private void setupActionBar(){
         ActionBar actionBar = getSupportActionBar();
 
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(true);
         }
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-        //TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
-        //myAwesomeTextView.setText(prefs.getString("id_joueur", "@string/pref_title_display_name"));
-
-        Toast.makeText(this, prefs.getString("id_joueur", "NIL"), Toast.LENGTH_SHORT).show();
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
     }
 
     //Toggle l'icone hamburger
@@ -116,6 +127,8 @@ public class MainActivity extends AppCompatActivity{
 
         Fragment fragment = null;
         Class fragmentClass;
+        isLeaderboard = false;
+        supportInvalidateOptionsMenu();
 
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
@@ -123,6 +136,8 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case R.id.nav_leaderboard:
                 fragmentClass = LeaderboardFragment.class;
+                isLeaderboard = true;
+                supportInvalidateOptionsMenu();
                 break;
             case R.id.nav_settings:
                 fragmentClass = SettingFragment.class;
@@ -170,8 +185,14 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Ajouter les item à l'action bar
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem deleteItem = menu.findItem(R.id.deleteScores);
+        // Afficher l'item delete uniquement si le leaderboard est affiché (isLiderboard = true)
+        if (isLeaderboard) {
+            deleteItem.setVisible(true);
+        }
         return true;
     }
 
@@ -214,6 +235,7 @@ public class MainActivity extends AppCompatActivity{
         // Récupération des préférences
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         String color = prefs.getString("pref_theme", "#00AFF0");
+        supportInvalidateOptionsMenu();
         return Color.parseColor(color);
     }
 
