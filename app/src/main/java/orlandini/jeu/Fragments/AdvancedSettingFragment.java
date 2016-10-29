@@ -24,6 +24,8 @@ public class AdvancedSettingFragment extends PreferenceFragment {
 
         bindPreferenceSummaryToValue(findPreference("id_joueur"));
         bindPreferenceSummaryToValue(findPreference("pref_temps_jeu"));
+        bindPreferenceSummaryToValue(findPreference("pref_theme"));
+        bindPreferenceSummaryToValue(findPreference("pref_son"));
 
         Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
             @Override
