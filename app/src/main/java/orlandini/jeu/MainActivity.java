@@ -1,6 +1,5 @@
 package orlandini.jeu;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -11,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.IntentCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,8 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import orlandini.jeu.Fragments.AProposFragment;
 import orlandini.jeu.Fragments.HelpFragment;
 import orlandini.jeu.Fragments.HomeFragment;
@@ -38,7 +34,7 @@ import orlandini.jeu.Fragments.LeaderboardFragment;
  * le navigation drawer.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.39
+ * @version 2016.0.40
  *
  * Date de création : 09/10/2016
  * Dernière modification : 29/10/2016

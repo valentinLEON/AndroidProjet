@@ -2,15 +2,12 @@ package orlandini.jeu.Fragments;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v4.content.IntentCompat;
-import android.widget.Toast;
 
 import orlandini.jeu.R;
 
