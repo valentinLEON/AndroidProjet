@@ -23,7 +23,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     private static final String KEY_SCORE = "score_value";
 
     private final ArrayList<Integer> listeScore = new ArrayList<>();
-    private final ArrayList<Integer> listeTopFiveScore = new ArrayList<>();
+    private final Integer[] tabTopFiveScore = new Integer[5];
 
     public ScoreDataBase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -75,7 +75,6 @@ public class ScoreDataBase extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
     }
-
         cursor.close();
     return listeScore;
 }
@@ -90,8 +89,9 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     }
 
     //on get les 5 meilleurs scores
-    public ArrayList<Integer> getFiveBestScores(){
+    public Integer[] getFiveBestScores(){
 
+        int i = 0;
         //requete qui récupère les 5 meilleurs scores
         String selectQuery = "SELECT * FROM " + TABLE_SCORE + " ORDER BY " + KEY_SCORE + " DESC LIMIT 5";
         SQLiteDatabase db = this.getReadableDatabase();
@@ -100,11 +100,18 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             while(!cursor.isAfterLast()){
                 String score = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
-                listeTopFiveScore.add(Integer.parseInt(score));
+                tabTopFiveScore[i] = Integer.parseInt(score);
                 cursor.moveToNext();
+                i++;
             }
         }
         cursor.close();
-        return listeTopFiveScore;
+        return tabTopFiveScore;
+    }
+
+    public void deleteAllScore(){
+        String selectQuery = "DELETE FROM " + TABLE_SCORE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(selectQuery);
     }
 }

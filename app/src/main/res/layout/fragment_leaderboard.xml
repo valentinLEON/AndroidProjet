@@ -3,30 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="orlandini.jeu.Fragments.LeaderboardFragment"
-    android:paddingTop="100dp">
+    android:paddingTop="75dp">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_height="match_parent"
+        android:padding="5dp"
         >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/picture"
-            android:background="@drawable/ic_lead_score"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="16dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/myscore"
-            android:layout_toEndOf="@+id/picture"
-            android:layout_alignParentTop="true"
-            android:textSize="30sp"
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
 
     </RelativeLayout>

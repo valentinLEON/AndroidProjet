@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import orlandini.jeu.LeaderboardViewAdapter;
 import orlandini.jeu.MainActivity;
 import orlandini.jeu.R;
 
@@ -29,7 +30,6 @@ public class LeaderboardFragment extends Fragment {
     private TextView myscore;
     private ArrayList<Integer> score;
     private String myString;
-    private RecyclerView rv;
 
     private ScoreDataBase db = MainActivity.scoreDataBase;
 
@@ -41,36 +41,23 @@ public class LeaderboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View myView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
-        rv = (RecyclerView)myView.findViewById(R.id.rv);
-        /*ArrayList<String> items = new ArrayList<String>();
-        for (int i = 0; i < items.size(); i++){
-            items.add("test " + i);
-        }*/
+        RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
 
+
+        LeaderboardViewAdapter adapter = new LeaderboardViewAdapter(db.getFiveBestScores());
+        mRecyclerView.setAdapter(adapter);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(llm);
 
         for(Integer score: db.getFiveBestScores()){
             Log.d(String.valueOf(score), "toto");
         }
 
-        myString = db.getTopScore();
-        myscore = (TextView) myView.findViewById(R.id.myscore);
-        myscore.setText(getString(R.string.text_score) + myString);
-
-        return myView;
-    }
-
-    private void initializeData() {
-        score = new ArrayList<>();
-        for(Integer monScore: db.getFiveBestScores()){
-            score.add(monScore);
-        }
-    }
-
-    private void initializeAdapter() {
-        /*RVAdapter adapter = new RVAdapter(score);
-        rv.setAdapter(adapter);*/
+        return rootView;
     }
 
 }
