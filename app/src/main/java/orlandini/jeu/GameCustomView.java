@@ -110,7 +110,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
         canvas.drawText("BestScore : " + String.valueOf(topScore), 50, 120, paint);
         /* ajouter les minutes = String.valueOf(GameFragment.getMins()) + ":" + */
-        canvas.drawText("Temps : " + String.valueOf(GameActivity.getSecs()), screenWidth - 250, 50, paint);
+        canvas.drawText("Temps : " + String.valueOf(GameActivity.getSecs()), screenWidth - 270, 50, paint);
         if (isInvisible)
             canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
         if (!isInvisible)
