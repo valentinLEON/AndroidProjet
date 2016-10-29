@@ -5,6 +5,7 @@ package orlandini.jeu;
  */
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -21,7 +22,8 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     private static final String KEY_ID_SCORE = "_id";
     private static final String KEY_SCORE = "score_value";
 
-    private final ArrayList<String> listeScore = new ArrayList<>();
+    private final ArrayList<Integer> listeScore = new ArrayList<>();
+    private final ArrayList<Integer> listeTopFiveScore = new ArrayList<>();
 
     public ScoreDataBase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -56,7 +58,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     }
 
     //get all scores from the table score
-    public ArrayList<String> getAllScores(){
+    public ArrayList<Integer> getAllScores(){
 
     String selectQuery = "SELECT * FROM " + TABLE_SCORE;
 
@@ -68,49 +70,41 @@ public class ScoreDataBase extends SQLiteOpenHelper {
     {
         while (!cursor.isAfterLast()) {
             String score = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
-            listeScore.add(score);
+            listeScore.add(Integer.parseInt(score));
 
             cursor.moveToNext();
         }
     }
 
+        cursor.close();
     return listeScore;
 }
 
     //on récupère la top value de la table des scores
     public String getTopScore(){
-        ArrayList<Integer> maliste;
         int score = 0;
-        if(!getAllIntegerScore().isEmpty()){
-            maliste = getAllIntegerScore();
-            score = Collections.max(maliste);
+        if(!getAllScores().isEmpty()){
+            score = Collections.max(getAllScores());
         }
         return String.valueOf(score);
     }
 
     //on get les 5 meilleurs scores
     public ArrayList<Integer> getFiveBestScores(){
-        ArrayList<Integer> maliste = new ArrayList<Integer>();
-        int score = 0;
-        if(!getAllIntegerScore().isEmpty()){
-            maliste = getAllIntegerScore();
-            Collections.sort(maliste);
-        }
-        Collections.reverse(maliste);
-        return maliste;
-    }
 
-    //transforme la liste des scores en integer
-    private ArrayList<Integer> getAllIntegerScore(){
-        ArrayList<Integer> mynewlist = new ArrayList<>();
-        if(!this.getAllScores().isEmpty()){
-            ArrayList<String> maliste = getAllScores();
+        //requete qui récupère les 5 meilleurs scores
+        String selectQuery = "SELECT * FROM " + TABLE_SCORE + " ORDER BY " + KEY_SCORE + " DESC LIMIT 5";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
-            for(String myInt : maliste){
-                mynewlist.add(Integer.valueOf(myInt));
+        if(cursor.moveToFirst()){
+            while(!cursor.isAfterLast()){
+                String score = cursor.getString(cursor.getColumnIndex(KEY_SCORE));
+                listeTopFiveScore.add(Integer.parseInt(score));
+                cursor.moveToNext();
             }
         }
-
-        return mynewlist;
+        cursor.close();
+        return listeTopFiveScore;
     }
 }

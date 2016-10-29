@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import orlandini.jeu.ScoreDataBase;
 public class LeaderboardFragment extends Fragment {
 
     private TextView myscore;
-    private ArrayList<String> score;
+    private ArrayList<Integer> score;
     private String myString;
     private RecyclerView rv;
 
@@ -43,21 +44,15 @@ public class LeaderboardFragment extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         rv = (RecyclerView)myView.findViewById(R.id.rv);
-        ArrayList<String> items = new ArrayList<String>();
+        /*ArrayList<String> items = new ArrayList<String>();
         for (int i = 0; i < items.size(); i++){
             items.add("test " + i);
-        }
-
-        //RecyclerViewAdapter adapter = new RecyclerViewAdapter(items, android.R.layout.simple_list_item_1);
-        //rv.setAdapter(adapter);
-        //rv.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-        /*for (Iterator<Integer> i = db.getFiveBestScores().iterator(); i.hasNext();){
-            Integer scoremescouilles = i.next();
-            Log.v(String.valueOf(scoremescouilles), "mon score");
         }*/
+
+
+        for(Integer score: db.getFiveBestScores()){
+            Log.d(String.valueOf(score), "toto");
+        }
 
         myString = db.getTopScore();
         myscore = (TextView) myView.findViewById(R.id.myscore);
@@ -68,9 +63,8 @@ public class LeaderboardFragment extends Fragment {
 
     private void initializeData() {
         score = new ArrayList<>();
-        for (Iterator<String> i = MainActivity.scoreDataBase.getAllScores().iterator(); i.hasNext(); ) {
-            String scoremescouilles = i.next();
-            score.add(scoremescouilles);
+        for(Integer monScore: db.getFiveBestScores()){
+            score.add(monScore);
         }
     }
 
