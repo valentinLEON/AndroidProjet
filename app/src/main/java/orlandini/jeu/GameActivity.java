@@ -27,7 +27,7 @@ import android.widget.Toast;
  * Gère les actions liées à l'action bar.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.38
+ * @version 2016.0.39
  *
  * Date de création : 09/10/2016
  * Dernière modification : 29/10/2016
@@ -212,7 +212,7 @@ public class GameActivity extends AppCompatActivity{
 
 
     public class MyCount extends CountDownTimer {
-        public MyCount(long millisInFuture, long countDownInterval) {
+        private MyCount(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
         @Override
@@ -237,7 +237,9 @@ public class GameActivity extends AppCompatActivity{
 
     public void reinitialiserJeu(){
         recommencer = false;
-        counter.cancel();
+        if (counter != null) {
+            counter.cancel();
+        }
         secs = Integer.parseInt(temps);
 
         customHandler.removeCallbacks(updateTimerThread);

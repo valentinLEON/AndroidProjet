@@ -7,7 +7,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,21 +14,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-import java.util.Iterator;
-
 import orlandini.jeu.GameActivity;
 import orlandini.jeu.R;
-import orlandini.jeu.ScoreDataBase;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
 
-    private MediaPlayer mMediaPlayer;
-
     public HomeFragment() {
-        // Required empty public constructor
     }
 
 
@@ -47,9 +40,6 @@ public class HomeFragment extends Fragment {
         String titre = getString(R.string.txt_Bonsoir) + prefs.getString("id_joueur", "Veuillez configurer les préférences pour la première utlisation");
         tv.setText(titre);
 
-        mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.start_windows);
-        //mMediaPlayer.start();
-
         Button tryAgain = (Button) myView.findViewById(R.id.btn_TryAgain);
         tryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +48,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         return myView;
     }

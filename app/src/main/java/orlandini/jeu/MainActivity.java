@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity{
             actionBar.setHomeButtonEnabled(true);
             actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
         }
-
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         //TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
         //myAwesomeTextView.setText(prefs.getString("id_joueur", "@string/pref_title_display_name"));

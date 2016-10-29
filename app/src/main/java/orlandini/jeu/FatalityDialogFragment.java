@@ -17,10 +17,10 @@ import android.support.v4.app.DialogFragment;
  * L'utilisateur peut alors revenir au menu principal ou rejouer.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.34
+ * @version 2016.0.39
  *
  * Date de création : 09/10/2016
- * Dernière modification : 24/10/2016
+ * Dernière modification : 29/10/2016
  */
 
 public class FatalityDialogFragment extends DialogFragment {
@@ -54,7 +54,6 @@ public class FatalityDialogFragment extends DialogFragment {
     }
 
     public FatalityDialogFragment() {
-        // Required empty public constructor
     }
 
 
