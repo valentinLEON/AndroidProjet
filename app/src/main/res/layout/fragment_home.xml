@@ -3,10 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="100dp"
     tools:context="orlandini.jeu.Fragments.HomeFragment">
 
     <Button
@@ -29,11 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="96dp"
         android:id="@+id/Accueil_nom_joueur"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:typeface="normal"
         android:layout_above="@+id/btn_TryAgain"
         android:layout_centerHorizontal="true"
         app:font="BTTF.ttf"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 </RelativeLayout>

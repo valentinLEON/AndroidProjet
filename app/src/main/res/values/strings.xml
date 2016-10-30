@@ -62,6 +62,13 @@
     <string name="title_menu_delete">delete</string>
     <string name="pref_son">pref_son</string>
     <string name="pref_son_dialog_title">Choisir un son</string>
+    <string name="num_version">Version 0.71</string>
+    <string name="a_propos_devs">Application développée par Nicolas Orlandini et Valentin Leon</string>
+    <string name="description_logo">logo de l\'application</string>
+    <string name="nom_application">Samaritan</string>
+    <string name="lien_github">github.com/NicolasOrlandini/AndroidProjet</string>
+    <string name="title_res">Bibliothèque et Ressources</string>
+    <string name="title_lien_github">Lien GitHub</string>
 
     <string-array name="items_themes">
         <item>Halloween</item>

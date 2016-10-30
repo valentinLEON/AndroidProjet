@@ -7,16 +7,14 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="false">
 
+    <!-- L'action bar qui est affichée au top -->
+    <include layout="@layout/toolbar" />
+
     <RelativeLayout
         android:id="@+id/main_Content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!-- L'action bar qui est affichée au top -->
-        <include
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp">
 
         <!-- L'endroit où les fragments sont chargés-->
         <FrameLayout
@@ -26,7 +24,6 @@
 
     </RelativeLayout>
 
-    <!-- Le navigation drawer à gauche -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nvView"
         android:layout_width="wrap_content"

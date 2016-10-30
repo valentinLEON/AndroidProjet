@@ -27,10 +27,10 @@ import android.widget.Toast;
  * Gère les actions liées à l'action bar.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.39
+ * @version 2016.0.41
  *
  * Date de création : 09/10/2016
- * Dernière modification : 29/10/2016
+ * Dernière modification : 30/10/2016
  */
 
 public class GameActivity extends AppCompatActivity{
@@ -39,7 +39,6 @@ public class GameActivity extends AppCompatActivity{
     private Handler customHandler = new Handler();
     private ScoreDataBase scoreDB;
     private Toolbar toolbar;
-    private Fragment fragment = null;
     private SharedPreferences prefs;
     private MyCount counter = null;
 
@@ -86,13 +85,7 @@ public class GameActivity extends AppCompatActivity{
         StartButton.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
         StartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                /*Class fragmentClass =  GameCustomView.class;
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.game_content, fragment).commit();*/
+
                 GameCustomView.setScore(0);
 
                 counter = new MyCount((Integer.parseInt(temps)+1)*1000, 1000);
@@ -128,7 +121,6 @@ public class GameActivity extends AppCompatActivity{
     {
         reinitialiserJeu();
         NavUtils.navigateUpFromSameTask(this);
-        //super.onBackPressed();// optional depending on your needs
     }
 
     /**
@@ -148,23 +140,12 @@ public class GameActivity extends AppCompatActivity{
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Fragment fragment = null;
         switch (item.getItemId()) {
             case android.R.id.home:
                 reinitialiserJeu();
                 // Retour à l'activité précédente
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
-            case R.id.preferences:
-                // Ouverture des préférences
-                Class fragmentClass =  SettingFragment.class;
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.game_content, fragment).commit();
-                break;
             case R.id.new_game:
                 // L'utilisateur est avertit qu'une nouvelle partie commence
                 Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
