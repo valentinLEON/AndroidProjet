@@ -18,13 +18,14 @@ import java.util.List;
 
 public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardViewHolder> {
 
-    private Context mCtx;
+    private final Context mCtx;
 
     private Integer[] tableaudemerde;
 
-    public LeaderboardViewAdapter(Integer[] unBonGrosTableauDeMerde)
+    public LeaderboardViewAdapter(Context context, Integer[] unBonGrosTableauDeMerde)
     {
         this.tableaudemerde = unBonGrosTableauDeMerde;
+        this.mCtx = context;
     }
 
     @Override
@@ -47,9 +48,11 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
         }
         else if(position==2) {
             holder.getmImageView().setBackgroundColor(Color.parseColor("#cd7f32"));
-            holder.getmTextViewView().setText("1\n\nScore : " + String.valueOf(tableaudemerde[position]));
+            holder.getmTextViewView().setText("3\n\nScore : " + String.valueOf(tableaudemerde[position]));
         }
         else if(tableaudemerde[position] == null) {
+            Typeface typeface = Typeface.createFromAsset(mCtx.getAssets(), "BTTF.ttf");
+            holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText(">");
             holder.getmTextViewView().setTextSize(30);
             holder.getmImageView().setImageResource(R.drawable.delorean1);

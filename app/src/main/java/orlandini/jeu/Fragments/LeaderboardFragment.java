@@ -45,7 +45,7 @@ public class LeaderboardFragment extends Fragment {
         if(db.getFiveBestScores().length > 0){
             RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
             mRecyclerView.setHasFixedSize(true);
-            LeaderboardViewAdapter adapter = new LeaderboardViewAdapter(db.getFiveBestScores());
+            LeaderboardViewAdapter adapter = new LeaderboardViewAdapter(getContext(), db.getFiveBestScores());
             mRecyclerView.setAdapter(adapter);
 
             LinearLayoutManager llm = new LinearLayoutManager(getActivity());
