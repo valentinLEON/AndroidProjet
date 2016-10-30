@@ -36,19 +36,28 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
 
     @Override
     public void onBindViewHolder(LeaderboardViewHolder holder, int position) {
-        if(tableaudemerde[position] == null){
+        holder.getmTextViewView().setTextSize(20);
+        if(position==0) {
+            holder.getmImageView().setBackgroundColor(Color.parseColor("#ffd700"));
+            holder.getmTextViewView().setText("1\n\nScore : " + String.valueOf(tableaudemerde[position]));
+        }
+        else if(position==1) {
+            holder.getmImageView().setBackgroundColor(Color.parseColor("#CECECE"));
+            holder.getmTextViewView().setText("2\n\nScore : " + String.valueOf(tableaudemerde[position]));
+        }
+        else if(position==2) {
+            holder.getmImageView().setBackgroundColor(Color.parseColor("#cd7f32"));
+            holder.getmTextViewView().setText("1\n\nScore : " + String.valueOf(tableaudemerde[position]));
+        }
+        else if(tableaudemerde[position] == null) {
             holder.getmTextViewView().setText(">");
             holder.getmTextViewView().setTextSize(30);
             holder.getmImageView().setImageResource(R.drawable.delorean1);
-        }else
+        }
+        else {
+            holder.getmTextViewView().setTextSize(10);
             holder.getmTextViewView().setText(" Score : " + String.valueOf(tableaudemerde[position]));
-
-        if(position==0)
-            holder.getmImageView().setBackgroundColor(Color.parseColor("#ffd700"));
-        else if(position==1)
-            holder.getmImageView().setBackgroundColor(Color.parseColor("#CECECE"));
-        else if(position==2)
-            holder.getmImageView().setBackgroundColor(Color.parseColor("#cd7f32"));
+        }
     }
 
     @Override
