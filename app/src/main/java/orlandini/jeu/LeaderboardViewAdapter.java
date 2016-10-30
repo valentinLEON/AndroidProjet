@@ -1,6 +1,7 @@
 package orlandini.jeu;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +20,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
 
     private Context mCtx;
 
-    public Integer[] tableaudemerde;
+    private Integer[] tableaudemerde;
 
     public LeaderboardViewAdapter(Integer[] unBonGrosTableauDeMerde)
     {
@@ -30,8 +31,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
     public LeaderboardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_view, parent, false);
-        LeaderboardViewHolder lvh = new LeaderboardViewHolder(view);
-        return lvh;
+        return new LeaderboardViewHolder(view);
     }
 
     @Override
@@ -42,6 +42,13 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
             holder.getmImageView().setImageResource(R.drawable.delorean1);
         }else
             holder.getmTextViewView().setText(" Score : " + String.valueOf(tableaudemerde[position]));
+
+        if(position==0)
+            holder.getmImageView().setBackgroundColor(Color.parseColor("#ffd700"));
+        else if(position==1)
+            holder.getmImageView().setBackgroundColor(Color.parseColor("#CECECE"));
+        else if(position==2)
+            holder.getmImageView().setBackgroundColor(Color.parseColor("#cd7f32"));
     }
 
     @Override
