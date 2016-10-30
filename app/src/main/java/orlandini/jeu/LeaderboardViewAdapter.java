@@ -49,7 +49,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
             if(holder.getmCardView() != null){
                 holder.getmCardView().setCardBackgroundColor(Color.parseColor("#ffd700"));
             }
-            holder.getmImageView().setImageResource(R.drawable.ic_gold);
+            //holder.getmImageView().setImageResource(R.drawable.ic_gold);
             holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("1\n\nScore : " + String.valueOf(tableaudemerde[position]));
             holder.getmTextViewView().setLayoutParams(params);
@@ -58,7 +58,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
             if(holder.getmCardView() != null){
                 holder.getmCardView().setCardBackgroundColor(Color.parseColor("#CECECE"));
             }
-            holder.getmImageView().setImageResource(R.drawable.ic_silver);
+            //holder.getmImageView().setImageResource(R.drawable.ic_silver);
             holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("2\n\nScore : " + String.valueOf(tableaudemerde[position]));
             holder.getmTextViewView().setLayoutParams(params);
@@ -68,7 +68,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
             if(holder.getmCardView() != null){
                 holder.getmCardView().setCardBackgroundColor(Color.parseColor("#cd7f32"));
             }
-            holder.getmImageView().setImageResource(R.drawable.ic_bronze);
+            //holder.getmImageView().setImageResource(R.drawable.ic_bronze);
             holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("3\n\nScore : " + String.valueOf(tableaudemerde[position]));
             holder.getmTextViewView().setLayoutParams(params);
@@ -83,7 +83,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
             holder.getmTextViewView().setTextSize(10);
             holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText(" Score : " + String.valueOf(tableaudemerde[position]));
-            holder.getmImageView().setImageResource(R.drawable.ic_trophee);
+            //holder.getmImageView().setImageResource(R.drawable.ic_trophee);
             holder.getmTextViewView().setLayoutParams(params);
         }
     }
