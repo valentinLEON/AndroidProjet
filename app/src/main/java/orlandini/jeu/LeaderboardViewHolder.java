@@ -21,7 +21,7 @@ public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
 
         mTextViewView = (orlandini.jeu.CustomBackToTheFuture) itemView.findViewById(R.id.myscore);
         mImageView = (ImageView) itemView.findViewById(R.id.picture);
-        mCardView = (CardView) itemView.findViewById(R.id.card_view_scoreboard);
+        mCardView = (CardView) itemView.findViewById(R.id.card_view);
     }
 
     public CardView getmCardView() {

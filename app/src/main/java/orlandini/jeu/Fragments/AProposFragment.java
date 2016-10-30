@@ -62,6 +62,7 @@ public class AProposFragment extends Fragment {
         );
 
         mListView.setAdapter(adapter);
+
         return aboutView;
     }
 

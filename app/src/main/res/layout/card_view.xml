@@ -23,18 +23,19 @@
             android:id="@+id/picture"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_lead_score">
+            android:src="@drawable/ic_trophee">
         </ImageView>
 
         <orlandini.jeu.CustomBackToTheFuture
             android:id="@+id/myscore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:layout_toEndOf="@+id/picture"
+            android:layout_marginTop="25dp"
             android:textStyle="normal|bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:paddingStart="10dp"
+            android:paddingStart="50dp"
             app:font="BTTF.ttf"/>
 
     </RelativeLayout>

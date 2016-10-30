@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -37,21 +39,41 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
 
     @Override
     public void onBindViewHolder(LeaderboardViewHolder holder, int position) {
+        Typeface typeface = Typeface.createFromAsset(mCtx.getAssets(), "BTTF.ttf");
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 15, 0, 0);
+        holder.getmCardView().setAlpha(0.6f);
+
         holder.getmTextViewView().setTextSize(20);
         if(position==0) {
-            holder.getmImageView().setBackgroundColor(Color.parseColor("#ffd700"));
+            if(holder.getmCardView() != null){
+                holder.getmCardView().setCardBackgroundColor(Color.parseColor("#ffd700"));
+            }
+            holder.getmImageView().setImageResource(R.drawable.ic_gold);
+            holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("1\n\nScore : " + String.valueOf(tableaudemerde[position]));
+            holder.getmTextViewView().setLayoutParams(params);
         }
         else if(position==1) {
-            holder.getmImageView().setBackgroundColor(Color.parseColor("#CECECE"));
+            if(holder.getmCardView() != null){
+                holder.getmCardView().setCardBackgroundColor(Color.parseColor("#CECECE"));
+            }
+            holder.getmImageView().setImageResource(R.drawable.ic_silver);
+            holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("2\n\nScore : " + String.valueOf(tableaudemerde[position]));
+            holder.getmTextViewView().setLayoutParams(params);
+
         }
         else if(position==2) {
-            holder.getmImageView().setBackgroundColor(Color.parseColor("#cd7f32"));
+            if(holder.getmCardView() != null){
+                holder.getmCardView().setCardBackgroundColor(Color.parseColor("#cd7f32"));
+            }
+            holder.getmImageView().setImageResource(R.drawable.ic_bronze);
+            holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("3\n\nScore : " + String.valueOf(tableaudemerde[position]));
+            holder.getmTextViewView().setLayoutParams(params);
         }
         else if(tableaudemerde[position] == null) {
-            Typeface typeface = Typeface.createFromAsset(mCtx.getAssets(), "BTTF.ttf");
             holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText(">");
             holder.getmTextViewView().setTextSize(30);
@@ -59,7 +81,10 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
         }
         else {
             holder.getmTextViewView().setTextSize(10);
+            holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText(" Score : " + String.valueOf(tableaudemerde[position]));
+            holder.getmImageView().setImageResource(R.drawable.ic_trophee);
+            holder.getmTextViewView().setLayoutParams(params);
         }
     }
 
