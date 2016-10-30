@@ -3,7 +3,6 @@ package orlandini.jeu.Fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -18,8 +17,15 @@ import orlandini.jeu.GameActivity;
 import orlandini.jeu.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Activité ouverte au démarrage de l'application.
+ *
+ * @author Nicolas Orlandini
+ * @version 2016.0.41
+ *
+ * Date de création : 09/10/2016
+ * Dernière modification : 30/10/2016
  */
+
 public class HomeFragment extends Fragment {
 
     public HomeFragment() {

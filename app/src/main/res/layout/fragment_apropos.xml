@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:paddingTop="16dp"
-        card_view:cardBackgroundColor="@color/darkOrange"
+        card_view:cardBackgroundColor="@color/orange"
         card_view:cardCornerRadius="5dp"
         card_view:cardElevation="5dp"
         >
@@ -20,15 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
+            android:textColor="@color/cardview_light_background"
             >
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:src="@drawable/icon"
                 android:layout_centerInParent="true"
-                android:layout_alignParentTop="true"
-                android:contentDescription="@string/description_logo"/>
+                android:layout_alignParentTop="true"/>
 
             <TextView
                 android:id="@+id/nom_app"
@@ -38,19 +38,22 @@
                 android:textSize="40sp"
                 android:text="@string/nom_application"
                 android:textStyle="bold"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="5dp"
                 android:layout_below="@+id/logo"
+                android:textColor="@color/cardview_light_background"
                 />
 
             <TextView
                 android:id="@+id/version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:text="@string/num_version"
                 android:textStyle="bold"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="20dp"
                 android:layout_below="@+id/nom_app"
+                android:textColor="@color/cardview_light_background"
+                android:layout_centerInParent="true"
                 />
             <TextView
                 android:id="@+id/developpedBy"
@@ -59,7 +62,8 @@
                 android:layout_below="@+id/version"
                 android:textSize="16sp"
                 android:layout_marginBottom="15dp"
-                android:text="@string/a_propos_devs"/>
+                android:text="@string/a_propos_devs"
+                android:textColor="@color/title"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,14 +73,16 @@
                 android:textStyle="bold"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/developpedBy"
-                android:text="@string/title_lien_github"/>
+                android:text="@string/title_lien_github"
+                android:textColor="@color/cardview_light_background"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/githubText"
                 android:layout_below="@+id/github"
-                android:text="@string/lien_github"/>
+                android:text="@string/lien_github"
+                android:textColor="@color/title"/>
 
             <TextView
                 android:id="@+id/resourcesTitle"
@@ -86,7 +92,8 @@
                 android:layout_marginTop="30dp"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:text="@string/title_res"/>
+                android:text="@string/title_res"
+                android:textColor="@color/cardview_light_background"/>
 
             <ListView
                 android:id="@+id/listViewRessources"
