@@ -74,6 +74,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         }
     };
 
+    //initialisation du jeu
     public void init () {
         paint = new Paint();
         paint.setTextSize(50);
@@ -105,7 +106,8 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        String topScore = MainActivity.scoreDataBase.getTopScore();
+        setBackgroundResource(R.drawable.halloween_wallpaper);
+        String topScore = MainActivity._scoreDataBase.getTopScore();
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
         canvas.drawText("BestScore : " + String.valueOf(topScore), 50, 120, paint);
         canvas.drawText("Temps : " + String.valueOf(GameActivity.getSecs()), screenWidth - 270, 50, paint);

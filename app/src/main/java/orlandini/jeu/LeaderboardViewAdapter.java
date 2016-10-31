@@ -20,8 +20,8 @@ import java.util.List;
 
 public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardViewHolder> {
 
-    private final Context mCtx;
-
+    //variables
+    private final Context mCtx; //get le context
     private Integer[] tableaudemerde;
 
     public LeaderboardViewAdapter(Context context, Integer[] unBonGrosTableauDeMerde)
@@ -39,12 +39,16 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
 
     @Override
     public void onBindViewHolder(LeaderboardViewHolder holder, int position) {
+        //ajout de la police
         Typeface typeface = Typeface.createFromAsset(mCtx.getAssets(), "BTTF.ttf");
+        //permet de changer les paramètres
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        //set les margin des paramètres
         params.setMargins(0, 15, 0, 0);
-        holder.getmCardView().setAlpha(0.6f);
+        //holder.getmCardView().setAlpha(0.6f);
 
         holder.getmTextViewView().setTextSize(20);
+        //suivant la position
         if(position==0) {
             if(holder.getmCardView() != null){
                 holder.getmCardView().setCardBackgroundColor(Color.parseColor("#ffd700"));
@@ -88,6 +92,10 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
         }
     }
 
+    /**
+     * On récupère le nombre d'item
+     * @return
+     */
     @Override
     public int getItemCount() {
         return tableaudemerde.length;

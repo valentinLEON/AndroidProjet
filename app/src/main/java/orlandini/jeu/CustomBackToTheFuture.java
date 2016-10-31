@@ -11,6 +11,10 @@ import android.widget.TextView;
  * Created by Singu_Admin on 29/10/2016.
  */
 
+/**
+ * Classe de customisation de font
+ */
+
 public class CustomBackToTheFuture extends TextView {
     public CustomBackToTheFuture(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -26,6 +30,7 @@ public class CustomBackToTheFuture extends TextView {
         setTypeFace(fontName);
     }
 
+    //on crée et on set la font
     public void setTypeFace(String fontName){
         if(fontName != null){
             try {

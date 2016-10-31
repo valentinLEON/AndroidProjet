@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,21 +42,24 @@ import orlandini.jeu.Fragments.LeaderboardFragment;
 
 public class MainActivity extends AppCompatActivity{
 
+    //Définitions des variables
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private LinearLayout navHeader;
     private ActionBarDrawerToggle drawerToggle;
-    public static ScoreDataBase scoreDataBase;
     private SharedPreferences prefs;
     boolean isLeaderboard = false;
+
+    //variables static (pour la BDD)
+    public static ScoreDataBase _scoreDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        scoreDataBase = new ScoreDataBase(getBaseContext());
+        _scoreDataBase = new ScoreDataBase(getBaseContext());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(changerCouleur());
@@ -74,15 +76,13 @@ public class MainActivity extends AppCompatActivity{
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
-        //TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
-        //myAwesomeTextView.setText(prefs.getString("id_joueur", "@string/pref_title_display_name"));
-
-        //Toast.makeText(this, prefs.getString("id_joueur", "NIL"), Toast.LENGTH_SHORT).show();
-
+        //affiche l'écran d'accueil par défaut dans le main activity
         getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
     }
 
-
+    /**
+     * Affiche les boutons dans l'action bar
+     */
     private void setupActionBar(){
         ActionBar actionBar = getSupportActionBar();
 
@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity{
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
 
+    //on crée le navigation drawer
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity{
         isLeaderboard = false;
         supportInvalidateOptionsMenu();
 
+        //sélection de la vue à afficher avec le switch
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = HomeFragment.class;
@@ -212,8 +214,8 @@ public class MainActivity extends AppCompatActivity{
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, fragment).commit();
                 break;
             case R.id.deleteScores:
-                scoreDataBase.deleteAllScore();
-                scoreDataBase.getFiveBestScores();
+                _scoreDataBase.deleteAllScore();
+                _scoreDataBase.getFiveBestScores();
                 break;
             default:
                 break;
@@ -231,6 +233,10 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    /**
+     * On change de couleur
+     * @return Color
+     */
     private int changerCouleur() {
         // Récupération des préférences
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
@@ -239,6 +245,9 @@ public class MainActivity extends AppCompatActivity{
         return Color.parseColor(color);
     }
 
+    /**
+     * Application du thème sur le navigation drawer
+     */
     private void appliquerThemeNavigationDrawer(){
         int[][] state = new int[][] {
                 new int [] {android.R.attr.state_pressed},

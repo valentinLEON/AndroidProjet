@@ -109,6 +109,7 @@ public class ScoreDataBase extends SQLiteOpenHelper {
         return tabTopFiveScore;
     }
 
+    //supprime tous les scores de la table des scores
     public void deleteAllScore(){
         String selectQuery = "DELETE FROM " + TABLE_SCORE;
         SQLiteDatabase db = this.getWritableDatabase();
