@@ -84,7 +84,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
         bitmapRip = BitmapFactory.decodeResource(res, R.drawable.rip_game);
 
-        mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
+        mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.fantome);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
         mFileX = 500;
         mFileY = 500;
