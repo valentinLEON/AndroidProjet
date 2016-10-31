@@ -9,17 +9,16 @@
 
     <string name="action_settings">Settings</string>
     <string name="new_game">Nouveau jeu</string>
-    <string name="help">help</string>
+    <string name="help">Help</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="dialog_fatality">Fatality</string>
-    <string name="cancel">quitter</string>
+    <string name="cancel">Quitter</string>
     <string name="fire">rejouer</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_game">Game</string>
+    <string name="title_activity_game">Jeu</string>
 
     <string name="leaderboard_title">Bienvenue sur le tableau des scores</string>
-    <string name="pancake">Pancake</string>
 
     <string name="title_drawer_accueil">Accueil</string>
     <string name="title_drawer_leaderboard">Leaderboard</string>
@@ -33,8 +32,8 @@
 
     <string name="pref_header_general">General</string>
 
-    <string name="pref_title_display_name">Nom du joueur</string>
-    <string name="pref_default_display_name">Fox Mulder</string>
+    <string name="pref_title_display_name">Joueur</string>
+    <string name="pref_default_display_name">Joueur</string>
 
     <string name="pref_title_vibreur">Vibreur</string>
     <string name="pref_description_vibreur">Si cette option est activée, le téléphone va vibrer pendant le jeu</string>
@@ -62,6 +61,11 @@
     <string name="title_menu_delete">delete</string>
     <string name="pref_son">pref_son</string>
     <string name="pref_son_dialog_title">Choisir un son</string>
+
+    <!-- =========================================================================================================== -->
+    <!--                                          Textes le About                                                    -->
+    <!-- =========================================================================================================== -->
+
     <string name="num_version">Version 0.71</string>
     <string name="a_propos_devs">Application développée par Nicolas Orlandini et Valentin Leon</string>
     <string name="description_logo">logo de l\'application</string>

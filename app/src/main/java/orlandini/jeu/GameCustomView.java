@@ -114,7 +114,6 @@ public class GameCustomView extends View implements View.OnTouchListener {
     @Override
     protected void onDraw(Canvas canvas) {
 
-
         setBackgroundResource(R.drawable.halloween_wallpaper);
         String topScore = MainActivity._scoreDataBase.getTopScore();
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
@@ -125,11 +124,12 @@ public class GameCustomView extends View implements View.OnTouchListener {
             if (isInvisible)
                 canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
             else {
-                if (color == "#EE7600")
+                //si on est sur le thème halloween, on met le RIP
+                if (color.equals("#EE7600"))
                     canvas.drawBitmap(bitmapRip, mFileX, mFileY, null);
-                else if (color == "#3f51b5")
+                //sinon on met l'image POW
+                else if (color.equals("#3f51b5"))
                     canvas.drawBitmap(bitmapPow, mFileX, mFileY, null);
-                //Toast.makeText(getContext(), color,Toast.LENGTH_LONG).show();
             }
         }
     }

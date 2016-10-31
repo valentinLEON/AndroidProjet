@@ -23,13 +23,22 @@
         android:text="@string/title_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="76dp"
         android:id="@+id/Accueil_nom_joueur"
         android:typeface="normal"
-        android:layout_above="@+id/btn_TryAgain"
-        android:layout_centerHorizontal="true"
         app:font="BTTF.ttf"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_above="@+id/btn_TryAgain"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/homeLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

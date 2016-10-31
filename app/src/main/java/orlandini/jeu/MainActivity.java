@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,12 +60,19 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //chargement des préférences
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        //instanciation de la base de données
         _scoreDataBase = new ScoreDataBase(getBaseContext());
 
+        //changement de couleur pour la toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(changerCouleur());
         setSupportActionBar(toolbar);
 
+        //chargement du drawer
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
@@ -73,8 +81,6 @@ public class MainActivity extends AppCompatActivity{
         setupDrawerContent(nvDrawer);
 
         setupActionBar();
-
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         //affiche l'écran d'accueil par défaut dans le main activity
         getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
@@ -100,7 +106,7 @@ public class MainActivity extends AppCompatActivity{
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
 
-    //on crée le navigation drawer
+    //sélection des items
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -109,7 +115,7 @@ public class MainActivity extends AppCompatActivity{
                         navHeader = (LinearLayout) findViewById(R.id.nav_header);
                         navHeader.setBackgroundColor(changerCouleur());
                         TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
-                        myAwesomeTextView.setText(prefs.getString("id_joueur", "@string/pref_title_display_name"));
+                        myAwesomeTextView.setText(prefs.getString("id_joueur", ""));
 
                         selectDrawerItem(menuItem);
                         return true;
@@ -164,7 +170,6 @@ public class MainActivity extends AppCompatActivity{
         menuItem.setChecked(true);
         // Applique le titre de l'actionBar
         setTitle(menuItem.getTitle());
-        //setTitle(Html.fromHtml("<font color='"+changerCouleur()+"'>"+menuItem.getTitle()+"</font>"));
 
         mDrawer.closeDrawers();
     }
@@ -215,7 +220,17 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case R.id.deleteScores:
                 _scoreDataBase.deleteAllScore();
-                _scoreDataBase.getFiveBestScores();
+                Fragment monFrag;
+                //TODO: Faire un refresh sur le tableau des scores
+                Class leaderboardClass = LeaderboardFragment.class;
+                try {
+                    monFrag = (Fragment) leaderboardClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                monFrag = getSupportFragmentManager().findFragmentByTag("leaderboard");
+                FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+                fragTransaction.replace(R.id.main_Content, monFrag).commit();
                 break;
             default:
                 break;

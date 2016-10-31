@@ -14,21 +14,22 @@
         android:id="@+id/imageView"
         android:background="@drawable/delorean1"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
         android:contentDescription="@string/imageView_description"
         android:onClick="easterEgg"
+        android:layout_marginBottom="30dp"
         app:srcCompat="@drawable/delorean1"
-        android:layout_width="wrap_content"
-        android:foregroundGravity="top" />
+        android:layout_width="wrap_content" />
 
     <orlandini.jeu.CustomBackToTheFuture
         android:id="@+id/nom_joueur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:textColor="@android:color/white"
-        android:text="zz"
+        android:text="@string/pref_default_display_name"
         android:layout_gravity="end"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:font="BTTF.ttf"/>
+
+
 </LinearLayout>
