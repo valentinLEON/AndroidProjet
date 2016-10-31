@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -54,9 +55,11 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private Bitmap bitmapBender;
     private Bitmap bitmapPow;
     private Bitmap bitmapRip;
+    private Bitmap bitmapTemps;
     private Paint paint;
     private MediaPlayer mMediaPlayer;
     private Vibrator vibrator;
+    private String color;
 
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
 
@@ -83,11 +86,15 @@ public class GameCustomView extends View implements View.OnTouchListener {
         bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
         bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
         bitmapRip = BitmapFactory.decodeResource(res, R.drawable.rip_game);
+        bitmapTemps = BitmapFactory.decodeResource(res, R.drawable.ic_timer);
 
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.fantome);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
         mFileX = 500;
         mFileY = 500;
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        color = prefs.getString("pref_theme", "#FFA500");
 
         super.setOnTouchListener(this);
         removeCallbacks(animator);
@@ -106,16 +113,24 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
+
         setBackgroundResource(R.drawable.halloween_wallpaper);
         String topScore = MainActivity._scoreDataBase.getTopScore();
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
         canvas.drawText("BestScore : " + String.valueOf(topScore), 50, 120, paint);
-        canvas.drawText("Temps : " + String.valueOf(GameActivity.getSecs()), screenWidth - 270, 50, paint);
+        canvas.drawBitmap(bitmapTemps, screenWidth - 300, 0, null);
+        canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 160, 80, paint);
         if (GameActivity.isGame()) {
             if (isInvisible)
                 canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
-            if (!isInvisible)
-                canvas.drawBitmap(bitmapRip, mFileX, mFileY, null);
+            else {
+                if (color == "#EE7600")
+                    canvas.drawBitmap(bitmapRip, mFileX, mFileY, null);
+                else if (color == "#3f51b5")
+                    canvas.drawBitmap(bitmapPow, mFileX, mFileY, null);
+                //Toast.makeText(getContext(), color,Toast.LENGTH_LONG).show();
+            }
         }
     }
 
