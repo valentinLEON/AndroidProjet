@@ -4,6 +4,7 @@ package orlandini.jeu;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -30,7 +31,7 @@ import android.widget.Toast;
  * @version 2016.0.41
  *
  * Date de création : 09/10/2016
- * Dernière modification : 30/10/2016
+ * Dernière modification : 31/10/2016
  */
 
 public class GameActivity extends AppCompatActivity{
@@ -41,6 +42,7 @@ public class GameActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private SharedPreferences prefs;
     private MyCount counter = null;
+    private MediaPlayer mMediaPlayerTheme;
 
     private boolean recommencer = false;
     private String temps = null;
@@ -81,6 +83,9 @@ public class GameActivity extends AppCompatActivity{
 
         scoreDB = new ScoreDataBase(getApplicationContext());
         temps = prefs.getString("pref_temps_jeu", "30");
+
+        mMediaPlayerTheme = MediaPlayer.create(this.getApplicationContext(), R.raw.main);
+
         StartButton = (Button) findViewById(R.id.startButton);
         StartButton.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
         StartButton.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +114,8 @@ public class GameActivity extends AppCompatActivity{
             else {
                 customHandler.postDelayed(updateTimerThread, 0);
                 StartButton.setVisibility(View.INVISIBLE);
+                if (!mMediaPlayerTheme.isPlaying())
+                    mMediaPlayerTheme.start();
             }
         }
     };
@@ -153,7 +160,8 @@ public class GameActivity extends AppCompatActivity{
                 break;
             case R.id.pause:
                 // Gestion du menu pause
-                pause(item);
+                if (isGame)
+                    pause(item);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -175,6 +183,9 @@ public class GameActivity extends AppCompatActivity{
             counter= new MyCount(s1, 1000);
             counter.start();
 
+            if (!mMediaPlayerTheme.isPlaying())
+                mMediaPlayerTheme.start();
+
             // On change l'icon correspondant à l'item
             item.setIcon(R.drawable.ic_pause);
         }
@@ -184,6 +195,8 @@ public class GameActivity extends AppCompatActivity{
             customHandler.removeCallbacks(updateTimerThread);
             // On récupère les millisecondes écoulées depuis le boot
             counter.cancel();
+            if (mMediaPlayerTheme.isPlaying())
+                mMediaPlayerTheme.pause();
             // On change l'icon correspondant à l'item
             item.setIcon(R.drawable.ic_play);
         }
@@ -206,6 +219,8 @@ public class GameActivity extends AppCompatActivity{
         public void onFinish() {
             //Ajouter le score dans la base de données
             scoreDB.addScore(GameCustomView.getScore());
+            if (mMediaPlayerTheme.isPlaying())
+                mMediaPlayerTheme.stop();
 
             FragmentManager fm = getSupportFragmentManager();
             FatalityDialogFragment newFragment = new FatalityDialogFragment();
@@ -225,9 +240,11 @@ public class GameActivity extends AppCompatActivity{
     public void reinitialiserJeu(){
         recommencer = false;
         isGame = false;
-        if (counter != null) {
+        if (mMediaPlayerTheme.isPlaying())
+            mMediaPlayerTheme.stop();
+        if (counter != null)
             counter.cancel();
-        }
+
         secs = Integer.parseInt(temps);
 
         customHandler.removeCallbacks(updateTimerThread);
