@@ -54,8 +54,8 @@
         <SeekBarPreference
             android:title="@string/title_seekbar_vitesse"
             android:key="seekbar_vitesse"
-            android:max="1000"
-            android:defaultValue="500">
+            android:max="500"
+            android:defaultValue="80">
         </SeekBarPreference>
         <!--<NumberPicker
             android:id="@+id/number_picker"
