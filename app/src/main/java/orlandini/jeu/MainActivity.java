@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -16,7 +17,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import orlandini.jeu.Fragments.AProposFragment;
-import orlandini.jeu.Fragments.HelpFragment;
 import orlandini.jeu.Fragments.HomeFragment;
 import orlandini.jeu.Fragments.LeaderboardFragment;
 
@@ -210,13 +209,17 @@ public class MainActivity extends AppCompatActivity{
         Fragment fragment = null;
         switch (item.getItemId()) {
             case R.id.help:
-                Class fragmentClass =  HelpFragment.class;
+                /*Class fragmentClass =  HelpFragment.class;
                 try {
                     fragment = (Fragment) fragmentClass.newInstance();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, fragment).commit();*/
+
+                FragmentManager fm = getSupportFragmentManager();
+                HelpDialogFragment newFragment = new HelpDialogFragment();
+                newFragment.show(fm, "Helper");
                 break;
             case R.id.deleteScores:
                 _scoreDataBase.deleteAllScore();

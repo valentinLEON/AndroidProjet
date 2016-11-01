@@ -94,4 +94,12 @@
     <string-array name="sons_listvalues">
         <item>1</item>
     </string-array>
+
+
+    <!-- =========================================================================================================== -->
+    <!--                                          Texte pour le helper                                               -->
+    <!-- =========================================================================================================== -->
+
+    <string name="title_text_helper">Bienvenue sur le jeu Samaritan</string>
+    <string name="text_helper">Pour jouer, il suffit de cliquer sur le personnage apparaissant dans la fenêtre de jeu\nLe but étant de faire le plus de points possible</string>
 </resources>
