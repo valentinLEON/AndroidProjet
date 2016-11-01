@@ -227,6 +227,7 @@ public class GameActivity extends AppCompatActivity{
             newFragment.show(fm, "Fragment_fatality_dialog");
             customHandler.removeCallbacks(updateTimerThread);
             StartButton.setVisibility(View.VISIBLE);
+            reinitialiserJeu();
         }
 
         @Override

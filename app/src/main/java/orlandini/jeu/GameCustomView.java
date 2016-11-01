@@ -9,12 +9,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -24,15 +27,15 @@ import java.util.Random;
  * interactions ainsi que l'affichage du timer et du score
  *
  * @author Nicolas Orlandini
- * @version 2016.0.38
+ * @version 2016.0.42
  *
  * Date de création : 09/10/2016
- * Dernière modification : 29/10/2016
+ * Dernière modification : 01/11/2016
  */
 
 public class GameCustomView extends View implements View.OnTouchListener {
 
-    private final int ICON_SIZE = 200;
+    private final int IMAGE_SIZE = 180;
 
     private float mFileX;
     private float mFileY;
@@ -56,10 +59,12 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private Bitmap bitmapPow;
     private Bitmap bitmapRip;
     private Bitmap bitmapTemps;
+    private Bitmap bitmapChat;
     private Paint paint;
     private MediaPlayer mMediaPlayer;
     private Vibrator vibrator;
     private String color;
+    private SpriteAnimation spriteAnimation;
 
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
 
@@ -88,6 +93,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
         bitmapRip = BitmapFactory.decodeResource(res, R.drawable.rip_game);
         bitmapTemps = BitmapFactory.decodeResource(res, R.drawable.ic_timer);
+        bitmapChat = BitmapFactory.decodeResource(res, R.drawable.chat);
 
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.fantome);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
@@ -100,6 +106,12 @@ public class GameCustomView extends View implements View.OnTouchListener {
         super.setOnTouchListener(this);
         removeCallbacks(animator);
         post(animator);
+
+        /*spriteAnimation = new SpriteAnimation(
+                BitmapFactory.decodeResource(getResources(), R.drawable.chat)
+                , 100, 50	// initial position
+                , 186, 183	// width and height of sprite
+                , 5, 13);	// FPS and number of frames in the animation*/
     }
 
     public GameCustomView(Context context) {
@@ -121,6 +133,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         canvas.drawBitmap(bitmapTemps, screenWidth - 300, 0, null);
         canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 160, 80, paint);
         if (GameActivity.isGame()) {
+            //spriteAnimation.draw(canvas);
             if (isInvisible)
                 canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
             else {
@@ -134,6 +147,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         }
     }
 
+
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         int action = motionEvent.getAction();
@@ -143,8 +157,9 @@ public class GameCustomView extends View implements View.OnTouchListener {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 if (!GameActivity.getPaused()) {
-                    if ( x >= mFileX && x <= mFileX + ICON_SIZE && y >= mFileY
-                            && y <= mFileY + ICON_SIZE) {
+                    if ( x >= mFileX && x <= mFileX + IMAGE_SIZE && y >= mFileY
+                            && y <= mFileY + IMAGE_SIZE) {
+
                         if (prefs.getBoolean("switch_sons", true))
                             mMediaPlayer.start();
                         if (prefs.getBoolean("switch_vibreur", true))
@@ -170,8 +185,10 @@ public class GameCustomView extends View implements View.OnTouchListener {
         if (!GameActivity.getPaused()){
             Random randomValue = new Random();
 
-            mFileX = (float)randomValue.nextInt(screenWidth - 50);
-            mFileY = (float)randomValue.nextInt(screenHeight - 120);
+            mFileX = (float)randomValue.nextInt(screenWidth - IMAGE_SIZE);
+            mFileY = (float)randomValue.nextInt(screenHeight - IMAGE_SIZE);
+
+            //spriteAnimation.update(System.currentTimeMillis());
         }
     }
 
@@ -189,5 +206,4 @@ public class GameCustomView extends View implements View.OnTouchListener {
     public void setVisibility(int visibility) {
         isInvisible = visibility == View.INVISIBLE;
     }
-
 }

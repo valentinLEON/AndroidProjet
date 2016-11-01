@@ -46,15 +46,8 @@ public class HomeFragment extends Fragment {
         String titre = getString(R.string.txt_Bonsoir) + prefs.getString("id_joueur", "Veuillez configurer les préférences pour la première utlisation");
         tv.setText(titre);
 
-        Button tryAgain = (Button) myView.findViewById(R.id.btn_TryAgain);
-        tryAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GameActivity.class);
-                startActivity(intent);
-            }
-        });
-
         return myView;
     }
+
+
 }

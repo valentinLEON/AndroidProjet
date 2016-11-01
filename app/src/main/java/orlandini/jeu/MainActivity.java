@@ -1,5 +1,6 @@
 package orlandini.jeu;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -250,6 +251,10 @@ public class MainActivity extends AppCompatActivity{
         Toast.makeText(getApplicationContext(), "Bonjour, je suis un easter egg", Toast.LENGTH_LONG).show();
     }
 
+    public void jouer(View v) {
+        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+        startActivity(intent);
+    }
 
     /**
      * On change de couleur
