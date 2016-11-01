@@ -5,40 +5,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="orlandini.jeu.Fragments.HomeFragment">
 
-    <Button
-        android:text="@string/title_btn_jouer"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_TryAgain"
-        android:layout_marginBottom="192dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background = "@drawable/bouton_rond"
-        android:paddingTop="33dp"
-        android:paddingBottom="33dp"
-        android:elevation="10dp"
-        android:fontFamily="sans-serif" />
+        android:id="@+id/linearlayoutImage">
+        <ImageView
+            android:id="@+id/homeLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="75dp"/>
+    </LinearLayout>
+
 
     <orlandini.jeu.CustomBackToTheFuture
         android:text="@string/title_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="76dp"
+        android:layout_below="@+id/linearlayoutImage"
         android:id="@+id/Accueil_nom_joueur"
         android:typeface="normal"
         app:font="BTTF.ttf"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_above="@+id/btn_TryAgain"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
-    <ImageView
-        android:id="@+id/homeLogo"
+    <Button
+        android:text="@string/title_btn_jouer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon"
-        android:layout_alignParentTop="true"
+        android:id="@+id/btn_TryAgain"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:background = "@drawable/bouton_rond"
+        android:paddingTop="33dp"
+        android:paddingBottom="33dp"
+        android:elevation="10dp"
+        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif" />
 
 </RelativeLayout>

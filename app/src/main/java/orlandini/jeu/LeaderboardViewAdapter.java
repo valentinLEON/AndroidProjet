@@ -53,7 +53,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
             if(holder.getmCardView() != null){
                 holder.getmCardView().setCardBackgroundColor(Color.parseColor("#ffd700"));
             }
-            //holder.getmImageView().setImageResource(R.drawable.ic_gold);
+            holder.getmImageView().setImageResource(R.drawable.ic_or);
             holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("1\n\nScore : " + String.valueOf(tableaudemerde[position]));
             holder.getmTextViewView().setLayoutParams(params);
@@ -62,7 +62,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
             if(holder.getmCardView() != null){
                 holder.getmCardView().setCardBackgroundColor(Color.parseColor("#CECECE"));
             }
-            //holder.getmImageView().setImageResource(R.drawable.ic_silver);
+            holder.getmImageView().setImageResource(R.drawable.ic_argent);
             holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("2\n\nScore : " + String.valueOf(tableaudemerde[position]));
             holder.getmTextViewView().setLayoutParams(params);
@@ -72,7 +72,7 @@ public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardView
             if(holder.getmCardView() != null){
                 holder.getmCardView().setCardBackgroundColor(Color.parseColor("#cd7f32"));
             }
-            //holder.getmImageView().setImageResource(R.drawable.ic_bronze);
+            holder.getmImageView().setImageResource(R.drawable.ic_bronze);
             holder.getmTextViewView().setTypeface(typeface);
             holder.getmTextViewView().setText("3\n\nScore : " + String.valueOf(tableaudemerde[position]));
             holder.getmTextViewView().setLayoutParams(params);
