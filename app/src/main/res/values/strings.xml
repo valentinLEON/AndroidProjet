@@ -102,4 +102,5 @@
 
     <string name="title_text_helper">Bienvenue sur le jeu Samaritan</string>
     <string name="text_helper">Pour jouer, il suffit de cliquer sur le personnage apparaissant dans la fenêtre de jeu\nLe but étant de faire le plus de points possible</string>
+    <string name="description_btn_jouer">JOUER</string>
 </resources>

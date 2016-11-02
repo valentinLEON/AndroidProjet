@@ -31,7 +31,7 @@ import android.widget.Toast;
  * @version 2016.0.41
  *
  * Date de création : 09/10/2016
- * Dernière modification : 31/10/2016
+ * Dernière modification : 02/11/2016
  */
 
 public class GameActivity extends AppCompatActivity{
@@ -64,11 +64,27 @@ public class GameActivity extends AppCompatActivity{
     }
     private static int secs = 0;
 
+    public static void setCondition(int condition) {
+        GameActivity.condition = condition;
+    }
+
+    private static int condition = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        switch (condition) {
+            case 1:
+                setContentView(R.layout.activity_game);
+                break;
+            case 2:
+                setContentView(R.layout.activity_easter_egg);
+                break;
+        }
+
+        //chargement des préférences
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,6 +98,7 @@ public class GameActivity extends AppCompatActivity{
         }
 
         scoreDB = new ScoreDataBase(getApplicationContext());
+
         temps = prefs.getString("pref_temps_jeu", "30");
 
         mMediaPlayerTheme = MediaPlayer.create(this.getApplicationContext(), R.raw.main);
@@ -91,8 +108,14 @@ public class GameActivity extends AppCompatActivity{
         StartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                //GameCustomView.setScore(0);
-                GameCustomView.setScore(0);
+                switch (condition) {
+                    case 1:
+                        GameCustomView.setScore(0);
+                        break;
+                    case 2:
+                         EasterEggCustomView.setScore(0);
+                        break;
+                }
 
                 counter = new MyCount((Integer.parseInt(temps)+1)*1000, 1000);
                 counter.start();
@@ -205,8 +228,6 @@ public class GameActivity extends AppCompatActivity{
 
 
     private int changerCouleur() {
-        // Récupération des préférences
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         String color = prefs.getString("pref_theme", "#FFA500");
         return Color.parseColor(color);
     }
@@ -219,7 +240,15 @@ public class GameActivity extends AppCompatActivity{
         @Override
         public void onFinish() {
             //Ajouter le score dans la base de données
-            scoreDB.addScore(GameCustomView.getScore());
+            switch (condition) {
+                case 1:
+                    scoreDB.addScore(GameCustomView.getScore());
+                    break;
+                case 2:
+                    scoreDB.addScore(EasterEggCustomView.getScore());
+                    break;
+            }
+
             if (mMediaPlayerTheme.isPlaying())
                 mMediaPlayerTheme.stop();
 

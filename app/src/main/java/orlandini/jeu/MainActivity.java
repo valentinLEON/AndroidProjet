@@ -249,9 +249,13 @@ public class MainActivity extends AppCompatActivity{
      */
     public void easterEgg(View v) {
         Toast.makeText(getApplicationContext(), "Bonjour, je suis un easter egg", Toast.LENGTH_LONG).show();
+        GameActivity.setCondition(2);
+        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+        startActivity(intent);
     }
 
     public void jouer(View v) {
+        GameActivity.setCondition(1);
         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
         startActivity(intent);
     }

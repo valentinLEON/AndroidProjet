@@ -45,7 +45,9 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
         return score;
     }
 
-    //public static void setScore(int score) { GameCustomView.score = score; }
+    public static void setScore(int score) {
+        EasterEggCustomView.score = score;
+    }
 
     private static int score = 0;
     private int prefVitesse = 500;
@@ -199,6 +201,7 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
                 mFileY = (float) randomValue.nextInt(screenHeight - 120);
                 mFileX = screenWidth;
                 setVisibility(View.INVISIBLE);
+                estTouche = false;
             }
             //mFileY = (float)randomValue.nextInt(screenHeight - 120);
         }
