@@ -171,11 +171,15 @@ public class GameCustomView extends View implements View.OnTouchListener {
                         score++;
                         invalidate();
                     }
+                    else {
+                        setVisibility(View.INVISIBLE);
+                    }
                 }
 
                 return true;
 
             case MotionEvent.ACTION_MOVE:
+                setVisibility(View.INVISIBLE);
                 return true;
             case MotionEvent.ACTION_UP:
                 setVisibility(View.INVISIBLE);

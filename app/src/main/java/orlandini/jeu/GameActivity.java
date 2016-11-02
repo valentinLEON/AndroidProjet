@@ -91,6 +91,7 @@ public class GameActivity extends AppCompatActivity{
         StartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
+                //GameCustomView.setScore(0);
                 GameCustomView.setScore(0);
 
                 counter = new MyCount((Integer.parseInt(temps)+1)*1000, 1000);
