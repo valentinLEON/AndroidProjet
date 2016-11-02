@@ -1,9 +1,9 @@
 package orlandini.jeu.Fragments;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -11,20 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 
+import orlandini.jeu.GameActivity;
 import orlandini.jeu.R;
 
 /**
  * Activité ouverte au démarrage de l'application.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.44
+ * @version 2016.0.41
  *
  * Date de création : 09/10/2016
- * Dernière modification : 02/11/2016
+ * Dernière modification : 30/10/2016
  */
 
 public class HomeFragment extends Fragment {
@@ -59,4 +59,6 @@ public class HomeFragment extends Fragment {
         String color = prefs.getString("pref_theme", "#FFA500");
         return Color.parseColor(color);
     }
+
+
 }

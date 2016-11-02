@@ -30,7 +30,7 @@
     <!--                                          Advanced settings                                                  -->
     <!-- =========================================================================================================== -->
 
-    <string name="pref_header_general">General</string>
+    <string name="pref_header_general">Général</string>
 
     <string name="pref_title_display_name">Joueur</string>
     <string name="pref_default_display_name">Joueur</string>
@@ -48,7 +48,7 @@
 
     <string name="title_seekbar_vitesse">Vitesse</string>
     <string name="commencer_partie">Commencer la partie</string>
-    <string name="title_btn_jouer">jouer</string>
+    <string name="title_btn_jouer">Jouer</string>
     <string name="title_name">Bonsoir Gui</string>
     <string name="txt_Bonsoir">Bonsoir\n</string>
     <string name="imageView_description">ImageDrawer</string>
@@ -57,8 +57,7 @@
     <string name="pref_theme">pref_theme</string>
     <string name="title_pref_theme">Thème</string>
     <string name="pref_theme_dialog_title">Choisir le thème</string>
-    <string name="score">"Mon score "</string>
-    <string name="title_menu_delete">delete</string>
+    <string name="title_menu_delete">Delete</string>
     <string name="pref_son">pref_son</string>
     <string name="pref_son_dialog_title">Choisir un son</string>
 
@@ -103,4 +102,10 @@
     <string name="title_text_helper">Bienvenue sur le jeu Samaritan</string>
     <string name="text_helper">Pour jouer, il suffit de cliquer sur le personnage apparaissant dans la fenêtre de jeu\nLe but étant de faire le plus de points possible</string>
     <string name="description_btn_jouer">JOUER</string>
+
+    <!-- =========================================================================================================== -->
+    <!--                                          Texte pour le Leaderboard                                          -->
+    <!-- =========================================================================================================== -->
+
+    <string name="iftextnull">Score : Aucun score"</string>
 </resources>

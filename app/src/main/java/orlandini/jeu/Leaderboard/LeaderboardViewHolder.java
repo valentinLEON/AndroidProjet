@@ -1,10 +1,12 @@
-package orlandini.jeu;
+package orlandini.jeu.Leaderboard;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import orlandini.jeu.R;
 
 /**
  * Created by Singu_Admin on 29/10/2016.

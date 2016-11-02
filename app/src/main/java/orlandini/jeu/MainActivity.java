@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.IntentCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,8 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import orlandini.jeu.Fragments.AProposFragment;
+import orlandini.jeu.Fragments.HelpDialogFragment;
 import orlandini.jeu.Fragments.HomeFragment;
-import orlandini.jeu.Fragments.LeaderboardFragment;
+import orlandini.jeu.Leaderboard.LeaderboardFragment;
+import orlandini.jeu.Fragments.SettingFragment;
 
 /**
  * Activité principale, contient le navigation drawer
@@ -210,31 +213,32 @@ public class MainActivity extends AppCompatActivity{
         Fragment fragment = null;
         switch (item.getItemId()) {
             case R.id.help:
-                /*Class fragmentClass =  HelpFragment.class;
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, fragment).commit();*/
-
                 FragmentManager fm = getSupportFragmentManager();
                 HelpDialogFragment newFragment = new HelpDialogFragment();
                 newFragment.show(fm, "Helper");
                 break;
             case R.id.deleteScores:
                 _scoreDataBase.deleteAllScore();
-                Fragment monFrag;
                 //TODO: Faire un refresh sur le tableau des scores
                 Class leaderboardClass = LeaderboardFragment.class;
                 try {
-                    monFrag = (Fragment) leaderboardClass.newInstance();
+                    this.finish();
+                    final Intent intent = this.getIntent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+                    this.startActivity(intent);
+                    getSupportFragmentManager().beginTransaction().add(R.id.main_Content, new LeaderboardFragment(), "un tag").commit();
+                    Toast.makeText(getBaseContext(), "Score(s) réinitialisé(s)", Toast.LENGTH_LONG).show();
+
+                    /*fragment = (Fragment) leaderboardClass.newInstance();
+                    Log.d("truc", fragment.toString());
+                    fragment = getSupportFragmentManager().findFragmentByTag("leaderboard");
+                    FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+                    fragTransaction.replace(R.id.main_Content, fragment).commit();*/
+                    return true;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                monFrag = getSupportFragmentManager().findFragmentByTag("leaderboard");
-                FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
-                fragTransaction.replace(R.id.main_Content, monFrag).commit();
+                Toast.makeText(getApplicationContext(), "Score(s) réinitialisé(s)", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;

@@ -188,6 +188,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
         }
     }
 
+    //déplacement du personnage
     public void update() {
         if (!GameActivity.getPaused()){
             Random randomValue = new Random();

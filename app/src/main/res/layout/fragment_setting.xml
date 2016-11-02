@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="orlandini.jeu.SettingFragment"
+    tools:context="orlandini.jeu.Fragments.SettingFragment"
     android:id="@+id/setting_container">
 
     <fragment android:name="orlandini.jeu.Fragments.AdvancedSettingFragment"

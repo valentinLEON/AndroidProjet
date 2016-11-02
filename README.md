@@ -56,6 +56,8 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 * [x] Ajout d'une custom font pour l'application (type Back To The Future)
 * [x] Ajout d'icône au lieu de texte (plus parlant) niveau IHM
 * [x] Ajout de thèmes sur l'application, choix dans les paramètres
+* [ ] Optimiser le code sur les requêtes de base de données (Fonction universelle)
+* [ ] Préférence : possibilité de changer l'image du personnage cliquable
 
 
 <p style="text-align:right";>Nicolas ORLANDINI et Valentin LEON</p>

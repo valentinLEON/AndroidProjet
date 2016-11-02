@@ -37,6 +37,7 @@ public class AProposFragment extends Fragment {
     CardView mCardView = null;
     private SharedPreferences prefs;
 
+    //Tableau des éléments de la listView
     String[] ressources = new String[]{
                 "developer.android.com",
                 "youtube.com",
@@ -66,6 +67,7 @@ public class AProposFragment extends Fragment {
         return aboutView;
     }
 
+    //Méthode pour changer la couleur
     private int changerCouleur() {
         // Récupération des préférences
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());

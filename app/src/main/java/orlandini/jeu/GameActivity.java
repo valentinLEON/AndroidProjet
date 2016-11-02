@@ -8,7 +8,6 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -20,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import orlandini.jeu.Fragments.FatalityDialogFragment;
 
 /**
  * Cette activité gère l'affichage de la durée d'une partie,
@@ -165,7 +166,7 @@ public class GameActivity extends AppCompatActivity{
     }
 
     /**
-     * Défini les actions a exécuter suivant l'item de l'action bar sélectionné par l'utilisateur.
+     * Définit les actions a exécuter suivant l'item de l'action bar sélectionné par l'utilisateur.
      * @param item item sélectionné par l'utilisateur
      * @return booléen
      */
@@ -253,6 +254,7 @@ public class GameActivity extends AppCompatActivity{
             if (mMediaPlayerTheme.isPlaying())
                 mMediaPlayerTheme.stop();
 
+            //affichage d'un dialogBox pour donner le score
             FragmentManager fm = getSupportFragmentManager();
             FatalityDialogFragment newFragment = new FatalityDialogFragment();
             newFragment.show(fm, "Fragment_fatality_dialog");
@@ -269,6 +271,9 @@ public class GameActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Méthode de réinitialisation du jeu
+     */
     public void reinitialiserJeu(){
         recommencer = false;
         isGame = false;

@@ -1,4 +1,4 @@
-package orlandini.jeu.Fragments;
+package orlandini.jeu.Leaderboard;
 
 
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import orlandini.jeu.LeaderboardViewAdapter;
 import orlandini.jeu.MainActivity;
 import orlandini.jeu.R;
 

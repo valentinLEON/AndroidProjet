@@ -1,4 +1,4 @@
-package orlandini.jeu;
+package orlandini.jeu.Fragments;
 
 
 import android.app.Dialog;
@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.DialogFragment;
+
+import orlandini.jeu.GameCustomView;
+import orlandini.jeu.R;
 
 /**
  * Dialg affiché lorsqu'une partie est terminée
