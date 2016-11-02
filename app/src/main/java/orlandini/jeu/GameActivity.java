@@ -228,6 +228,7 @@ public class GameActivity extends AppCompatActivity{
 
 
     private int changerCouleur() {
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         String color = prefs.getString("pref_theme", "#FFA500");
         return Color.parseColor(color);
     }
