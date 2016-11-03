@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity{
     private ActionBarDrawerToggle drawerToggle;
     private SharedPreferences prefs;
     boolean isLeaderboard = false;
+    private String nomJoueur;
+    private String color;
 
     //variables static (pour la BDD)
     public static ScoreDataBase _scoreDataBase;
@@ -64,8 +66,8 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         //chargement des préférences
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        recupererPreferences();
 
         //instanciation de la base de données
         _scoreDataBase = new ScoreDataBase(getBaseContext());
@@ -109,15 +111,15 @@ public class MainActivity extends AppCompatActivity{
 
     //sélection des items
     private void setupDrawerContent(NavigationView navigationView) {
+        View nav = navigationView.getHeaderView(0);
+        nav.setBackgroundColor(changerCouleur());
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        navHeader = (LinearLayout) findViewById(R.id.nav_header);
-                        navHeader.setBackgroundColor(changerCouleur());
                         TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
-                        myAwesomeTextView.setText(prefs.getString("id_joueur", ""));
-
+                        myAwesomeTextView.setText(nomJoueur);
                         selectDrawerItem(menuItem);
                         return true;
                     }
@@ -245,6 +247,12 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    private void recupererPreferences() {
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        color = prefs.getString("pref_theme", "#FFA500");
+        nomJoueur = prefs.getString("id_joueur", "Veuillez configurer les paramètres");
+    }
+
     /**
      * Méthode exécutée lorsque l'utilisateur sélectionne l'image du navigation drawer header
      * @param v vue
@@ -267,9 +275,6 @@ public class MainActivity extends AppCompatActivity{
      * @return Color
      */
     private int changerCouleur() {
-        // Récupération des préférences
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        String color = prefs.getString("pref_theme", "#00AFF0");
         supportInvalidateOptionsMenu();
         return Color.parseColor(color);
     }
