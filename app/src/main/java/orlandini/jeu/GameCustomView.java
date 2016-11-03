@@ -238,7 +238,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
     //déplacement du personnage
     public void update() {
-        if (!GameActivity.getPaused()){
+        if (!GameActivity.getPaused() && GameActivity.isGame()){
             Random randomValue = new Random();
 
             mFileX = (float)randomValue.nextInt(screenWidth - IMAGE_SIZE);

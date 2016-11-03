@@ -53,7 +53,7 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
     boolean isInvisible = true;
     private String color;
 
-    private Bitmap bitmapBender;
+    private Bitmap bitmapPerso;
     private Bitmap bitmapDelorean;
     private Bitmap bitmapPow;
     private Bitmap bitmapRip;
@@ -62,6 +62,7 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
     private Vibrator vibrator;
     private boolean estTouche = false;
     private int perso;
+    private int son;
 
     SharedPreferences prefs;
 
@@ -90,25 +91,13 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
 
         recupererPreferences();
 
-        switch (perso) {
-            case 1:
-                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
-                break;
-            case 2:
-                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.blinky_pacman);
-                break;
-            case 3 :
-                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.space_invaders_alien);
-                break;
-            case 4 :
-                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.roi_boo);
-                break;
-        }
+        parametrerSonPerso();
+
         bitmapDelorean = BitmapFactory.decodeResource(res, R.drawable.delorean1);
         bitmapRip = BitmapFactory.decodeResource(res, R.drawable.rip_game);
         bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
 
-        mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.fantome);
+        parametrerImagePerso(res);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
 
         vitesse = 10;
@@ -134,6 +123,43 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
         init();
     }
 
+    private void parametrerImagePerso(Resources res) {
+        switch (perso) {
+            case 1:
+                bitmapPerso = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
+                break;
+            case 2:
+                bitmapPerso = BitmapFactory.decodeResource(res, R.drawable.blinky_pacman);
+                break;
+            case 3 :
+                bitmapPerso = BitmapFactory.decodeResource(res, R.drawable.space_invaders_alien);
+                break;
+            case 4 :
+                bitmapPerso = BitmapFactory.decodeResource(res, R.drawable.roi_boo);
+                break;
+        }
+    }
+
+    private void parametrerSonPerso() {
+        switch (son) {
+            case 1:
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.fantome);
+                break;
+            case 2:
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
+                break;
+            case 3 :
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.doh);
+                break;
+            case 4 :
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.nope);
+                break;
+            case 5 :
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.error_windows);
+                break;
+        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawText("Evitez les fantômes pour gagner des points !", 50, 50, paint);
@@ -143,7 +169,7 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
         if (GameActivity.isGame()) {
             canvas.drawBitmap(bitmapDelorean, mDmcX, mDmcY, null);
             if (isInvisible)
-                canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
+                canvas.drawBitmap(bitmapPerso, mFileX, mFileY, null);
             if (!isInvisible)
                 //si on est sur le thème halloween, on met le RIP
                 if (color.equals("#EE7600"))
@@ -241,6 +267,7 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
         color = prefs.getString("pref_theme", "#FFA500");
         perso = Integer.parseInt(prefs.getString("pref_perso", "1"));
+        son = Integer.parseInt(prefs.getString("pref_son", "1"));
     }
 
 }
