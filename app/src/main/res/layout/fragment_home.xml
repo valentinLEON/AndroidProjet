@@ -9,10 +9,10 @@
         android:id="@+id/homeLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon"
+        android:src="@drawable/android_pumpkin"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:contentDescription="@string/description_logo" />
 
     <orlandini.jeu.CustomBackToTheFuture
@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:typeface="normal"
         app:font="BTTF.ttf"
+        android:layout_marginTop="50dp"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_below="@+id/homeLogo"

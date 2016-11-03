@@ -100,10 +100,18 @@
     </string-array>
 
     <string-array name="sons_listentries">
+        <item>Fantôme</item>
         <item>Yoshi</item>
+        <item>D\'oh</item>
+        <item>Nope</item>
+        <item>Erreur windows</item>
     </string-array>
     <string-array name="sons_listvalues">
         <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
     <string-array name="perso_listentries">

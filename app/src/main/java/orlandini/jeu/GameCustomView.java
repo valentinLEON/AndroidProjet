@@ -31,7 +31,7 @@ import java.util.Random;
  * @version 2016.0.42
  *
  * Date de création : 09/10/2016
- * Dernière modification : 01/11/2016
+ * Dernière modification : 03/11/2016
  */
 
 public class GameCustomView extends View implements View.OnTouchListener {
@@ -56,7 +56,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
     boolean isInvisible = true;
 
-    private Bitmap bitmapBender;
+    private Bitmap bitmapPerso;
     private Bitmap bitmapPow;
     private Bitmap bitmapRip;
     private Bitmap bitmapTemps;
@@ -66,15 +66,8 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private Vibrator vibrator;
     private String color;
     private int perso;
+    private int son;
     private SpriteAnimation spriteAnimation;
-    private int tempsAttente = 0;
-
-
-    private Rect sourceRect;	// the rectangle to be drawn from the animation bitmap
-    private Rect destRect;
-    private int frameNr = 13;
-    private int spriteHeight = 183;	// the height of the sprite
-    private int position = 0;
 
     SharedPreferences prefs;
 
@@ -83,11 +76,12 @@ public class GameCustomView extends View implements View.OnTouchListener {
         public void run() {
             update();
             invalidate();
+            int tempsAttente = 0;
             if (prefVitesse != 0)
                 tempsAttente = 100000/prefVitesse;
             else
                 tempsAttente = 6000;
-            postDelayed(this,tempsAttente);
+            postDelayed(this, tempsAttente);
         }
     };
 
@@ -101,30 +95,18 @@ public class GameCustomView extends View implements View.OnTouchListener {
 
         recupererPreferences();
 
-        switch (perso) {
-            case 1:
-                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
-                break;
-            case 2:
-                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.blinky_pacman);
-                break;
-            case 3 :
-                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.space_invaders_alien);
-                break;
-            case 4 :
-                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.roi_boo);
-                break;
-        }
         bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
         bitmapRip = BitmapFactory.decodeResource(res, R.drawable.rip_game);
         bitmapTemps = BitmapFactory.decodeResource(res, R.drawable.ic_timer);
         bitmapChat = BitmapFactory.decodeResource(res, R.drawable.chat);
 
-        mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.fantome);
+        parametrerSonPerso();
+
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
         mFileX = 500;
         mFileY = 500;
 
+        parametrerImagePerso(res);
 
         super.setOnTouchListener(this);
         removeCallbacks(animator);
@@ -151,6 +133,44 @@ public class GameCustomView extends View implements View.OnTouchListener {
         color = prefs.getString("pref_theme", "#FFA500");
         perso = Integer.parseInt(prefs.getString("pref_perso", "1"));
         prefVitesse = prefs.getInt("seekbar_vitesse", 25);
+        son = Integer.parseInt(prefs.getString("pref_son", "1"));
+    }
+
+    private void parametrerImagePerso(Resources res) {
+        switch (perso) {
+            case 1:
+                bitmapPerso = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
+                break;
+            case 2:
+                bitmapPerso = BitmapFactory.decodeResource(res, R.drawable.blinky_pacman);
+                break;
+            case 3 :
+                bitmapPerso = BitmapFactory.decodeResource(res, R.drawable.space_invaders_alien);
+                break;
+            case 4 :
+                bitmapPerso = BitmapFactory.decodeResource(res, R.drawable.roi_boo);
+                break;
+        }
+    }
+
+    private void parametrerSonPerso() {
+        switch (son) {
+            case 1:
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.fantome);
+                break;
+            case 2:
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.yoshi);
+                break;
+            case 3 :
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.doh);
+                break;
+            case 4 :
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.nope);
+                break;
+            case 5 :
+                mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.error_windows);
+                break;
+        }
     }
 
     @Override
@@ -166,7 +186,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
             //spriteAnimation.draw(canvas);
 
             if (isInvisible)
-                canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
+                canvas.drawBitmap(bitmapPerso, mFileX, mFileY, null);
             else {
                 //si on est sur le thème halloween, on met le RIP
                 if (color.equals("#EE7600"))

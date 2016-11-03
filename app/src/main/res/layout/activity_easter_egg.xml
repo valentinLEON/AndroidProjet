@@ -22,12 +22,20 @@
         android:padding="40dp"
         android:gravity="center"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/android_castle"
+        android:scaleType="centerCrop"
+        android:layout_gravity="bottom"/>
+
     <orlandini.jeu.EasterEggCustomView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:id="@+id/custom_game"
-        android:background="@color/colorBackgroundGame"
+        android:background="@android:color/transparent"
         />
 
     <include layout="@layout/toolbar" />
