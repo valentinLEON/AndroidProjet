@@ -13,7 +13,11 @@ import android.widget.RelativeLayout;
 import orlandini.jeu.R;
 
 /**
- * Created by Singu_Admin on 29/10/2016.
+ * @author Valentin Leon
+ * @version 2016.0.10
+ *
+ * Date de création : 29/10/2016
+ * Dernière modification : 03/11/2016
  */
 
 public class LeaderboardViewAdapter extends RecyclerView.Adapter<LeaderboardViewHolder> {

@@ -29,10 +29,10 @@ import orlandini.jeu.Fragments.FatalityDialogFragment;
  * Gère les actions liées à l'action bar.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.41
+ * @version 2016.0.45
  *
  * Date de création : 09/10/2016
- * Dernière modification : 02/11/2016
+ * Dernière modification : 03/11/2016
  */
 
 public class GameActivity extends AppCompatActivity{
@@ -40,13 +40,13 @@ public class GameActivity extends AppCompatActivity{
     private Button StartButton;
     private Handler customHandler = new Handler();
     private ScoreDataBase scoreDB;
-    private Toolbar toolbar;
-    private SharedPreferences prefs;
     private MyCount counter = null;
     private MediaPlayer mMediaPlayerTheme;
+    private Menu menu;
 
     private boolean recommencer = false;
     private String temps = null;
+    private String color;
     private long s1 = 0;
 
     public static boolean getPaused() {
@@ -57,7 +57,6 @@ public class GameActivity extends AppCompatActivity{
     public static boolean isGame() {
         return isGame;
     }
-
     private static boolean isGame = false;
 
     public static int getSecs() {
@@ -68,13 +67,14 @@ public class GameActivity extends AppCompatActivity{
     public static void setCondition(int condition) {
         GameActivity.condition = condition;
     }
-
     private static int condition = 1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Chargement d'un xml différent si il s'agit du niveau caché ou du jeu original
         switch (condition) {
             case 1:
                 setContentView(R.layout.activity_game);
@@ -85,30 +85,27 @@ public class GameActivity extends AppCompatActivity{
         }
 
         //chargement des préférences
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        recupererPreferences();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Configuration de l'actionBar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-
-        if(actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
-        }
+        setupActionBar();
 
         scoreDB = new ScoreDataBase(getApplicationContext());
 
-        temps = prefs.getString("pref_temps_jeu", "30");
-
+        // Préparation du mediaPlayer pour la musique d'ambiance
         mMediaPlayerTheme = MediaPlayer.create(this.getApplicationContext(), R.raw.main);
 
+        // Récupération du bouton
         StartButton = (Button) findViewById(R.id.startButton);
+        // Changement de la couleur de fond du bouton selon le thème
         StartButton.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
         StartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
+                //Réinitialisation du score
                 switch (condition) {
                     case 1:
                         GameCustomView.setScore(0);
@@ -118,10 +115,17 @@ public class GameActivity extends AppCompatActivity{
                         break;
                 }
 
+                // On cache le bouton "Commencer la partie
+                StartButton.setVisibility(View.INVISIBLE);
+
+                // Préparation du compte à rebours (temps de jeu)
                 counter = new MyCount((Integer.parseInt(temps)+1)*1000, 1000);
-                counter.start();
+
+                // Le jeu démarre
                 isGame = true;
                 customHandler.postDelayed(updateTimerThread, 0);
+                // Démarrage du compte à rebours
+                counter.start();
             }
         });
     }
@@ -138,7 +142,6 @@ public class GameActivity extends AppCompatActivity{
             // Le jeu est en cours
             else {
                 customHandler.postDelayed(updateTimerThread, 0);
-                StartButton.setVisibility(View.INVISIBLE);
                 if (!mMediaPlayerTheme.isPlaying())
                     mMediaPlayerTheme.start();
             }
@@ -152,6 +155,7 @@ public class GameActivity extends AppCompatActivity{
     public void onBackPressed()
     {
         reinitialiserJeu();
+        // Retour à l'activité précédente
         NavUtils.navigateUpFromSameTask(this);
     }
 
@@ -162,6 +166,7 @@ public class GameActivity extends AppCompatActivity{
      */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_jeu, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -174,17 +179,26 @@ public class GameActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                // Lorsque l'utilisateur sélectionne la flèche a gauche de l'actionBar, le jeu se réinitialise
                 reinitialiserJeu();
                 // Retour à l'activité précédente
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.new_game:
-                // L'utilisateur est avertit qu'une nouvelle partie commence
-                Toast.makeText(this, "Nouveau jeu", Toast.LENGTH_SHORT).show();
-                recommencer = true;
+                if (isGame)
+                    recommencer = true;
+                // Si le jeu est en cours et qu'il est en pause, on le redémarre avant du recommencer la partie
+                if (isGame && isPaused) {
+                    MenuItem pauseMenuItem = menu.findItem(R.id.pause);
+                    pause(pauseMenuItem);
+                }
+
+                // L'utilisateur est averti qu'une nouvelle partie commence
+                Toast.makeText(this, "Nouvelle partie", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.pause:
                 // Gestion du menu pause
+                // Le jeu ne peut être mis en pause que si il est démarré (isGame = true)
                 if (isGame)
                     pause(item);
                 break;
@@ -202,14 +216,12 @@ public class GameActivity extends AppCompatActivity{
             isPaused = false;
             // On redémarre le runnable
             customHandler.postDelayed(updateTimerThread, 0);
-            /** On créer un nouveau timer qui commence au temps ou l'ancien
-             * timer a été arrêté.
-             */
+            // On créer un nouveau timer qui commence au temps ou l'ancien timer a été arrêté.
             counter= new MyCount(s1, 1000);
             counter.start();
 
-            if (!mMediaPlayerTheme.isPlaying())
-                mMediaPlayerTheme.start();
+            // On redémarre la musique d'ambiance
+            gererMediaPlayerTheme();
 
             // On change l'icon correspondant à l'item
             item.setIcon(R.drawable.ic_pause);
@@ -218,27 +230,81 @@ public class GameActivity extends AppCompatActivity{
             isPaused = true;
             // On stop le runnable
             customHandler.removeCallbacks(updateTimerThread);
-            // On récupère les millisecondes écoulées depuis le boot
+            // On arrête le timer
             counter.cancel();
-            if (mMediaPlayerTheme.isPlaying())
-                mMediaPlayerTheme.pause();
+            // On met la musique d'ambiance en pause
+            gererMediaPlayerTheme();
+
             // On change l'icon correspondant à l'item
             item.setIcon(R.drawable.ic_play);
         }
     }
 
+    /**
+     * Affiche les boutons dans l'action bar
+     */
+    private void setupActionBar(){
+        ActionBar actionBar = getSupportActionBar();
 
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
+        }
+    }
+
+    private void recupererPreferences() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        color = prefs.getString("pref_theme", "#FFA500");
+        temps = prefs.getString("pref_temps_jeu", "30");
+    }
+
+    /**
+     * Fcnction permettant de récupérer le thème actuel défini dans les paramètres (code couleur hexadecimal)
+     * @return Entier correspondant au code couleur hexadéciaml
+     */
     private int changerCouleur() {
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        String color = prefs.getString("pref_theme", "#FFA500");
         return Color.parseColor(color);
     }
 
+    private void gererMediaPlayerTheme() {
+        if (!mMediaPlayerTheme.isPlaying())
+            mMediaPlayerTheme.start();
+        else
+            mMediaPlayerTheme.pause();
+    }
+
+    /**
+     * Méthode de réinitialisation du jeu
+     */
+    public void reinitialiserJeu(){
+        isPaused = false;
+        recommencer = false;
+        isGame = false;
+
+        // Arrêt de la musique d'ambiance
+        if (mMediaPlayerTheme.isPlaying()) {
+            mMediaPlayerTheme.pause();
+            mMediaPlayerTheme.seekTo(0);
+        }
+
+        // Arrêt du compte à rebours
+        if (counter != null)
+            counter.cancel();
+
+        secs = Integer.parseInt(temps);
+
+        customHandler.removeCallbacks(updateTimerThread);
+
+        // Affichage du bouton "Commencer la partie"
+        StartButton.setVisibility(View.VISIBLE);
+    }
 
     public class MyCount extends CountDownTimer {
         private MyCount(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
+        // Executé lorsque le temps de jeu est écoulé (timer à zero)
         @Override
         public void onFinish() {
             //Ajouter le score dans la base de données
@@ -251,40 +317,21 @@ public class GameActivity extends AppCompatActivity{
                     break;
             }
 
-            if (mMediaPlayerTheme.isPlaying())
-                mMediaPlayerTheme.stop();
-
-            //affichage d'un dialogBox pour donner le score
+            // Affichage d'un dialogBox pour donner le score
             FragmentManager fm = getSupportFragmentManager();
             FatalityDialogFragment newFragment = new FatalityDialogFragment();
             newFragment.show(fm, "Fragment_fatality_dialog");
-            customHandler.removeCallbacks(updateTimerThread);
-            StartButton.setVisibility(View.VISIBLE);
+
+            // Réinitialisation du jeu
             reinitialiserJeu();
         }
 
+        // Executé lors de la mise en pause du timer
         @Override
         public void onTick(long millisUntilFinished) {
             s1 = millisUntilFinished;
             long mill = millisUntilFinished / 1000;
             secs = (int) mill - 1;
         }
-    }
-
-    /**
-     * Méthode de réinitialisation du jeu
-     */
-    public void reinitialiserJeu(){
-        recommencer = false;
-        isGame = false;
-        if (mMediaPlayerTheme.isPlaying())
-            mMediaPlayerTheme.stop();
-        if (counter != null)
-            counter.cancel();
-
-        secs = Integer.parseInt(temps);
-
-        customHandler.removeCallbacks(updateTimerThread);
-        StartButton.setVisibility(View.VISIBLE);
     }
 }

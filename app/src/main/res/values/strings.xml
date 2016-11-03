@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Samaritan</string>
+
     <string name="text_score">Score : </string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_game">Jeu</string>
+
+    <!-- =========================================================================================================== -->
+    <!--                                                ActionBar                                                    -->
+    <!-- =========================================================================================================== -->
 
     <string-array name="items">
         <item>Leaderboard</item>
@@ -10,21 +17,26 @@
     <string name="action_settings">Settings</string>
     <string name="new_game">Nouveau jeu</string>
     <string name="help">Help</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_pause">pause</string>
+
+    <!-- =========================================================================================================== -->
+    <!--                                        Dialog Affichage du score                                            -->
+    <!-- =========================================================================================================== -->
+
     <string name="dialog_fatality">Fatality</string>
     <string name="cancel">Quitter</string>
     <string name="fire">rejouer</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_game">Jeu</string>
 
-    <string name="leaderboard_title">Bienvenue sur le tableau des scores</string>
+    <!-- =========================================================================================================== -->
+    <!--                                          Navigation Drawer                                                  -->
+    <!-- =========================================================================================================== -->
 
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <string name="title_drawer_accueil">Accueil</string>
     <string name="title_drawer_leaderboard">Leaderboard</string>
     <string name="title_drawer_settings">Paramètres</string>
     <string name="title_drawer_a_propos">A Propos</string>
-    <string name="action_pause">pause</string>
 
     <!-- =========================================================================================================== -->
     <!--                                          Advanced settings                                                  -->
@@ -100,7 +112,8 @@
     <!-- =========================================================================================================== -->
 
     <string name="title_text_helper">Bienvenue sur le jeu Samaritan</string>
-    <string name="text_helper">Pour jouer, il suffit de cliquer sur le personnage apparaissant dans la fenêtre de jeu\nLe but étant de faire le plus de points possible</string>
+    <string name="text_helper">Pour jouer, il suffit de cliquer sur le personnage apparaissant dans la fenêtre de jeu\n
+        Le but étant de faire le plus de points possible</string>
     <string name="description_btn_jouer">JOUER</string>
 
     <!-- =========================================================================================================== -->

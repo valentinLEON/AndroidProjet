@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity{
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(true);
         }
     }
 
