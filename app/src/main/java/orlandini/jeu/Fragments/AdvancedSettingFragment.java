@@ -11,6 +11,15 @@ import android.support.v4.content.IntentCompat;
 
 import orlandini.jeu.R;
 
+/**
+ * Gestion des préférences utilisateur
+ *
+ * @author Nicolas Orlandini
+ * @version 2016.0.44
+ *
+ * Date de création : 09/10/2016
+ * Dernière modification : 03/11/2016
+ */
 
 public class AdvancedSettingFragment extends PreferenceFragment {
 
@@ -19,12 +28,14 @@ public class AdvancedSettingFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
-        bindPreferenceSummaryToValue(findPreference("id_joueur"));
-        bindPreferenceSummaryToValue(findPreference("pref_temps_jeu"));
-        bindPreferenceSummaryToValue(findPreference("pref_theme"));
-        bindPreferenceSummaryToValue(findPreference("pref_son"));
-        bindPreferenceSummaryToValue(findPreference("pref_perso"));
+        AfficherValuePref(findPreference("id_joueur"));
+        AfficherValuePref(findPreference("pref_temps_jeu"));
+        AfficherValuePref(findPreference("pref_theme"));
+        AfficherValuePref(findPreference("pref_son"));
+        AfficherValuePref(findPreference("pref_perso"));
 
+        // Listener permettant de détecter si la value change
+        // Si la value change l'activité principale redémarre pour appliquer le thème
         Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object value) {
@@ -36,12 +47,21 @@ public class AdvancedSettingFragment extends PreferenceFragment {
                 return true;
             }
         };
+        // Le listener est appliqué à la préférence du thème
         findPreference("pref_theme").setOnPreferenceChangeListener(listener);
     }
 
 
-
-    private void bindPreferenceSummaryToValue(Preference preference) {
+    /**
+     * Permet d'afficher la valeur de la préférence dans le sommaire de la préférence passée en
+     * paramètre
+     * Exemple :
+     *          Titre : Thème
+     *          Sommaire : Halloween
+     *
+     * @param preference préference sur laquelle appliquer le sommaire
+     */
+    private void AfficherValuePref(Preference preference) {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 

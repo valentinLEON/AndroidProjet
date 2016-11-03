@@ -22,7 +22,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +37,10 @@ import orlandini.jeu.Fragments.SettingFragment;
  * le navigation drawer.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.40
+ * @version 2016.0.44
  *
  * Date de création : 09/10/2016
- * Dernière modification : 29/10/2016
+ * Dernière modification : 03/11/2016
  */
 
 public class MainActivity extends AppCompatActivity{
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity{
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
-    private LinearLayout navHeader;
     private ActionBarDrawerToggle drawerToggle;
     private SharedPreferences prefs;
     boolean isLeaderboard = false;
@@ -74,17 +72,17 @@ public class MainActivity extends AppCompatActivity{
 
         //changement de couleur pour la toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(changerCouleur());
+        toolbar.setBackgroundColor(recupererCouleur());
         setSupportActionBar(toolbar);
 
         //chargement du drawer
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
-
         appliquerThemeNavigationDrawer();
         setupDrawerContent(nvDrawer);
 
+        // Chargement de l'actionBar
         setupActionBar();
 
         //affiche l'écran d'accueil par défaut dans le main activity
@@ -92,6 +90,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     /**
+     * Configuration de l'actionBar
      * Affiche les boutons dans l'action bar
      */
     private void setupActionBar(){
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity{
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
-            actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
+            actionBar.setBackgroundDrawable(new ColorDrawable(recupererCouleur()));
         }
     }
 
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity{
     //sélection des items
     private void setupDrawerContent(NavigationView navigationView) {
         View nav = navigationView.getHeaderView(0);
-        nav.setBackgroundColor(changerCouleur());
+        nav.setBackgroundColor(recupererCouleur());
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity{
         isLeaderboard = false;
         supportInvalidateOptionsMenu();
 
-        //sélection de la vue à afficher avec le switch
+        // Sélection de la vue à afficher
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = HomeFragment.class;
@@ -255,16 +254,24 @@ public class MainActivity extends AppCompatActivity{
 
     /**
      * Méthode exécutée lorsque l'utilisateur sélectionne l'image du navigation drawer header
+     * Démarrage du niveau secret BTTF
      * @param v vue
      */
     public void easterEgg(View v) {
         Toast.makeText(getApplicationContext(), "Bonjour, je suis un easter egg", Toast.LENGTH_LONG).show();
+        // La condition permet ici de charger le XML associé à la EasterEggCustomView (jeu BTTF)
         GameActivity.setCondition(2);
         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Méthode éxecutée lorsque l'utilisateur sélectionne le bouton JOUER
+     * Démarrage du jeu
+     * @param v vue
+     */
     public void jouer(View v) {
+        // La condition permet ici de charger le XML associé à la GameCustomView (jeu original)
         GameActivity.setCondition(1);
         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
         startActivity(intent);
@@ -272,15 +279,17 @@ public class MainActivity extends AppCompatActivity{
 
     /**
      * On change de couleur
-     * @return Color
+     * @return Color couleur contenue dans la variable color
      */
-    private int changerCouleur() {
+    private int recupererCouleur() {
         supportInvalidateOptionsMenu();
         return Color.parseColor(color);
     }
 
     /**
      * Application du thème sur le navigation drawer
+     * Change la couleur des items et des icons associés aux item suivant l'action
+     * de l'utilisateur
      */
     private void appliquerThemeNavigationDrawer(){
         int[][] state = new int[][] {
@@ -291,9 +300,9 @@ public class MainActivity extends AppCompatActivity{
         };
 
         int[] color = new int[] {
-                changerCouleur(),
-                changerCouleur(),
-                changerCouleur(),
+                recupererCouleur(),
+                recupererCouleur(),
+                recupererCouleur(),
                 Color.DKGRAY
         };
 
