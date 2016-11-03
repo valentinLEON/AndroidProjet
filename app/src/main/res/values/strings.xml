@@ -106,6 +106,19 @@
         <item>1</item>
     </string-array>
 
+    <string-array name="perso_listentries">
+        <item>Futurama</item>
+        <item>Pacman</item>
+        <item>space invaders</item>
+        <item>Mario</item>
+    </string-array>
+    <string-array name="perso_listvalues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
 
     <!-- =========================================================================================================== -->
     <!--                                          Texte pour le helper                                               -->

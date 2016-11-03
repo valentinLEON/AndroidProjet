@@ -6,7 +6,6 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="switch_vibreur"
-            android:summary="@string/pref_description_vibreur"
             android:title="@string/pref_title_vibreur" />
 
         <!-- NOTE: EditTextPreference accepts EditText attributes. -->
@@ -70,6 +69,14 @@
             android:maxLength="2"
             android:defaultValue="30">
         </EditTextPreference>
+        <ListPreference
+            android:key="pref_perso"
+            android:defaultValue="1"
+            android:dialogTitle="Choisissez un personnage"
+            android:entries="@array/perso_listentries"
+            android:entryValues="@array/perso_listvalues"
+            android:title="Personnage"
+            android:summary="Choisir le personnage" />
     </PreferenceCategory>
 
 </PreferenceScreen>

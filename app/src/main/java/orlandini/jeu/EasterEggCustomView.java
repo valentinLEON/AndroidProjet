@@ -61,8 +61,9 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
     private MediaPlayer mMediaPlayer;
     private Vibrator vibrator;
     private boolean estTouche = false;
+    private int perso;
 
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+    SharedPreferences prefs;
 
     private Runnable animator = new Runnable() {
         @Override
@@ -86,7 +87,23 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
         paint.setTextSize(50);
         paint.setColor(Color.WHITE);
         Resources res = getResources();
-        bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
+
+        recupererPreferences();
+
+        switch (perso) {
+            case 1:
+                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
+                break;
+            case 2:
+                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.blinky_pacman);
+                break;
+            case 3 :
+                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.space_invaders_alien);
+                break;
+            case 4 :
+                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.roi_boo);
+                break;
+        }
         bitmapDelorean = BitmapFactory.decodeResource(res, R.drawable.delorean1);
         bitmapRip = BitmapFactory.decodeResource(res, R.drawable.rip_game);
         bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
@@ -99,9 +116,6 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
         mFileY = screenHeight/2;
         mDmcX = screenWidth/2;
         mDmcY = screenHeight/2;
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        color = prefs.getString("pref_theme", "#FFA500");
 
         super.setOnTouchListener(this);
         removeCallbacks(animator);
@@ -221,6 +235,12 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
     @Override
     public void setVisibility(int visibility) {
         isInvisible = visibility == View.INVISIBLE;
+    }
+
+    private void recupererPreferences() {
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        color = prefs.getString("pref_theme", "#FFA500");
+        perso = Integer.parseInt(prefs.getString("pref_perso", "1"));
     }
 
 }

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Region;
 import android.view.SurfaceHolder;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class SpriteAnimation {
     private int y;				// the Y coordinate of the object (top left of the image)
     private int position = 0;
 
-    public SpriteAnimation(Bitmap bitmap, int x, int y, int width, int height, int fps, int frameCount) {
+    public SpriteAnimation(Bitmap bitmap, int x, int y, int fps, int frameCount) {
         this.bitmap = bitmap;
         this.x = x;
         this.y = y;
@@ -38,6 +39,7 @@ public class SpriteAnimation {
         spriteWidth = bitmap.getWidth() / frameCount;
         spriteHeight = bitmap.getHeight();
         framePeriod = 1000 / fps;
+        sourceRect = new Rect(0, 120, spriteWidth, spriteHeight);
     }
 
     public int getX() {
@@ -69,16 +71,33 @@ public class SpriteAnimation {
 
     // the draw method which draws the corresponding frame
     public void draw(Canvas canvas) {
-
         int[] tabInt = {0, 186, 372, 558, 744, 930, 1116, 1302, 1488, 1674, 1860, 2046, 2232};
+        int width;
+        width = (int) Math.floor(bitmap.getWidth() * frameNr / 100.0);
+        sourceRect = new Rect();
+        sourceRect.top = 0;
+        sourceRect.bottom = bitmap.getHeight();
+        sourceRect.left = 0;
+        sourceRect.right = bitmap.getWidth();
 
-        sourceRect = new Rect(0, 0, spriteWidth * frameNr, spriteHeight);
-        destRect = new Rect(tabInt[position], 0, spriteWidth, spriteHeight);
+        destRect = new Rect();
+        destRect.top = tabInt[position] / 2 - bitmap.getHeight() / 2;
+        destRect.bottom = destRect.top + (sourceRect.bottom - sourceRect.top);
+        destRect.left = tabInt[position] / 2 - bitmap.getWidth() / 2;
+        destRect.right = destRect.left + (sourceRect.right - sourceRect.left);
+
+        canvas.clipRect(destRect.right - width, 0, tabInt[position], spriteHeight, Region.Op.REPLACE);
         Paint paint = new Paint();
         paint.setARGB(50, 0, 255, 0);
         canvas.drawBitmap(bitmap, sourceRect, destRect, paint);
-        canvas.drawBitmap(bitmap, 100, 150, paint);
-        //Toast.makeText(this, "position x : " + String.valueOf(tabInt[position]), Toast.LENGTH_LONG).show();
+        canvas.clipRect(0, 0, tabInt[position], spriteHeight, Region.Op.REPLACE);
+
+        /*int[] tabInt = {0, 186, 372, 558, 744, 930, 1116, 1302, 1488, 1674, 1860, 2046, 2232};
+        sourceRect = new Rect(0, 0, spriteWidth * frameNr, spriteHeight);
+        destRect = new Rect(tabInt[position], 0, spriteWidth, spriteHeight);
+        canvas.drawBitmap(bitmap, sourceRect, destRect, null);
+        canvas.drawBitmap(bitmap, 100, 20, null);*/
+
 
         /*Paint paint = new Paint();
         paint.setARGB(50, 0, 255, 0);

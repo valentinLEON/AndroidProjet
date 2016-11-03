@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -64,24 +65,29 @@ public class GameCustomView extends View implements View.OnTouchListener {
     private MediaPlayer mMediaPlayer;
     private Vibrator vibrator;
     private String color;
+    private int perso;
     private SpriteAnimation spriteAnimation;
     private int tempsAttente = 0;
 
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+
+    private Rect sourceRect;	// the rectangle to be drawn from the animation bitmap
+    private Rect destRect;
+    private int frameNr = 13;
+    private int spriteHeight = 183;	// the height of the sprite
+    private int position = 0;
+
+    SharedPreferences prefs;
 
     private Runnable animator = new Runnable() {
         @Override
         public void run() {
             update();
             invalidate();
-            prefVitesse = prefs.getInt("seekbar_vitesse", 25);
             if (prefVitesse != 0)
                 tempsAttente = 100000/prefVitesse;
             else
                 tempsAttente = 6000;
             postDelayed(this,tempsAttente);
-
-            //Toast.makeText(getContext(), String.valueOf(vitesse),Toast.LENGTH_LONG).show();
         }
     };
 
@@ -92,7 +98,23 @@ public class GameCustomView extends View implements View.OnTouchListener {
         paint.setColor(Color.WHITE);
         Resources res = getResources();
         //setBackgroundResource(R.drawable.halloween_wallpaper);
-        bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
+
+        recupererPreferences();
+
+        switch (perso) {
+            case 1:
+                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.bender_ghost);
+                break;
+            case 2:
+                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.blinky_pacman);
+                break;
+            case 3 :
+                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.space_invaders_alien);
+                break;
+            case 4 :
+                bitmapBender = BitmapFactory.decodeResource(res, R.drawable.roi_boo);
+                break;
+        }
         bitmapPow = BitmapFactory.decodeResource(res, R.drawable.pow);
         bitmapRip = BitmapFactory.decodeResource(res, R.drawable.rip_game);
         bitmapTemps = BitmapFactory.decodeResource(res, R.drawable.ic_timer);
@@ -103,17 +125,14 @@ public class GameCustomView extends View implements View.OnTouchListener {
         mFileX = 500;
         mFileY = 500;
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        color = prefs.getString("pref_theme", "#FFA500");
 
         super.setOnTouchListener(this);
         removeCallbacks(animator);
         post(animator);
 
         spriteAnimation = new SpriteAnimation(
-                BitmapFactory.decodeResource(getResources(), R.drawable.chat)
-                , 100, 50	// initial position
-                , 186, 183	// width and height of sprite
+                bitmapChat
+                , 0, 120	// initial position
                 , 5, 13);	// FPS and number of frames in the animation
     }
 
@@ -127,6 +146,13 @@ public class GameCustomView extends View implements View.OnTouchListener {
         init();
     }
 
+    private void recupererPreferences() {
+        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        color = prefs.getString("pref_theme", "#FFA500");
+        perso = Integer.parseInt(prefs.getString("pref_perso", "1"));
+        prefVitesse = prefs.getInt("seekbar_vitesse", 25);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -136,7 +162,9 @@ public class GameCustomView extends View implements View.OnTouchListener {
         canvas.drawBitmap(bitmapTemps, screenWidth - 300, 0, null);
         canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 160, 80, paint);
         if (GameActivity.isGame()) {
-            spriteAnimation.draw(canvas);
+
+            //spriteAnimation.draw(canvas);
+
             if (isInvisible)
                 canvas.drawBitmap(bitmapBender, mFileX, mFileY, null);
             else {
@@ -196,7 +224,7 @@ public class GameCustomView extends View implements View.OnTouchListener {
             mFileX = (float)randomValue.nextInt(screenWidth - IMAGE_SIZE);
             mFileY = (float)randomValue.nextInt(screenHeight - IMAGE_SIZE);
 
-            spriteAnimation.update();
+            //spriteAnimation.update();
         }
     }
 
