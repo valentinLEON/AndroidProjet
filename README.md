@@ -1,8 +1,8 @@
 # Projet Samaritan
 
-Le projet présenté est une application de jeu, réalisé avec le langage Android, consistant à tapoter sur un personnage un certain nombre de fois, en un lapse de temps défini par l'utilisateur. Dans le but de marquer le plus de points possibles.
+Le projet présenté est une application de jeu, réalisé à l'aide du langage Android, consistant à tapoter sur un personnage un certain nombre de fois, en un lapse de temps défini par l'utilisateur. Dans le but de marquer le plus de points possibles.
 Le jeu peut être personnalisé, notamment en terme d'image, mais aussi de sons lorsque l'on perd, gagne ou au démarrage de l'application.
-Il y a la possibilité de regarder ces scores dans un tableau de score, nommé Leaderboard, dans le menu se situant à gauche.
+Il y a la possibilité de regarder ses scores dans un tableau de score, nommé Leaderboard, dans le menu se situant à gauche.
 
 Vous pouvez nous donner vos retours, si jamais vous constatez un problème ici :
 "mettre une adresse mail bidon".
@@ -57,7 +57,9 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 * [x] Ajout d'icône au lieu de texte (plus parlant) niveau IHM
 * [x] Ajout de thèmes sur l'application, choix dans les paramètres
 * [ ] Optimiser le code sur les requêtes de base de données (Fonction universelle)
-* [ ] Préférence : possibilité de changer l'image du personnage cliquable
+* [x] Préférence : possibilité de changer l'image du personnage cliquable
+* [ ] Sprite pour faire bouger le personnage en jeu
+* [ ] Bug sur le son qui ne coupe plus si on le change aux préférences
 
 
 <p style="text-align:right";>Nicolas ORLANDINI et Valentin LEON</p>
