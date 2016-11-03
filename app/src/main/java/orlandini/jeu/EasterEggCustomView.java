@@ -24,15 +24,13 @@ import java.util.Random;
  * interactions ainsi que l'affichage du timer et du score
  *
  * @author Nicolas Orlandini
- * @version 2016.0.43
+ * @version 2016.0.44
  *
  * Date de création : 26/10/2016
- * Dernière modification : 26/10/2016
+ * Dernière modification : 03/11/2016
  */
 
 public class EasterEggCustomView extends View implements View.OnTouchListener {
-
-    private final int ICON_SIZE = 350;
 
     private float mFileX;
     private float mFileY;
@@ -50,7 +48,7 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
     }
 
     private static int score = 0;
-    private int prefVitesse = 500;
+    private int vitesse;
 
     boolean isInvisible = true;
     private String color;
@@ -71,8 +69,7 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
         public void run() {
             update();
             invalidate();
-                prefVitesse = prefs.getInt("seekbar_vitesse", 0);
-                postDelayed(this, /*100000/prefVitesse*/10);
+            postDelayed(this, vitesse);
         }
     };
 
@@ -96,6 +93,8 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
 
         mMediaPlayer = MediaPlayer.create(this.getContext(), R.raw.fantome);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
+
+        vitesse = 10;
         mFileX = screenWidth;
         mFileY = screenHeight/2;
         mDmcX = screenWidth/2;
@@ -123,9 +122,10 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
+        canvas.drawText("Evitez les fantômes pour gagner des points !", 50, 50, paint);
+        canvas.drawText("Score : " + String.valueOf(score), 50, 140, paint);
         /* ajouter les minutes = String.valueOf(GameFragment.getMins()) + ":" + */
-        canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 200, 50, paint);
+        canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 200, 140, paint);
         if (GameActivity.isGame()) {
             canvas.drawBitmap(bitmapDelorean, mDmcX, mDmcY, null);
             if (isInvisible)
@@ -159,8 +159,9 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
                     return true;
 
                 case MotionEvent.ACTION_MOVE:
+                    int ICON_SIZE = 350;
                     mDmcX = x - ICON_SIZE;
-                    mDmcY = y - 100;
+                    mDmcY = y - 200;
                     if (!estTouche) {
                         if (mDmcX + ICON_SIZE >= mFileX - 300 && mDmcX <= mFileX + 100 && mDmcY + 100 >= mFileY
                                 && mDmcY + 100 <= mFileY + 91) {
@@ -169,7 +170,6 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
                             if (prefs.getBoolean("switch_vibreur", true))
                                 vibrator.vibrate(100);
                             setVisibility(View.VISIBLE);
-                            score++;
                             estTouche = true;
                             invalidate();
                         }
@@ -187,12 +187,15 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
     }
 
     public void update() {
-        if (!GameActivity.getPaused()){
+        if (!GameActivity.getPaused() && GameActivity.isGame()){
             Random randomValue = new Random();
             if (!estTouche) {
-                if (mFileX > 0)
+                if (mFileX != 0)
                     mFileX -= 10;
                 else {
+                    score++;
+                    if (vitesse > 0)
+                        vitesse -= 1;
                     mFileY = (float) randomValue.nextInt(screenHeight - 120);
                     mFileX = screenWidth;
                 }
@@ -202,6 +205,8 @@ public class EasterEggCustomView extends View implements View.OnTouchListener {
                 mFileX = screenWidth;
                 setVisibility(View.INVISIBLE);
                 estTouche = false;
+                if (vitesse > 0)
+                    vitesse -= 1;
             }
             //mFileY = (float)randomValue.nextInt(screenHeight - 120);
         }
