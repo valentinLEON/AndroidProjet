@@ -142,4 +142,5 @@
     <!-- =========================================================================================================== -->
 
     <string name="iftextnull">Score : Aucun score"</string>
+    <string name="menu_jeu_title_musique">Musique du jeu</string>
 </resources>

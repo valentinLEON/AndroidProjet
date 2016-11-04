@@ -59,7 +59,6 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 * [ ] Optimiser le code sur les requêtes de base de données (Fonction universelle)
 * [x] Préférence : possibilité de changer l'image du personnage cliquable
 * [ ] Sprite pour faire bouger le personnage en jeu
-* [ ] Bug sur le son qui ne coupe plus si on le change aux préférences
 
 
 <p style="text-align:right";>Nicolas ORLANDINI et Valentin LEON</p>

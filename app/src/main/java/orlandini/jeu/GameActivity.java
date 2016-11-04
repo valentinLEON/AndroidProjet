@@ -44,10 +44,15 @@ public class GameActivity extends AppCompatActivity{
     private MediaPlayer mMediaPlayerTheme;
     private Menu menu;
 
-    private boolean recommencer = false;
+    public static boolean isRecommencer() {
+        return recommencer;
+    }
+
+    private static boolean recommencer = false;
     private String temps = null;
     private String color;
     private long s1 = 0;
+    private boolean isPlaying = true;
 
     public static boolean getPaused() {
         return isPaused;
@@ -124,6 +129,8 @@ public class GameActivity extends AppCompatActivity{
                 // Le jeu démarre
                 isGame = true;
                 customHandler.postDelayed(updateTimerThread, 0);
+                if (!mMediaPlayerTheme.isPlaying())
+                    mMediaPlayerTheme.start();
                 // Démarrage du compte à rebours
                 counter.start();
             }
@@ -142,8 +149,6 @@ public class GameActivity extends AppCompatActivity{
             // Le jeu est en cours
             else {
                 customHandler.postDelayed(updateTimerThread, 0);
-                if (!mMediaPlayerTheme.isPlaying())
-                    mMediaPlayerTheme.start();
             }
         }
     };
@@ -202,8 +207,26 @@ public class GameActivity extends AppCompatActivity{
                 if (isGame)
                     pause(item);
                 break;
+            case R.id.musique:
+                if (isGame  && !isPaused) {
+                    gererMusique(item);
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void gererMusique(MenuItem item)  {
+        if (isPlaying) {
+            isPlaying = false;
+            gererMediaPlayerTheme();
+            item.setIcon(R.drawable.ic_volume_off);
+        }
+        else {
+            isPlaying = true;
+            gererMediaPlayerTheme();
+            item.setIcon(R.drawable.ic_volume);
+        }
     }
 
     /**
@@ -221,7 +244,10 @@ public class GameActivity extends AppCompatActivity{
             counter.start();
 
             // On redémarre la musique d'ambiance
-            gererMediaPlayerTheme();
+            if (isPlaying) {
+                gererMediaPlayerTheme();
+            }
+
 
             // On change l'icon correspondant à l'item
             item.setIcon(R.drawable.ic_pause);
@@ -233,7 +259,9 @@ public class GameActivity extends AppCompatActivity{
             // On arrête le timer
             counter.cancel();
             // On met la musique d'ambiance en pause
-            gererMediaPlayerTheme();
+            if (isPlaying) {
+                gererMediaPlayerTheme();
+            }
 
             // On change l'icon correspondant à l'item
             item.setIcon(R.drawable.ic_play);

@@ -10,4 +10,8 @@
         android:icon="@drawable/ic_pause"
         android:title="@string/action_pause"
         app:showAsAction="ifRoom" />
+    <item android:id="@+id/musique"
+    android:icon="@drawable/ic_volume"
+    android:title="@string/menu_jeu_title_musique"
+    app:showAsAction="ifRoom"/>
 </menu>
