@@ -18,7 +18,7 @@ import orlandini.jeu.R;
  * Gestion des préférences utilisateur
  *
  * @author Nicolas Orlandini
- * @version 2016.0.45
+ * @version 2016.0.46
  *
  * Date de création : 09/10/2016
  * Dernière modification : 04/11/2016
@@ -66,6 +66,15 @@ public class AdvancedSettingFragment extends PreferenceFragment {
         };
         // Le listener est appliqué à la préférence du nom du joueur
         findPreference("id_joueur").setOnPreferenceChangeListener(listenerNomJoueur);
+
+         findPreference("seekbar_vitesse").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                final int progress = Integer.valueOf(String.valueOf(newValue));
+                preference.setTitle("Vitesse : " + String.format("%d", progress));
+                return true;
+            }
+        });
     }
 
 
