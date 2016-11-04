@@ -122,7 +122,7 @@
     <!--                                          Textes le About                                                    -->
     <!-- =========================================================================================================== -->
 
-    <string name="num_version">Version 1.0</string>
+    <string name="num_version">Version 1.0.1</string>
     <string name="a_propos_devs">Application développée par Nicolas Orlandini et Valentin Leon</string>
     <string name="description_logo">logo de l\'application</string>
     <string name="nom_application">Samaritan</string>
@@ -135,12 +135,13 @@
     <!-- =========================================================================================================== -->
 
     <string name="title_text_helper">Bienvenue sur le jeu Samaritan</string>
-    <string name="text_helper">Pour jouer, il suffit de cliquer sur le personnage apparaissant dans la fenêtre de jeu\n
-        Le but étant de faire le plus de points possible</string>
+    <string name="text_helper">Pour jouer, il suffit de toucher sur le personnage apparaissant dans la fenêtre de jeu
+        le plus de fois possible\n
+        Le but étant de faire le plus de points possible pendant le temps réglé dans les préférences</string>
 
     <!-- =========================================================================================================== -->
     <!--                                          Texte pour le Leaderboard                                          -->
     <!-- =========================================================================================================== -->
 
-    <string name="iftextnull">Score : Aucun score"</string>
+    <string name="iftextnull">Aucun score"</string>
 </resources>

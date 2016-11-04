@@ -48,12 +48,18 @@ public class MainActivity extends AppCompatActivity{
     //Définitions des variables
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
-    private NavigationView nvDrawer;
+
+    public static NavigationView getNvDrawer() {
+        return nvDrawer;
+    }
+
+    private static NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
     private SharedPreferences prefs;
     boolean isLeaderboard = false;
     private String nomJoueur;
     private String color;
+    View nav = null;
 
     //variables static (pour la BDD)
     public static ScoreDataBase _scoreDataBase;
@@ -110,15 +116,16 @@ public class MainActivity extends AppCompatActivity{
 
     //sélection des items
     private void setupDrawerContent(NavigationView navigationView) {
-        View nav = navigationView.getHeaderView(0);
+        nvDrawer = navigationView;
+        nav = navigationView.getHeaderView(0);
         nav.setBackgroundColor(recupererCouleur());
+        TextView myView = (TextView) nav.findViewById(R.id.nom_joueur);
+        myView.setText(nomJoueur);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        TextView myAwesomeTextView = (TextView)findViewById(R.id.nom_joueur);
-                        myAwesomeTextView.setText(nomJoueur);
                         selectDrawerItem(menuItem);
                         return true;
                     }
