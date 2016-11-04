@@ -29,10 +29,10 @@ import orlandini.jeu.Fragments.FatalityDialogFragment;
  * Gère les actions liées à l'action bar.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.45
+ * @version 2016.0.46
  *
  * Date de création : 09/10/2016
- * Dernière modification : 03/11/2016
+ * Dernière modification : 04/11/2016
  */
 
 public class GameActivity extends AppCompatActivity{
@@ -44,11 +44,7 @@ public class GameActivity extends AppCompatActivity{
     private MediaPlayer mMediaPlayerTheme;
     private Menu menu;
 
-    public static boolean isRecommencer() {
-        return recommencer;
-    }
-
-    private static boolean recommencer = false;
+    private boolean recommencer = false;
     private String temps = null;
     private String color;
     private long s1 = 0;
@@ -209,6 +205,7 @@ public class GameActivity extends AppCompatActivity{
                 break;
             case R.id.musique:
                 if (isGame  && !isPaused) {
+                    // Arrêt ou redémarrage de la musique
                     gererMusique(item);
                 }
                 break;
@@ -216,6 +213,10 @@ public class GameActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Gestion de la musique d'ambiance pour le bouton musique de l'action bar
+     * @param item item sélectionné par l'utilisateur
+     */
     private void gererMusique(MenuItem item)  {
         if (isPlaying) {
             isPlaying = false;
@@ -281,6 +282,9 @@ public class GameActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Récupération des préférences utilisateur
+     */
     private void recupererPreferences() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         color = prefs.getString("pref_theme", "#FFA500");
@@ -295,6 +299,9 @@ public class GameActivity extends AppCompatActivity{
         return Color.parseColor(color);
     }
 
+    /**
+     * Mise en play ou pause du media player suivant son état actuel
+     */
     private void gererMediaPlayerTheme() {
         if (!mMediaPlayerTheme.isPlaying())
             mMediaPlayerTheme.start();
@@ -309,6 +316,11 @@ public class GameActivity extends AppCompatActivity{
         isPaused = false;
         recommencer = false;
         isGame = false;
+        isPlaying = false;
+
+        // Remise en marche de la musique avant arrêt
+        MenuItem musiqueItem = menu.findItem(R.id.musique);
+        gererMusique(musiqueItem);
 
         // Arrêt de la musique d'ambiance
         if (mMediaPlayerTheme.isPlaying()) {
@@ -322,12 +334,17 @@ public class GameActivity extends AppCompatActivity{
 
         secs = Integer.parseInt(temps);
 
+        // Arrêt du thread timer
         customHandler.removeCallbacks(updateTimerThread);
 
         // Affichage du bouton "Commencer la partie"
         StartButton.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Classe permettant du gérer le timer
+     * Compte à rebours pendant le jeu
+     */
     public class MyCount extends CountDownTimer {
         private MyCount(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);

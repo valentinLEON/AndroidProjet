@@ -43,7 +43,7 @@ public class Jeu extends View {
 
     protected SharedPreferences prefs;
 
-    private Paint paint;
+    protected Paint paint;
 
     public Jeu(Context context) {
         super(context);
@@ -55,12 +55,19 @@ public class Jeu extends View {
         init();
     }
 
+    /**
+     * Initialisation du pinceau pour l'affichage du texte dans les custom view
+     */
     private void init() {
         paint = new Paint();
         paint.setTextSize(50);
         paint.setColor(Color.WHITE);
     }
 
+    /**
+     * Paramétrage du personnage (défini par l'utilisateur dans les préférences)
+     * @param res ressources de l'application
+     */
     protected void parametrerImagePerso(Resources res) {
         switch (perso) {
             case 1:
@@ -78,6 +85,10 @@ public class Jeu extends View {
         }
     }
 
+    /**
+     * Paramétrage du son joué lorsque l'utilisateur touche le personnage
+     * (défini par l'utilisateur dans les préférences)
+     */
     protected void parametrerSonPerso() {
         switch (son) {
             case 1:
@@ -98,6 +109,10 @@ public class Jeu extends View {
         }
     }
 
+    /**
+     * Chargement des bitmap necessaires au jeu
+     * @param res ressources
+     */
     protected void chargerBitmap(Resources res) {
         bitmapTemps = BitmapFactory.decodeResource(res, R.drawable.ic_timer);
         bitmapChat = BitmapFactory.decodeResource(res, R.drawable.chat);
@@ -109,6 +124,13 @@ public class Jeu extends View {
             bitmaptoucher = BitmapFactory.decodeResource(res, R.drawable.pow);
     }
 
+    /**
+     * Affichage des information de jeu :
+     * - Score actuel
+     * - Meilleur score
+     * - Temps restant
+     * @param canvas canvas
+     */
     protected void afficherInfosJeu(Canvas canvas) {
         String topScore = MainActivity._scoreDataBase.getTopScore();
         canvas.drawText("Score : " + String.valueOf(score), 50, 50, paint);
@@ -117,6 +139,9 @@ public class Jeu extends View {
         canvas.drawText(String.valueOf(GameActivity.getSecs()), screenWidth - 160, 80, paint);
     }
 
+    /**
+     * Récupération des préférences utilisateur
+     */
     protected void recupererPreferences(Context context) {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         color = prefs.getString("pref_theme", "#FFA500");
@@ -125,11 +150,23 @@ public class Jeu extends View {
         prefVitesse = prefs.getInt("seekbar_vitesse", 25);
     }
 
+    /**
+     * Changement de la visibilité des éléments de jeu
+     * @param visibility entier 0 ou 1
+     */
     @Override
     public void setVisibility(int visibility) {
         isInvisible = visibility == View.INVISIBLE;
     }
 
+    /**
+     * Récupération de la largeur et hauteur de l'activité
+     * @param changed ?
+     * @param left délimitation gauche
+     * @param top délimitation haute
+     * @param right délimitation droit
+     * @param bottom délimitation bas
+     */
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         screenWidth = getWidth();

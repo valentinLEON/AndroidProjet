@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">Samaritan</string>
 
+    <string name="txt_Bonsoir">Bonjour\n</string>
     <string name="text_score">Score : </string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_game">Jeu</string>
+    <string name="menu_jeu_title_musique">Musique du jeu</string>
+    <string name="text_button_niveau_bonus">Niveau bonus</string>
+    <string name="description_btn_jouer">JOUER</string>
 
     <!-- =========================================================================================================== -->
     <!--                                                ActionBar                                                    -->
@@ -62,7 +66,6 @@
     <string name="commencer_partie">Commencer la partie</string>
     <string name="title_btn_jouer">Jouer</string>
     <string name="title_name">Bonsoir Gui</string>
-    <string name="txt_Bonsoir">Bonsoir\n</string>
     <string name="imageView_description">ImageDrawer</string>
 
     <string name="default_value_theme">Halloween</string>
@@ -72,18 +75,6 @@
     <string name="title_menu_delete">Delete</string>
     <string name="pref_son">pref_son</string>
     <string name="pref_son_dialog_title">Choisir un son</string>
-
-    <!-- =========================================================================================================== -->
-    <!--                                          Textes le About                                                    -->
-    <!-- =========================================================================================================== -->
-
-    <string name="num_version">Version 0.71</string>
-    <string name="a_propos_devs">Application développée par Nicolas Orlandini et Valentin Leon</string>
-    <string name="description_logo">logo de l\'application</string>
-    <string name="nom_application">Samaritan</string>
-    <string name="lien_github">github.com/NicolasOrlandini/AndroidProjet</string>
-    <string name="title_res">Bibliothèque et Ressources</string>
-    <string name="title_lien_github">Lien GitHub</string>
 
     <string-array name="items_themes">
         <item>Halloween</item>
@@ -127,6 +118,17 @@
         <item>4</item>
     </string-array>
 
+    <!-- =========================================================================================================== -->
+    <!--                                          Textes le About                                                    -->
+    <!-- =========================================================================================================== -->
+
+    <string name="num_version">Version 1.0</string>
+    <string name="a_propos_devs">Application développée par Nicolas Orlandini et Valentin Leon</string>
+    <string name="description_logo">logo de l\'application</string>
+    <string name="nom_application">Samaritan</string>
+    <string name="lien_github">github.com/NicolasOrlandini/AndroidProjet</string>
+    <string name="title_res">Bibliothèque et Ressources</string>
+    <string name="title_lien_github">Lien GitHub</string>
 
     <!-- =========================================================================================================== -->
     <!--                                          Texte pour le helper                                               -->
@@ -135,12 +137,10 @@
     <string name="title_text_helper">Bienvenue sur le jeu Samaritan</string>
     <string name="text_helper">Pour jouer, il suffit de cliquer sur le personnage apparaissant dans la fenêtre de jeu\n
         Le but étant de faire le plus de points possible</string>
-    <string name="description_btn_jouer">JOUER</string>
 
     <!-- =========================================================================================================== -->
     <!--                                          Texte pour le Leaderboard                                          -->
     <!-- =========================================================================================================== -->
 
     <string name="iftextnull">Score : Aucun score"</string>
-    <string name="menu_jeu_title_musique">Musique du jeu</string>
 </resources>

@@ -41,6 +41,7 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
     }
 
     private int vitesse;
+    private int vitesseY;
     private boolean estTouche = false;
 
     private Bitmap bitmapDelorean;
@@ -52,6 +53,15 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
             update();
             invalidate();
             postDelayed(this, vitesse);
+        }
+    };
+
+    private Runnable animatorY = new Runnable() {
+        @Override
+        public void run() {
+            updateY();
+            invalidate();
+            postDelayed(this, vitesseY);
         }
     };
 
@@ -70,12 +80,13 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
 
         parametrerSonPerso();
 
-        bitmapDelorean = BitmapFactory.decodeResource(res, R.drawable.delorean1);
+        bitmapDelorean = BitmapFactory.decodeResource(res, R.drawable.flying_delorean);
         chargerBitmap(res);
         parametrerImagePerso(res);
         vibrator = (Vibrator) this.getContext().getSystemService(Activity.VIBRATOR_SERVICE);
 
-        vitesse = 10;
+        vitesseY = 300;
+        vitesse = 7;
         score = 0;
         mFileX = screenWidth;
         mFileY = screenHeight/2;
@@ -85,6 +96,8 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
         super.setOnTouchListener(this);
         removeCallbacks(animator);
         post(animator);
+        removeCallbacks(animatorY);
+        post(animatorY);
         removeCallbacks(animDelorean);
         post(animDelorean);
     }
@@ -111,19 +124,23 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
                 canvas.drawBitmap(bitmaptoucher, mFileX, mFileY, null);
         }
         else {
+            // Ceci est affiché lorsque le jeu n'a pas commencé
             mFileX = screenWidth;
             mFileY = screenHeight/2;
             mDmcX = screenWidth/2;
             mDmcY = screenHeight/2;
             setVisibility(View.INVISIBLE);
             estTouche = false;
+            canvas.drawText("Evitez les fantômes pour gagner des points", 50, 250, paint);
         }
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+        // Si le jeu n'est pas en pause
         if (!GameActivity.getPaused()) {
             int action = motionEvent.getAction();
+            // on récupère la position du doigt
             float x = motionEvent.getX();
             float y = motionEvent.getY();
             switch (action) {
@@ -131,10 +148,12 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
                     return true;
 
                 case MotionEvent.ACTION_MOVE:
+                    // On déplace la delorean à l'endroit ou se trouve le doigt de l'utilisateur
                     int ICON_SIZE = 350;
                     mDmcX = x - ICON_SIZE;
                     mDmcY = y - 200;
                     if (!estTouche) {
+                        // Si la delorean touche le personnage, sa position se réinitialise, l'utilisateur n'a pas de points
                         if (mDmcX + ICON_SIZE >= mFileX - 300 && mDmcX <= mFileX + 100 && mDmcY + 100 >= mFileY
                                 && mDmcY + 100 <= mFileY + 91) {
                             if (prefs.getBoolean("switch_sons", true))
@@ -146,7 +165,6 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
                             invalidate();
                         }
                     }
-
                     return true;
                 case MotionEvent.ACTION_UP:
                     estTouche = false;
@@ -160,11 +178,13 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
 
     public void update() {
         if (!GameActivity.getPaused() && GameActivity.isGame()){
-
             if (!estTouche) {
-                if (mFileX != 0)
+                if (mFileX != 0) {
                     mFileX -= 10;
+                }
                 else {
+                    // Si le personnage a pu aller jusqu'au point 0 c'est que la delorean ne l'a pas
+                    // touché, l'utilisateur récupère un point et la postion du personnage se réinitialise
                     score++;
                     if (vitesse > 0)
                         vitesse -= 1;
@@ -186,6 +206,28 @@ public class EasterEggCustomView extends Jeu implements View.OnTouchListener  {
         }
     }
 
+    /**
+     * Mise à jour aléatoire de la position Y du personnage
+     */
+    public void updateY() {
+        if (!GameActivity.getPaused() && GameActivity.isGame()){
+            Random randomValue = new Random();
+            float randomDirection = (float) randomValue.nextInt(2);
+            // Tant que l'utilisateur n'a pas touché le personnage
+            // Et que le personnage n'a pas atteint la gauche de l'acran
+            if (!estTouche && mFileX != 0) {
+                // On modifie aléatoirement la position y du personnage
+                if (randomDirection < 1)
+                    mFileY -= 120;
+                else
+                    mFileY += 120;
+            }
+        }
+    }
+
+    /**
+     * Réinitialisation de la position du personnage (coin droit et Y aléatoire)
+     */
     private void reinitialiserPositionPerso() {
         Random randomValue = new Random();
         mFileY = (float) randomValue.nextInt(screenHeight - 120);
