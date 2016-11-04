@@ -46,7 +46,7 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 * [x] Ajout d'un niveau easter egg inspiré de Back to the Future, version Halloween
 * [x] Ajout d'effet sur un/des bouton(s) pour rendre l'application plus moderne
 * [x] Ajout et paramétrage de bouton "Pause" et "Rejouer" dans la vue du jeu
-* [x] Afficher le nom dans le navigation drawer (mais insoluble)
+* [x] Afficher le nom dans le navigation drawer
 * [x] Afficher le nom dans les préférences
 * [x] Compléter le helper dans l'action bar
 * [x] Compléter le bouton A propos dans le navigation drawer
@@ -56,9 +56,9 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 * [x] Ajout d'une custom font pour l'application (type Back To The Future)
 * [x] Ajout d'icône au lieu de texte (plus parlant) niveau IHM
 * [x] Ajout de thèmes sur l'application, choix dans les paramètres
-* [ ] Optimiser le code sur les requêtes de base de données (Fonction universelle)
 * [x] Préférence : possibilité de changer l'image du personnage cliquable
-* [ ] Sprite pour faire bouger le personnage en jeu
+* [x] Sprite pour faire bouger le personnage en jeu
+* [x] Sortie de la version 1.0
 
 
 <p style="text-align:right";>Nicolas ORLANDINI et Valentin LEON</p>
