@@ -18,7 +18,7 @@ import orlandini.jeu.R;
  * Dialg affiché lorsqu'une partie est terminée
  * L'utilisateur peut alors revenir au menu principal ou rejouer.
  *
- * @author Nicolas Orlandini
+ * @author Valentin Leon
  * @version 2016.0.39
  *
  * Date de création : 09/10/2016

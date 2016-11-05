@@ -23,7 +23,7 @@ import orlandini.jeu.R;
  * - Les auteurs
  * - Une courte description
  *
- * @author Nicolas Orlandini
+ * @author Valentin Leon
  * @version 2016.0.41
  *
  * Nom ! AProposFragment.java

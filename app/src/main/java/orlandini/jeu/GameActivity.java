@@ -31,7 +31,7 @@ import orlandini.jeu.Fragments.FatalityDialogFragment;
  * initialise l'action bar
  * Gère les actions liées à l'action bar.
  *
- * @author Nicolas Orlandini
+ * @author Nicolas Orlandini & Valentin Leon
  * @version 2016.0.46
  *
  * Date de création : 09/10/2016
