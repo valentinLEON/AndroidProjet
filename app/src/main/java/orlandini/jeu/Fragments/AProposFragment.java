@@ -23,19 +23,18 @@ import orlandini.jeu.R;
  * - Les auteurs
  * - Une courte description
  *
- * @author Valentin Leon
- * @version 2016.0.41
+ * @author Valentin Leon & Nicolas Orlandin
+ * @version 2016.0.42
  *
  * Nom ! AProposFragment.java
  * Date de création : 25/10/2016
- * Dernière modification : 30/10/2016
+ * Dernière modification : 05/11/2016
  */
 
 public class AProposFragment extends Fragment {
 
     ListView mListView = null;
     CardView mCardView = null;
-    private SharedPreferences prefs;
 
     //Tableau des éléments de la listView
     String[] ressources = new String[]{
@@ -70,7 +69,7 @@ public class AProposFragment extends Fragment {
     //Méthode pour changer la couleur
     private int changerCouleur() {
         // Récupération des préférences
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String color = prefs.getString("pref_theme", "#00AFF0");
         return Color.parseColor(color);
     }

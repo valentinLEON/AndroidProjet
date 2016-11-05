@@ -22,7 +22,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +37,10 @@ import orlandini.jeu.Fragments.SettingFragment;
  * le navigation drawer.
  *
  * @author Nicolas Orlandini
- * @version 2016.0.44
+ * @version 2016.0.46
  *
  * Date de création : 09/10/2016
- * Dernière modification : 03/11/2016
+ * Dernière modification : 05/11/2016
  */
 
 public class MainActivity extends AppCompatActivity{
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity{
     boolean isLeaderboard = false;
     private String nomJoueur;
     private String color;
+    private boolean reinitLeaderboard;
     View nav = null;
 
     //variables static (pour la BDD)
@@ -89,11 +89,18 @@ public class MainActivity extends AppCompatActivity{
         appliquerThemeNavigationDrawer();
         setupDrawerContent(nvDrawer);
 
+        Intent intent = this.getIntent();
+        reinitLeaderboard = intent.getBooleanExtra("reinitLeaderboard", false);
         // Chargement de l'actionBar
         setupActionBar();
 
-        //affiche l'écran d'accueil par défaut dans le main activity
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
+        if (reinitLeaderboard) {
+            //affiche l'écran d'accueil par défaut dans le main activity
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new LeaderboardFragment()).commit();
+        }
+        else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_Content, new HomeFragment()).commit();
+        }
     }
 
     /**
@@ -217,35 +224,13 @@ public class MainActivity extends AppCompatActivity{
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Fragment fragment = null;
+
         switch (item.getItemId()) {
             case R.id.help:
-                FragmentManager fm = getSupportFragmentManager();
-                HelpDialogFragment newFragment = new HelpDialogFragment();
-                newFragment.show(fm, "Helper");
+                afficherAide();
                 break;
             case R.id.deleteScores:
-                _scoreDataBase.deleteAllScore();
-                //TODO: Faire un refresh sur le tableau des scores
-                Class leaderboardClass = LeaderboardFragment.class;
-                try {
-                    this.finish();
-                    final Intent intent = this.getIntent();
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
-                    this.startActivity(intent);
-                    getSupportFragmentManager().beginTransaction().add(R.id.main_Content, new LeaderboardFragment(), "un tag").commit();
-                    Toast.makeText(getBaseContext(), "Score(s) réinitialisé(s)", Toast.LENGTH_LONG).show();
-
-                    /*fragment = (Fragment) leaderboardClass.newInstance();
-                    Log.d("truc", fragment.toString());
-                    fragment = getSupportFragmentManager().findFragmentByTag("leaderboard");
-                    FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
-                    fragTransaction.replace(R.id.main_Content, fragment).commit();*/
-                    return true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(getApplicationContext(), "Score(s) réinitialisé(s)", Toast.LENGTH_LONG).show();
+                reinitialiserLeaderboard();
                 break;
             default:
                 break;
@@ -253,10 +238,37 @@ public class MainActivity extends AppCompatActivity{
         return  super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Méthode permettant d'afficher la boîte de dialogue contenant l'aide
+     */
+    private void afficherAide() {
+        FragmentManager fm = getSupportFragmentManager();
+        HelpDialogFragment newFragment = new HelpDialogFragment();
+        newFragment.show(fm, "Helper");
+    }
+
     private void recupererPreferences() {
         prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         color = prefs.getString("pref_theme", "#FFA500");
         nomJoueur = prefs.getString("id_joueur", "Veuillez configurer les paramètres");
+    }
+
+    /**
+     * Cette fonction permet de réinitialiser le leaderboard puis de réouvrir
+     * l'activité principale avec le nouveau leaderboard vide
+     */
+    private void reinitialiserLeaderboard(){
+        _scoreDataBase.deleteAllScore();
+        try {
+            this.finish();
+            final Intent intent = this.getIntent();
+            intent.putExtra("reinitLeaderboard", true);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+            this.startActivity(intent);
+            Toast.makeText(getBaseContext(), "Score(s) réinitialisé(s)", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -313,7 +325,9 @@ public class MainActivity extends AppCompatActivity{
                 Color.DKGRAY
         };
 
+        // On associe les état possibles du bouton avec une couleur
         ColorStateList colorStateList = new ColorStateList(state, color);
+        // On défini les couleurs en fonction des états pour chaque item (texte + icone)
         nvDrawer.setItemTextColor(colorStateList);
         nvDrawer.setItemIconTintList(colorStateList);
     }
