@@ -23,14 +23,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import io.realm.Realm;
 import orlandini.jeu.Fragments.AProposFragment;
 import orlandini.jeu.Fragments.HelpDialogFragment;
 import orlandini.jeu.Fragments.HomeFragment;
 import orlandini.jeu.Leaderboard.LeaderboardFragment;
 import orlandini.jeu.Fragments.SettingFragment;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Activité principale, contient le navigation drawer
@@ -64,6 +73,7 @@ public class MainActivity extends AppCompatActivity{
 
     //variables static (pour la BDD)
     public static ScoreDataBase _scoreDataBase;
+    public static Realm _realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +86,8 @@ public class MainActivity extends AppCompatActivity{
 
         //instanciation de la base de données
         _scoreDataBase = new ScoreDataBase(getBaseContext());
+        _realm.init(this);
+        _realm = Realm.getDefaultInstance();
 
         //changement de couleur pour la toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -226,7 +238,6 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case R.id.deleteScores:
                 _scoreDataBase.deleteAllScore();
-                //TODO: Faire un refresh sur le tableau des scores
                 Class leaderboardClass = LeaderboardFragment.class;
                 try {
                     this.finish();
@@ -236,11 +247,6 @@ public class MainActivity extends AppCompatActivity{
                     getSupportFragmentManager().beginTransaction().add(R.id.main_Content, new LeaderboardFragment(), "un tag").commit();
                     Toast.makeText(getBaseContext(), "Score(s) réinitialisé(s)", Toast.LENGTH_LONG).show();
 
-                    /*fragment = (Fragment) leaderboardClass.newInstance();
-                    Log.d("truc", fragment.toString());
-                    fragment = getSupportFragmentManager().findFragmentByTag("leaderboard");
-                    FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
-                    fragTransaction.replace(R.id.main_Content, fragment).commit();*/
                     return true;
                 } catch (Exception e) {
                     e.printStackTrace();
