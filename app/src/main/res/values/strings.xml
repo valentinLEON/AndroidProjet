@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Samaritan</string>
 
-    <string name="txt_Bonsoir">Bonjour\n</string>
-    <string name="text_score">Score : </string>
-    <string name="title_activity_settings">Settings</string>
     <string name="title_activity_game">Jeu</string>
-    <string name="menu_jeu_title_musique">Musique du jeu</string>
+
+    <!-- =========================================================================================================== -->
+    <!--                                                   HOME                                                      -->
+    <!-- =========================================================================================================== -->
+
+    <string name="txt_Bonsoir">Bonjour\n</string>
     <string name="text_button_niveau_bonus">Niveau bonus</string>
     <string name="description_btn_jouer">JOUER</string>
 
@@ -22,6 +24,7 @@
     <string name="new_game">Nouveau jeu</string>
     <string name="help">Help</string>
     <string name="action_pause">pause</string>
+    <string name="menu_jeu_title_musique">Musique du jeu</string>
 
     <!-- =========================================================================================================== -->
     <!--                                        Dialog Affichage du score                                            -->
@@ -48,7 +51,7 @@
 
     <string name="pref_header_general">Général</string>
 
-    <string name="pref_title_display_name">Joueur</string>
+    <string name="pref_title_display_name">Nom du joueur</string>
     <string name="pref_default_display_name">Joueur</string>
 
     <string name="pref_title_vibreur">Vibreur</string>
@@ -119,10 +122,10 @@
     </string-array>
 
     <!-- =========================================================================================================== -->
-    <!--                                          Textes le About                                                    -->
+    <!--                                          Textes pour le A propos                                            -->
     <!-- =========================================================================================================== -->
 
-    <string name="num_version">Version 1.0.1\n2016</string>
+    <string name="num_version">Version 1.0.3\n2016</string>
     <string name="a_propos_devs">Application développée par Nicolas Orlandini et Valentin Leon</string>
     <string name="description_logo">logo de l\'application</string>
     <string name="nom_application">Samaritan</string>
@@ -145,4 +148,5 @@
     <!-- =========================================================================================================== -->
 
     <string name="iftextnull">Aucun score"</string>
+    <string name="text_score">Score : </string>
 </resources>

@@ -9,6 +9,15 @@ import android.view.ViewGroup;
 
 import orlandini.jeu.R;
 
+/**
+ *
+ * @author Nicolas Orlandini
+ * @version 2016.0.45
+ *
+ * Date de création : 09/10/2016
+ * Dernière modification : 03/11/2016
+ */
+
 
 public class SettingFragment extends Fragment {
 

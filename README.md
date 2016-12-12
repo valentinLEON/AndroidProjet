@@ -59,6 +59,7 @@ Le projet a été conçu à l'aide de la méthode Agile, qui nous permet de voir
 * [x] Préférence : possibilité de changer l'image du personnage cliquable
 * [x] Sprite pour faire bouger le personnage en jeu
 * [x] Sortie de la version 1.0
+* [x] Ajout de commentaires explicatifs finaux
 
 
 <p style="text-align:right";>Nicolas ORLANDINI et Valentin LEON</p>

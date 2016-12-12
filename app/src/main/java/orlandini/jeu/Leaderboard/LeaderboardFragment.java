@@ -14,6 +14,13 @@ import orlandini.jeu.R;
 
 import orlandini.jeu.ScoreDataBase;
 
+/**
+ * @author Valentin Leon
+ * @version 2016.0.10
+ *
+ * Date de création : 29/10/2016
+ * Dernière modification : 03/11/2016
+ */
 
 /**
  * A simple {@link Fragment} subclass.

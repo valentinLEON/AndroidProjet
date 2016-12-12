@@ -9,7 +9,7 @@
             android:title="@string/pref_title_vibreur" />
         <EditTextPreference
             android:capitalize="words"
-            android:defaultValue="@string/pref_title_display_name"
+            android:defaultValue="@string/pref_default_display_name"
             android:inputType="textCapWords"
             android:key="id_joueur"
             android:maxLines="1"

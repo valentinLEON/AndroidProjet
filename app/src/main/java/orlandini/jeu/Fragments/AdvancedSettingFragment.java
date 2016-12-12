@@ -18,10 +18,10 @@ import orlandini.jeu.R;
  * Gestion des préférences utilisateur
  *
  * @author Nicolas Orlandini
- * @version 2016.0.46
+ * @version 2016.0.47
  *
  * Date de création : 09/10/2016
- * Dernière modification : 04/11/2016
+ * Dernière modification : 05/11/2016
  */
 
 public class AdvancedSettingFragment extends PreferenceFragment {
@@ -67,16 +67,16 @@ public class AdvancedSettingFragment extends PreferenceFragment {
         // Le listener est appliqué à la préférence du nom du joueur
         findPreference("id_joueur").setOnPreferenceChangeListener(listenerNomJoueur);
 
+        // affichage de la valeur de la vitesse dans le titre
          findPreference("seekbar_vitesse").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 final int progress = Integer.valueOf(String.valueOf(newValue));
-                preference.setTitle("Vitesse : " + String.format("%d", progress));
+                preference.setTitle(String.format("Vitesse : %d", progress));
                 return true;
             }
         });
     }
-
 
     /**
      * Permet d'afficher la valeur de la préférence dans le sommaire de la préférence passée en
@@ -88,10 +88,10 @@ public class AdvancedSettingFragment extends PreferenceFragment {
      * @param preference préference sur laquelle appliquer le sommaire
      */
     private void AfficherValuePref(Preference preference) {
-        // Set the listener to watch for value changes.
+        // Définir le listener pour vérifier si une valeur change
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
-        // Trigger the listener immediately with the preference's
+        // Déclancher l'écouteur d'évènement pour la préférence passée en paramètre
         // current value.
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                 PreferenceManager
@@ -105,8 +105,8 @@ public class AdvancedSettingFragment extends PreferenceFragment {
             String stringValue = value.toString();
 
             if (preference instanceof ListPreference) {
-                // For list preferences, look up the correct display value in
-                // the preference's 'entries' list.
+                // Pour les ListPreferences, il faut déterminer quel index est sélectionné
+                // dans la liste avant de l'afficher dans le sommaire de la préférence.
                 ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);
 
@@ -117,8 +117,7 @@ public class AdvancedSettingFragment extends PreferenceFragment {
                                 : null);
 
             } else {
-                // For all other preferences, set the summary to the value's
-                // simple string representation.
+                // Pour les autres préférences, définir le sommaire avec la valeur correspondante
                 preference.setSummary(stringValue);
             }
             return true;
