@@ -1,14 +1,18 @@
 package orlandini.jeu;
 
 
-import android.app.KeyguardManager;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -19,7 +23,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -33,7 +36,7 @@ import orlandini.jeu.Models.Score;
  * initialise l'action bar
  * Gère les actions liées à l'action bar.
  *
- * @author Nicolas Orlandini
+ * @author Nicolas Orlandini & Valentin Leon
  * @version 2016.0.46
  *
  * Date de création : 09/10/2016
@@ -75,6 +78,7 @@ public class GameActivity extends AppCompatActivity{
     }
     private static int condition = 1;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +109,9 @@ public class GameActivity extends AppCompatActivity{
 
         // Récupération du bouton
         StartButton = (Button) findViewById(R.id.startButton);
-        // Changement de la couleur de fond du bouton selon le thème
-        StartButton.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
+
+        configurerRippleEffect();
+
         StartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
@@ -293,7 +298,7 @@ public class GameActivity extends AppCompatActivity{
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
-            actionBar.setBackgroundDrawable(new ColorDrawable(changerCouleur()));
+            actionBar.setBackgroundDrawable(new ColorDrawable(recupererCouleur()));
         }
     }
 
@@ -306,11 +311,28 @@ public class GameActivity extends AppCompatActivity{
         temps = prefs.getString("pref_temps_jeu", "30");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void configurerRippleEffect() {
+        RippleDrawable rippleDrawable = (RippleDrawable)StartButton.getBackground();
+
+        int[][] states = new int[][] {
+                new int[]{android.R.attr.state_pressed}
+        };
+
+        int[] colors = new int[] {
+                recupererCouleur()
+        };
+
+        ColorStateList colorStateList = new ColorStateList(states, colors);
+        rippleDrawable.setColor(colorStateList);
+        rippleDrawable.setColorFilter(recupererCouleur(), PorterDuff.Mode.MULTIPLY);
+    }
+
     /**
      * Fcnction permettant de récupérer le thème actuel défini dans les paramètres (code couleur hexadecimal)
      * @return Entier correspondant au code couleur hexadéciaml
      */
-    private int changerCouleur() {
+    private int recupererCouleur() {
         return Color.parseColor(color);
     }
 

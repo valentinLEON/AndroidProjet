@@ -58,6 +58,7 @@
                     android:layout_below="@+id/nom_app"
                     android:textColor="@color/cardview_light_background"
                     android:layout_centerInParent="true"
+                    android:textAlignment="center"
                     />
                 <TextView
                     android:id="@+id/developpedBy"
